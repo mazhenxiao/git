@@ -1,0 +1,124 @@
+.addGroup{
+    padding:5px;
+    border-bottom: 1px #eee solid;    
+}
+.addGroup input{
+    background: #0b4082;
+    border-radius: 5px;
+    padding: 2px 3px;
+    border: #204d74 1px solid;
+    color: #fff;
+}
+
+.groupList{
+    height: 214px;
+}
+.groupName{
+    width: 100px;
+    float: left;
+    border-right:solid 1px #eee;
+    height: 214px;
+    overflow: hidden;
+    .mCSB_container{
+        margin-right: 0;
+    }
+    ul{
+        padding-top:5px;
+        width: 100%;
+    }
+    li:hover span{
+        display: block;
+    }
+    li{
+        line-height: 30px;
+        border-bottom: 1px #eee solid;
+        font-size:12px;
+        position: relative;
+        text-align: center;
+        span {
+            width: 16px;
+            height: 16px;
+            border-radius: 25px;
+            margin: 7px 10px;
+            background: #fd0021;
+            display: inline-block;
+            display: none;
+            position: absolute;
+            right: 2px;
+            top: 0px;
+            transform: rotate(45deg);
+            z-index: 99;
+            cursor: pointer;
+        }
+        
+        span:before,
+        span:after {
+            content: '';
+            pointer-events: none;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: inset 0 0 0 1em #fff;
+        }
+        
+        span:before {
+            height: 10px;
+            width: 2px;
+        }
+        
+        span:after {
+            width: 10px;
+            height: 2px;
+        }
+    }
+    
+    .active{
+        background: skyblue;
+    }
+}
+.groupFloor{
+    width: 398px;
+    height: 100%;
+    float: left;
+    li{
+        float: left;
+        width:20%;
+        position: relative;
+        padding-left:30px;
+        line-height: 40px;  
+    }
+}
+.clear{
+    clear: both;
+}
+
+.toggle-checkbox input[type=checkbox]:checked + .track .icon{
+  display: block; }
+
+.toggle-checkbox input[type=checkbox] {
+display: none; }
+
+.toggle-checkbox .track .icon {
+width: 10px;
+height: 6px;
+display: none;
+margin-left: 2px;
+margin-top: 3px;
+border-left: 2px solid #666;
+border-bottom: 2px solid #666;
+transform: rotate(-45deg); 
+}
+
+.toggle-checkbox .track {
+    position: absolute;
+    top:11px;
+    left: 10px;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box; 
+}

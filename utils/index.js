@@ -1,0 +1,1 @@
+export {shallowCompare} from './shallowCompare';
