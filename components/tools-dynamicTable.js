@@ -5,8 +5,9 @@
 import React from 'react';
 import "../js/iss.js";
 import "babel-polyfill";  //兼容ie
-import {Button} from 'antd';
+import {Select} from 'antd';
 require("../../Content/css/antd.min.css");
+const Option = Select.Option;
 class DynamicTable extends React.Component {
     constructor(arg) {
         super(arg);
@@ -46,11 +47,7 @@ class DynamicTable extends React.Component {
             return ""
         } else {
             return d;
-        }
-        //   let val = e.target.value;
-
-        //  let selected = this.state.selected;
-        // this.props.CallBack(d,val)       
+        }      
     }
 
     getPost() {
@@ -114,6 +111,12 @@ class DynamicTable extends React.Component {
         }
         this.props.CallBack(da, ev);
     }
+    /**
+     * antd多选
+     */
+    EVENT_CHANGE_ANTD_SELECTS=(da,el)=>{
+        this.props.CallBack(da,el);
+    }
     Bind_checked(da, val) { //检测数据
         let reg = eval(`(${da.regExp})`);
         if (reg && reg.type.indexOf("number") >= 0) {
@@ -172,14 +175,19 @@ class DynamicTable extends React.Component {
                 }
                 return <input className="" type="text" readOnly="true" value={el.val || ""} />
             } else {
-                if (el.type == "select") {
+                if (el.type == "select") { //单选
                     let list = el.data.map((_d, _i) => {
                         return <option key={_i} value={_d.val}>{_d.label}</option>
                     })
                     return <select name={el.id} className={(el.edit.indexOf("+m") >= 0 && !el.val) ? "required" : ""} onChange={this.EVENT_CHANGE_SELECT.bind(this, el)} value={el.val || ""}>{list}</select>
-                } else if (el.type == "date") {
+                } else if (el.type == "date") { //日期
                     return <input name={el.id} className={(el.edit.indexOf("+m") >= 0 && !el.val) ? "esayuiDate required" : "esayuiDate"} id={el.id} data-pid={el.pid} value={el.val || ""} placeholder={el.edit.indexOf("+m") >= 0 ? "" : ""} type="text" onClick={this.setEventDate.bind(this, el)} readOnly="true" />
-                } else {
+                } else if(el.type=="selects"){ //多选
+                    let children = el.data.map((_d, _i) => {
+                        return <Option  key={_i}>{_d.label}</Option>
+                    })
+                    return <Select mode="tags" name={el.id} tokenSeparators={[',']} className={(el.edit.indexOf("+m") >= 0 && !el.val) ? "required selects" : "selects"} onChange={this.EVENT_CHANGE_ANTD_SELECTS.bind(this,el)} defaultValue={el.val ||[]}>{children}</Select>
+                }else{
 
                     return <input name={el.id} id={el.id} className={(el.edit.indexOf("+m") >= 0 && !el.val) ? " required" : ""} data-pid={el.pid} value={el.val || ""} placeholder={el.edit.indexOf("+m") >= 0 ? "" : ""} type="text" onBlur={this.EVENT_BLUR_INPUT.bind(this, el)} onChange={this.EVENT_CHANGE_INPUT.bind(this, el)} readOnly={el.edit.indexOf("+r") >= 0} />
                 }
@@ -219,7 +227,7 @@ class DynamicTable extends React.Component {
                 {
                     el.type == "date" ? <i className="date"><b>{el["test"] && (el["test"]["val"] || "")}</b></i> : <i>{el.unit}<b>{el["test"] && (el["test"]["val"] || "")}</b></i>
                 }
-                <div>{typeBox(el)}</div>
+                <div className="dynamicTableDIV">{typeBox(el)}</div>
             </li>
         })
 

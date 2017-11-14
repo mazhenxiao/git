@@ -91,7 +91,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 __webpack_require__(1016);
 __webpack_require__(665);
 __webpack_require__(1601);
-__webpack_require__(1605);
+__webpack_require__(1609);
 var TabPane = _antd.Tabs.TabPane;
 var AreaManageStep = _constants.AreaConstants.AreaManageStep,
     Legend = _constants.AreaConstants.Legend;
@@ -115,7 +115,7 @@ var Index = function (_Component) {
             loading: false,
             stepData: [],
             versionId: "", //版本id
-            step: {}, /*返回具有最新数据的step,由后台返回,现在初始设置为投决会*/
+            step: {}, /*当前阶段*/
             dataKey: _this.props.location.query.dataKey, /*项目id或分期版本id*/
             mode: _this.props.location.query.isProOrStage, //显示模式，项目或者分期
             //方案指标数据，面积数据
@@ -124,6 +124,8 @@ var Index = function (_Component) {
             searchKey: {},
             //版本数据
             versionData: [],
+            //生成业态的条件数据
+            conditionData: {},
 
             modalKey: "",
             modalParam: null,
@@ -180,22 +182,28 @@ var Index = function (_Component) {
             var planQuotaPromise = _services.AreaService.getAreaPlanQuota(step, versionId).then(function (data) {
                 return data.rows;
             });
-            var versionPromise = _services.AreaService.getVersion(step, dataKey, mode);
+            var versionPromise = _services.AreaService.getVersion(step, dataKey, mode).then(function (data) {
+                return data.rows;
+            });
+            var getCreateConditionPromise = _services.AreaService.getCreateCondition(step, dataKey, mode);
             Promise.all([blockPromise, planQuotaPromise, versionPromise]).then(function (_ref2) {
-                var _ref3 = _slicedToArray(_ref2, 3),
+                var _ref3 = _slicedToArray(_ref2, 4),
                     blockData = _ref3[0],
                     planData = _ref3[1],
-                    versionData = _ref3[2];
+                    versionData = _ref3[2],
+                    conditionData = _ref3[3];
 
                 _this.setState({
                     loading: false,
                     areaData: {
                         planData: planData,
-                        blockData: blockData,
-                        versionData: versionData
-                    }
+                        blockData: blockData
+                    },
+                    versionData: versionData,
+                    conditionData: conditionData
                 });
             }).catch(function (err) {
+
                 _this.setState({
                     loading: false
                 });
@@ -353,11 +361,12 @@ var Index = function (_Component) {
         }, _this.renderEditOrAdjust = function () {
             var _this$state4 = _this.state,
                 modalKey = _this$state4.modalKey,
-                modalParam = _this$state4.modalParam;
+                modalParam = _this$state4.modalParam,
+                conditionData = _this$state4.conditionData;
 
             switch (modalKey) {
                 case "block-format-edit":
-                    return _react2.default.createElement(_blockFormatEdit2.default, { onHideModal: _this.handleHideModal });
+                    return _react2.default.createElement(_blockFormatEdit2.default, { onHideModal: _this.handleHideModal, conditionData: conditionData });
                 case "building-format-edit":
                     return _react2.default.createElement(_buildingFormatEdit2.default, null);
                 default:
@@ -368,7 +377,6 @@ var Index = function (_Component) {
         }, _this.renderEmpty = function () {
             var loading = _this.state.loading;
 
-            console.log("返回空视图");
             return _react2.default.createElement(
                 'div',
                 { className: 'processBar' },
@@ -397,13 +405,13 @@ var Index = function (_Component) {
             var _state = this.state,
                 dataKey = _state.dataKey,
                 mode = _state.mode;
-            var location = nextProps.location;
+            var nextLocation = nextProps.nextLocation;
 
-            if (dataKey != location.query.dataKey.trim() || mode != location.query.isProOrStage.trim()) {
+            if (dataKey != nextLocation.query.dataKey.trim() || mode != nextLocation.query.isProOrStage.trim()) {
                 //设置新的dataKey和mode
                 this.setState({
-                    dataKey: location.query.dataKey.trim(),
-                    mode: location.query.isProOrStage.trim()
+                    dataKey: nextLocation.query.dataKey.trim(),
+                    mode: nextLocation.query.isProOrStage.trim()
                 });
             }
         }
@@ -44970,6 +44978,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 __webpack_require__(1016);
+var Option = _antd.Select.Option;
 
 var DynamicTable = function (_React$Component) {
     _inherits(DynamicTable, _React$Component);
@@ -44978,6 +44987,10 @@ var DynamicTable = function (_React$Component) {
         _classCallCheck(this, DynamicTable);
 
         var _this = _possibleConstructorReturn(this, (DynamicTable.__proto__ || Object.getPrototypeOf(DynamicTable)).call(this, arg));
+
+        _this.EVENT_CHANGE_ANTD_SELECTS = function (da, el) {
+            _this.props.CallBack(da, el);
+        };
 
         _this.count = 0; //初始化记录
         _this.rule = {}; //验证
@@ -45021,10 +45034,6 @@ var DynamicTable = function (_React$Component) {
             } else {
                 return d;
             }
-            //   let val = e.target.value;
-
-            //  let selected = this.state.selected;
-            // this.props.CallBack(d,val)       
         }
     }, {
         key: "getPost",
@@ -45091,6 +45100,10 @@ var DynamicTable = function (_React$Component) {
             }
             this.props.CallBack(da, ev);
         }
+        /**
+         * antd多选
+         */
+
     }, {
         key: "Bind_checked",
         value: function Bind_checked(da, val) {
@@ -45168,6 +45181,7 @@ var DynamicTable = function (_React$Component) {
                     return _react2.default.createElement("input", { className: "", type: "text", readOnly: "true", value: el.val || "" });
                 } else {
                     if (el.type == "select") {
+                        //单选
                         var _list = el.data.map(function (_d, _i) {
                             return _react2.default.createElement(
                                 "option",
@@ -45181,7 +45195,22 @@ var DynamicTable = function (_React$Component) {
                             _list
                         );
                     } else if (el.type == "date") {
+                        //日期
                         return _react2.default.createElement("input", { name: el.id, className: el.edit.indexOf("+m") >= 0 && !el.val ? "esayuiDate required" : "esayuiDate", id: el.id, "data-pid": el.pid, value: el.val || "", placeholder: el.edit.indexOf("+m") >= 0 ? "" : "", type: "text", onClick: _this2.setEventDate.bind(_this2, el), readOnly: "true" });
+                    } else if (el.type == "selects") {
+                        //多选
+                        var children = el.data.map(function (_d, _i) {
+                            return _react2.default.createElement(
+                                Option,
+                                { key: _i },
+                                _d.label
+                            );
+                        });
+                        return _react2.default.createElement(
+                            _antd.Select,
+                            { mode: "tags", name: el.id, tokenSeparators: [','], className: el.edit.indexOf("+m") >= 0 && !el.val ? "required selects" : "selects", onChange: _this2.EVENT_CHANGE_ANTD_SELECTS.bind(_this2, el), defaultValue: el.val || [] },
+                            children
+                        );
                     } else {
 
                         return _react2.default.createElement("input", { name: el.id, id: el.id, className: el.edit.indexOf("+m") >= 0 && !el.val ? " required" : "", "data-pid": el.pid, value: el.val || "", placeholder: el.edit.indexOf("+m") >= 0 ? "" : "", type: "text", onBlur: _this2.EVENT_BLUR_INPUT.bind(_this2, el), onChange: _this2.EVENT_CHANGE_INPUT.bind(_this2, el), readOnly: el.edit.indexOf("+r") >= 0 });
@@ -45243,7 +45272,7 @@ var DynamicTable = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         "div",
-                        null,
+                        { className: "dynamicTableDIV" },
                         typeBox(el)
                     )
                 );
@@ -97712,7 +97741,7 @@ exports = module.exports = __webpack_require__(641)(undefined);
 
 
 // module
-exports.push([module.i, "/*\ntools-dynamicTable.less\n*/\n.tools-dynamicTable {\n  margin-top: 10px;\n}\n.tools-dynamicTable ul li {\n  height: 40px;\n  overflow: hidden;\n}\n.tools-dynamicTable ul li label {\n  font-size: 12px;\n  color: #333;\n  font-weight: normal;\n  width: 110px;\n  text-align: right;\n  padding-top: 5px;\n  float: left;\n}\n.tools-dynamicTable ul li div {\n  display: block;\n  margin: 0 65px 0 115px;\n}\n.tools-dynamicTable ul li div input {\n  width: 100%;\n  padding: 3px;\n  border: #ddd solid 1px;\n}\n.tools-dynamicTable ul li div input[readonly] {\n  background: #fbfbfb;\n}\n.tools-dynamicTable ul li div input.required {\n  background: #fff3f3;\n}\n.tools-dynamicTable ul li div select {\n  width: 100%;\n  height: 25px;\n  border: #ddd solid 1px;\n}\n.tools-dynamicTable ul li div select.required {\n  background: #fff3f3;\n}\n.tools-dynamicTable ul li i {\n  font-style: normal;\n  width: 60px;\n  float: right;\n  padding-top: 3px;\n  position: relative;\n  top: 0;\n  left: 0;\n}\n.tools-dynamicTable ul li i b {\n  position: absolute;\n  top: 0;\n  left: 0;\n  background: rgba(255, 255, 255, 0.7);\n  color: #c00;\n  font-weight: normal;\n  font-size: 12px;\n}\n.tools-dynamicTable ul li i.date {\n  display: inline-block;\n  height: 30px;\n  background: url(" + __webpack_require__(1529) + ") no-repeat 3px 50%;\n}\n.BIND_LAND_BTN {\n  padding: 10px;\n}\n.BIND_LAND_BTN li {\n  display: inline-block;\n  padding: 5px 10px;\n  border: #ddd solid 1px;\n  cursor: pointer;\n  margin: 10px;\n  position: relative;\n  top: 0;\n  left: 0;\n}\n.BIND_LAND_BTN li.active {\n  background: #e4e4e4;\n}\n.BIND_LAND_BTN li .icon-delete {\n  position: absolute;\n  top: -10px;\n  right: -10px;\n  display: none;\n}\n.BIND_LAND_BTN li:hover .icon-delete {\n  display: block;\n}\n", ""]);
+exports.push([module.i, "/*\ntools-dynamicTable.less\n*/\n.tools-dynamicTable {\n  margin-top: 10px;\n}\n.tools-dynamicTable ul li {\n  height: 40px;\n  overflow: hidden;\n}\n.tools-dynamicTable ul li label {\n  font-size: 12px;\n  color: #333;\n  font-weight: normal;\n  width: 110px;\n  text-align: right;\n  padding-top: 5px;\n  float: left;\n}\n.tools-dynamicTable ul li .dynamicTableDIV {\n  display: block;\n  margin: 0 65px 0 115px;\n}\n.tools-dynamicTable ul li .dynamicTableDIV input {\n  width: 100%;\n  padding: 3px;\n  border: #ddd solid 1px;\n}\n.tools-dynamicTable ul li .dynamicTableDIV input[readonly] {\n  background: #fbfbfb;\n}\n.tools-dynamicTable ul li .dynamicTableDIV input.required {\n  background: #fff3f3;\n}\n.tools-dynamicTable ul li .dynamicTableDIV select {\n  width: 100%;\n  height: 25px;\n  border: #ddd solid 1px;\n}\n.tools-dynamicTable ul li .dynamicTableDIV select.required {\n  background: #fff3f3;\n}\n.tools-dynamicTable ul li .dynamicTableDIV .selects {\n  width: 100%;\n  height: 25px;\n  overflow: hidden;\n}\n.tools-dynamicTable ul li .dynamicTableDIV .selects .ant-select-selection--multiple {\n  min-height: 25px;\n  border-radius: 0;\n  padding-bottom: 0;\n  height: 25px;\n  overflow: hidden;\n}\n.tools-dynamicTable ul li .dynamicTableDIV .ant-select-search__field {\n  border: none;\n  padding: 0;\n}\n.tools-dynamicTable ul li .dynamicTableDIV .ant-select-selection__choice {\n  margin-top: 2px;\n  padding: 0 15px 0 0;\n  float: none;\n  display: inline-block;\n}\n.tools-dynamicTable ul li .dynamicTableDIV .ant-select-selection__choice__remove {\n  right: 0;\n}\n.tools-dynamicTable ul li i {\n  font-style: normal;\n  width: 60px;\n  float: right;\n  padding-top: 3px;\n  position: relative;\n  top: 0;\n  left: 0;\n}\n.tools-dynamicTable ul li i b {\n  position: absolute;\n  top: 0;\n  left: 0;\n  background: rgba(255, 255, 255, 0.7);\n  color: #c00;\n  font-weight: normal;\n  font-size: 12px;\n}\n.tools-dynamicTable ul li i.date {\n  display: inline-block;\n  height: 30px;\n  background: url(" + __webpack_require__(1529) + ") no-repeat 3px 50%;\n}\n.BIND_LAND_BTN {\n  padding: 10px;\n}\n.BIND_LAND_BTN li {\n  display: inline-block;\n  padding: 5px 10px;\n  border: #ddd solid 1px;\n  cursor: pointer;\n  margin: 10px;\n  position: relative;\n  top: 0;\n  left: 0;\n}\n.BIND_LAND_BTN li.active {\n  background: #e4e4e4;\n}\n.BIND_LAND_BTN li .icon-delete {\n  position: absolute;\n  top: -10px;\n  right: -10px;\n  display: none;\n}\n.BIND_LAND_BTN li:hover .icon-delete {\n  display: block;\n}\n", ""]);
 
 // exports
 
@@ -97875,13 +97904,13 @@ var Option = _antd.Select.Option;
 
 var rowStyle = {
     height: 28,
-    lineHeight: "28px",
-    marginBottom: "10px"
+    lineHeight: "28px"
 };
 
 var labelStyle = {
     textAlign: "right",
-    paddingRight: "5px"
+    paddingRight: "5px",
+    color: "#999"
 };
 
 var WrapperSelect = function (_React$Component) {
@@ -99451,7 +99480,7 @@ exports.default = ComFormatFilter;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -99491,81 +99520,141 @@ __webpack_require__(1016);
 __webpack_require__(1527); //专用css
 
 var PlanQuota = function (_Component) {
-    _inherits(PlanQuota, _Component);
+  _inherits(PlanQuota, _Component);
 
-    function PlanQuota() {
-        var _ref;
+  function PlanQuota() {
+    var _ref;
 
-        var _temp, _this, _ret;
+    var _temp, _this, _ret;
 
-        _classCallCheck(this, PlanQuota);
+    _classCallCheck(this, PlanQuota);
 
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
-
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = PlanQuota.__proto__ || Object.getPrototypeOf(PlanQuota)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-            propsDATA: [], //动态数据
-            pid: 1 //项目id或当前版本id
-        }, _this.staticData = {
-            number: 0
-        }, _this.GET_AJAX = function (arg) {
-            //获取数据
-            _this.setState({
-                propsDATA: _this.props.planData
-            });
-            //  console.log("props",this.props.planData)
-            /*   var th = this;
-              let opt = {
-                  url:iss.url("/AreaInfo/IGetAreaPlanInfo"),
-                  type:"GET",
-                  data:{
-                      versionId:"1c52cb5b-674b-4a8c-8a49-bec93681e690", //版本id或项目id
-                      step:"Vote",//当前阶段guid
-                      DataType:"2",//显示面积2 价格3
-                      time:new Date().getTime()
-                  }
-              }
-            
-            iss.fetch(opt).then(arg=>{
-               console.log("arg",arg);
-            }).catch(err=>{
-                console.log("error",err);
-            }) */
-        }, _this.BIND_CALLBACK = function (arg) {}, _temp), _possibleConstructorReturn(_this, _ret);
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
     }
 
-    _createClass(PlanQuota, [{
-        key: 'shouldComponentUpdate',
-        value: function shouldComponentUpdate(nextProps, nextState) {
-            return (0, _utils.shallowCompare)(this, nextProps, nextState);
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = PlanQuota.__proto__ || Object.getPrototypeOf(PlanQuota)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      pid: 1, //项目id或当前版本id
+      DynamicData: [] //获取
+    }, _this.staticData = {
+      number: 0
+      /**
+       * 发送数据给
+       */
+    }, _this.postData = {}, _this.BIND_CALLBACK = function (da, e) {
+      //子页面返回callback
+      // if(this.time){ clearTimeout(this.time) }
+      var th = _this;
+      var el = e && e["target"] ? e.target.value : da.val,
+          list = _this.state.DynamicData;
+      list.forEach(function (d, i) {
+        if (da.id == d.id) {
+          d["val"] = el;
+          d["test"] = da["test"];
+          return;
         }
-    }, {
-        key: 'componentWillReceiveProps',
-        value: function componentWillReceiveProps(nextProps) {
-            //if(this.staticData.number==0){ return}
-            this.GET_AJAX(); //拉去数据
-        }
-    }, {
-        key: 'componentWillMount',
-        value: function componentWillMount() {}
-    }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            this.GET_AJAX(); //拉去数据
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'article',
-                null,
-                _react2.default.createElement(_toolsDynamicTable2.default, { pid: this.state.pid, DynamicData: this.state.propsDATA, CallBack: this.BIND_CALLBACK })
-            );
-        }
-    }]);
+      });
+      th.setState({
+        "DynamicData": list
+      });
 
-    return PlanQuota;
+      _this.postData = list.filter(function (arg) {
+        if (arg["val"]) {
+          return arg;
+        }
+      });
+      console.log("postData", _this.postData);
+      // this.props.CallBack(this.postData)
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(PlanQuota, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps, nextState) {
+      var data = nextProps.planData.map(function (arg) {
+
+        arg["valueId"] = _iss2.default.guid();
+        arg["edit"] = "+w";
+        //  console.log(arg);
+        return arg;
+      });
+      data.unshift({
+        "pid": "",
+        "id": "GETTYPE",
+        "label": "获取方式",
+        "text": null,
+        "val": ["4", "5", "6"],
+        "type": "selects",
+        "unit": null,
+        "edit": "+m",
+        "exec": "select ''  val,'请选择'  label ,0 ordernum  from dual union all select to_char(Dicvalue)  , to_char(dicName) ,SEQNUM from BT_SYSDICTIONARY where DICCATEGORYID=3 and DICLEVEL=2 and ISDEL=0 and ISENABLE=1\norder by ordernum",
+        "regExp": "{type:\"number\"}",
+        "colspan": 4,
+        "data": [{
+          "val": null,
+          "label": "请选择"
+        }, {
+          "val": "1",
+          "label": "拍卖"
+        }, {
+          "val": "2",
+          "label": "划拨"
+        }, {
+          "val": "3",
+          "label": "招标"
+        }, {
+          "val": "4",
+          "label": "并购"
+        }, {
+          "val": "5",
+          "label": "挂牌"
+        }, {
+          "val": "6",
+          "label": "协议出让"
+        }, {
+          "val": "7",
+          "label": "在建工程转让"
+        }],
+        "valuetype": null,
+        "valueId": "59593EBE335547228BF73D1467CFD92F",
+        "test": {
+          "check": false,
+          "val": null
+        }
+      });
+      this.setState({
+        "DynamicData": data
+      });
+    }
+  }, {
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(nextProps, nextState) {
+      return (0, _utils.shallowCompare)(this, nextProps.planData, nextState.planData);
+    }
+  }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      //  console.log("haha-will",this.props.planData)
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      //  console.log("haha-did",this.props.planData)
+
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+
+      return _react2.default.createElement(
+        'article',
+        null,
+        _react2.default.createElement(_toolsDynamicTable2.default, { pid: this.state.pid, DynamicData: this.state.DynamicData, CallBack: this.BIND_CALLBACK })
+      );
+    }
+  }]);
+
+  return PlanQuota;
 }(_react.Component);
 
 exports.default = PlanQuota;
@@ -99988,8 +100077,13 @@ var SaveVersion = function (_Component) {
                 'div',
                 { className: 'PosRight' },
                 _react2.default.createElement(
+                    'span',
+                    { className: 'areaUnit Left' },
+                    '\uFF08\u9762\u79EF\u5355\u4F4D\uFF1A\u33A1\uFF0C\u8F66\u4F4D\u5355\u4F4D\uFF1A\u4E2A\uFF0C\u9650\u9AD8\u5355\u4F4D\uFF1A\u7C73\uFF09'
+                ),
+                _react2.default.createElement(
                     'button',
-                    { type: 'button', className: 'jh_btn jh_btn33 jh_btn_save Left' },
+                    { type: 'button', className: 'jh_btn jh_btn28 jh_btn_save Left' },
                     '\u4FDD\u5B58'
                 ),
                 _react2.default.createElement(
@@ -100099,7 +100193,7 @@ exports.AreaService = AreaService;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.saveVersion = exports.getVersion = exports.createVersion = exports.getAreaPlanQuota = exports.getAreaList = exports.getStep = undefined;
+exports.saveFormatData = exports.createFormatData = exports.getFormatData = exports.getCreateCondition = exports.saveVersion = exports.getVersion = exports.createVersion = exports.getAreaPlanQuota = exports.getAreaList = exports.getStep = undefined;
 
 var _iss = __webpack_require__(25);
 
@@ -100107,12 +100201,14 @@ var _iss2 = _interopRequireDefault(_iss);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var website = "http://192.168.10.164:8000";
+
 /**
  * 获取步骤
  */
 var getStep = function getStep(dataKey, mode) {
     return _iss2.default.fetch({
-        url: "http://192.168.10.164:8000/Common/IGetStept",
+        url: website.concat("/Common/IGetStept"),
         type: "get",
         data: {
             ProjectStageId: dataKey,
@@ -100134,7 +100230,7 @@ var getAreaList = function getAreaList(step, mode, versionId) {
     var descType = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "Building";
 
     return _iss2.default.fetch({
-        url: "http://192.168.10.164:8000/AreaInfo/IGetAreaListInfo",
+        url: website.concat("/AreaInfo/IGetAreaListInfo"),
         type: "get",
         data: {
             step: step.code,
@@ -100147,16 +100243,12 @@ var getAreaList = function getAreaList(step, mode, versionId) {
 
 /**
  * 获取面积的规划方案指标
- * @param stepInfo
- * @param versionId
- * @param dataType
- * @returns {*}
  */
 var getAreaPlanQuota = function getAreaPlanQuota(step, versionId) {
     var dataType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Area";
 
     return _iss2.default.fetch({
-        url: "http://192.168.10.164:8000/AreaInfo/IGetAreaPlanInfo",
+        url: website.concat("/AreaInfo/IGetAreaPlanInfo"),
         type: "get",
         data: {
             step: step.code,
@@ -100166,15 +100258,19 @@ var getAreaPlanQuota = function getAreaPlanQuota(step, versionId) {
     });
 };
 
-//创建版本
+/**
+ * 创建版本
+ */
 var createVersion = function createVersion(stepInfo, dataKey, mode) {
     return null;
 };
 
-//获取版本
+/**
+ * 获取版本
+ */
 var getVersion = function getVersion(stepInfo, dataKey, mode) {
     return _iss2.default.fetch({
-        url: "http://192.168.10.164:8000/Common/IGetVersionListByBusinessId",
+        url: website.concat("/Common/IGetVersionListByBusinessId"),
         type: "get",
         data: {
             ProjectStageId: dataKey,
@@ -100185,9 +100281,113 @@ var getVersion = function getVersion(stepInfo, dataKey, mode) {
     });
 };
 
+/**
+ * 保存版本
+ */
 var saveVersion = function saveVersion() {
     return null;
 };
+
+/**
+ * 获取生成业态的条件
+ */
+var getCreateCondition = function getCreateCondition(stepInfo, dataKey, mode) {
+    return _iss2.default.fetch({
+        url: website.concat("/AreaInfo/IGetSerchInfo"),
+        type: "get",
+        data: {
+            projectLevel: mode,
+            ProjectStageId: dataKey,
+            step: stepInfo.code
+        }
+    }).then(function (res) {
+        return res.rows;
+    }).then(function (_ref) {
+        var serchList = _ref.serchList;
+
+        var result = {
+            land: [], //地块
+            residence: [], //住宅
+            commercial: [], //商办
+            business: [], //商业
+            parkAndSupport: [] //车位以及配套
+        };
+
+        var land = serchList.filter(function (item) {
+            return item.typeCode === "land";
+        })[0];
+        var residence = serchList.filter(function (item) {
+            return item.typeCode === "residence";
+        })[0];
+        var commercial = serchList.filter(function (item) {
+            return item.typeCode === "commercial";
+        })[0];
+        var business = serchList.filter(function (item) {
+            return item.typeCode === "business";
+        })[0];
+        var parkAndSupport = serchList.filter(function (item) {
+            return item.typeCode === "parkandsupport";
+        })[0];
+        if (land && Array.isArray(land.typelist)) {
+            result.land = convertConditionData(land.typelist);
+        }
+        if (residence && Array.isArray(residence.typelist)) {
+            result.residence = convertConditionData(residence.typelist);
+        }
+        if (commercial && Array.isArray(commercial.typelist)) {
+            result.commercial = convertConditionData(commercial.typelist);
+        }
+        if (business && Array.isArray(business.typelist)) {
+            result.business = convertConditionData(business.typelist);
+        }
+        if (parkAndSupport && Array.isArray(parkAndSupport.typelist)) {
+            result.parkAndSupport = convertConditionData(parkAndSupport.typelist);
+        }
+
+        return result;
+    });
+};
+
+/**
+ *  转换条件数据
+ */
+var convertConditionData = function convertConditionData(originalData) {
+    return originalData.map(function (item) {
+        var obj = {
+            id: item["val"],
+            name: item["lable"],
+            children: []
+        };
+        loadChildren(obj, item["children"]);
+        return obj;
+    });
+};
+
+/**
+ * 加载子集
+ */
+var loadChildren = function loadChildren(obj, children) {
+    children.forEach(function (child) {
+        obj.children.push({
+            id: child["val"],
+            name: child["lable"]
+        });
+    });
+};
+
+/**
+ * 获取地块业态数据
+ */
+var getFormatData = function getFormatData() {};
+/**
+ * 生成地块业态数据
+ */
+var createFormatData = function createFormatData() {};
+
+/**
+ * 保存地块业态数据
+ */
+var saveFormatData = function saveFormatData() {};
 
 exports.getStep = getStep;
 exports.getAreaList = getAreaList;
@@ -100195,6 +100395,10 @@ exports.getAreaPlanQuota = getAreaPlanQuota;
 exports.createVersion = createVersion;
 exports.getVersion = getVersion;
 exports.saveVersion = saveVersion;
+exports.getCreateCondition = getCreateCondition;
+exports.getFormatData = getFormatData;
+exports.createFormatData = createFormatData;
+exports.saveFormatData = saveFormatData;
 
 /***/ }),
 /* 1601 */
@@ -100236,7 +100440,7 @@ exports = module.exports = __webpack_require__(641)(undefined);
 
 
 // module
-exports.push([module.i, "/*公共button*/\nbutton,\nlabel {\n  border: none;\n  outline: none;\n  font-weight: normal;\n  margin: 0;\n  padding: 0;\n  font-size: 12px;\n  color: #999;\n}\n.jhBtn-wrap .jh_btn:last-child {\n  padding-right: 0;\n}\n.jh_btn {\n  display: inline-block;\n  padding-left: 20px;\n  padding-right: 20px;\n  background-repeat: no-repeat;\n  background-position: left center;\n  background-color: transparent;\n}\n.jh_btn:hover {\n  color: #666;\n}\n.jh_btn40 {\n  height: 40px;\n  line-height: 40px;\n}\n.jh_btn33 {\n  height: 33px;\n  line-height: 33px;\n}\n.jh_btn22 {\n  height: 22px;\n  line-height: 22px;\n}\n/*发起审批*/\n.jh_btn_apro {\n  background-image: url(" + __webpack_require__(1534) + ");\n}\n.jh_btn_apro:hover {\n  background-image: url(" + __webpack_require__(1535) + ");\n}\n/*添加*/\n.jh_btn_add {\n  background-image: url(" + __webpack_require__(1603) + ");\n}\n.jh_btn_add:hover {\n  background-image: url(" + __webpack_require__(1604) + ");\n}\n/*保存*/\n.jh_btn_save {\n  background-image: url(" + __webpack_require__(1532) + ");\n}\n.jh_btn_save:hover {\n  background-image: url(" + __webpack_require__(1533) + ");\n}\n", ""]);
+exports.push([module.i, "/*公共button*/\nbutton,\nlabel {\n  border: none;\n  outline: none;\n  font-weight: normal;\n  margin: 0;\n  padding: 0;\n  font-size: 12px;\n  color: #999;\n}\n.jhBtn-wrap .jh_btn:last-child {\n  padding-right: 0;\n}\n.jh_btn {\n  display: inline-block;\n  padding-left: 20px;\n  padding-right: 20px;\n  background-repeat: no-repeat;\n  background-position: left center;\n  background-color: transparent;\n}\n.jh_btn:hover {\n  color: #666;\n}\n.jh_btn40 {\n  height: 40px;\n  line-height: 40px;\n}\n.jh_btn33 {\n  height: 33px;\n  line-height: 33px;\n}\n.jh_btn28 {\n  height: 28px;\n  line-height: 28px;\n}\n.jh_btn22 {\n  height: 22px;\n  line-height: 22px;\n}\n/*发起审批*/\n.jh_btn_apro {\n  background-image: url(" + __webpack_require__(1534) + ");\n}\n.jh_btn_apro:hover {\n  background-image: url(" + __webpack_require__(1535) + ");\n}\n/*添加*/\n.jh_btn_add {\n  background-image: url(" + __webpack_require__(1603) + ");\n}\n.jh_btn_add:hover {\n  background-image: url(" + __webpack_require__(1604) + ");\n}\n/*保存*/\n.jh_btn_save {\n  background-image: url(" + __webpack_require__(1532) + ");\n}\n.jh_btn_save:hover {\n  background-image: url(" + __webpack_require__(1533) + ");\n}\n", ""]);
 
 // exports
 
@@ -100254,13 +100458,17 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf
 module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJNJREFUeNpi/P//PwMlgImBQsACY3j55XgCqblALEmEvudAnLxt05TtLEiCIM1hQMEjhHQDLbMBUquAWIoBFAYg7Omb/R/GJgbD1DMRYdt/mgYi9WIBn7OR+cBAZiRoALIikGZ0TYMrDAgagM/56AY8h6YwBiLShjWQeoEeiClAvBooKUGEGU9BeQHEYKQ0OwMEGAD16Fdvy+R6IQAAAABJRU5ErkJggg=="
 
 /***/ }),
-/* 1605 */
+/* 1605 */,
+/* 1606 */,
+/* 1607 */,
+/* 1608 */,
+/* 1609 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1606);
+var content = __webpack_require__(1610);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -100285,7 +100493,7 @@ if(false) {
 }
 
 /***/ }),
-/* 1606 */
+/* 1610 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(641)(undefined);
@@ -100293,7 +100501,7 @@ exports = module.exports = __webpack_require__(641)(undefined);
 
 
 // module
-exports.push([module.i, "/*面积管理样式*/\n.areaManage {\n  position: relative;\n  top: 0;\n  left: 0;\n}\n.areaTopbtn {\n  position: absolute;\n  top: 0;\n  right: 0;\n  z-index: 300;\n}\n.areaStatus {\n  display: inline-block;\n}\n.areaVeSel {\n  padding-right: 20px;\n}\n.areaVeSel,\n.areaStatus {\n  float: left;\n  line-height: 32px;\n  font-size: 12px;\n  color: #999;\n}\n.areaUnit {\n  display: inline-block;\n  line-height: 33px;\n  font-size: 12px;\n}\n.areaSession {\n  clear: both;\n}\n.areaSession20 {\n  padding-top: 20px;\n}\n.areaSession16 {\n  padding-top: 16px;\n}\n", ""]);
+exports.push([module.i, "/*面积管理样式*/\n.areaManage {\n  position: relative;\n  top: 0;\n  left: 0;\n}\n.areaTopbtn {\n  position: absolute;\n  top: 0;\n  right: 0;\n  z-index: 300;\n}\n.areaStatus {\n  display: inline-block;\n}\n.areaVeSel {\n  float: left;\n  padding-right: 30px;\n}\n.areaStatus {\n  float: left;\n  line-height: 28px;\n  font-size: 12px;\n  color: #999;\n}\n.areaUnit {\n  display: inline-block;\n  line-height: 28px;\n  font-size: 12px;\n  padding-right: 30px;\n}\n.areaSession {\n  clear: both;\n}\n.areaSession20 {\n  padding-top: 20px;\n}\n.areaSession16 {\n  padding-top: 16px;\n}\n.areaManage .JH-HeadTab .JH-HeadList li {\n  padding: 7px 8px;\n}\n.PosRight {\n  top: 6px;\n}\n.PosRight .jh_btn_save {\n  padding-right: 6px;\n}\n", ""]);
 
 // exports
 

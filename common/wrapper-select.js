@@ -6,13 +6,13 @@ const Option = Select.Option;
 
 const rowStyle = {
     height: 28,
-    lineHeight: "28px",
-    marginBottom: "10px",
+    lineHeight: "28px"
 };
 
 const labelStyle = {
     textAlign: "right",
     paddingRight: "5px",
+    color:"#999"
 };
 
 class WrapperSelect extends React.Component {

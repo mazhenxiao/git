@@ -23,7 +23,7 @@ import "babel-polyfill";  //兼容ie
 require("../../Content/css/antd.min.css");
 require("../../Content/css/tools-processBar.less");
 require("../../Content/css/button.less");
-require("../../Content/areaMa/areaCss/areaManage.less");
+require("../../Content/area/areaCss/areaManage.less");
 const TabPane = Tabs.TabPane;
 const {AreaManageStep, Legend} = AreaConstants;
 
@@ -37,7 +37,7 @@ class Index extends Component {
         loading: false,
         stepData: [],
         versionId: "",//版本id
-        step: {}, /*返回具有最新数据的step,由后台返回,现在初始设置为投决会*/
+        step: {}, /*当前阶段*/
         dataKey: this.props.location.query.dataKey, /*项目id或分期版本id*/
         mode: this.props.location.query.isProOrStage,//显示模式，项目或者分期
         //方案指标数据，面积数据
@@ -46,6 +46,8 @@ class Index extends Component {
         searchKey: {},
         //版本数据
         versionData: [],
+        //生成业态的条件数据
+        conditionData: {},
 
         modalKey: "",
         modalParam: null,
@@ -62,13 +64,13 @@ class Index extends Component {
      */
     componentWillReceiveProps(nextProps) {
         const {dataKey, mode} = this.state;
-        const {location} = nextProps;
-        if (dataKey != location.query.dataKey.trim()
-            || mode != location.query.isProOrStage.trim()) {
+        const {nextLocation} = nextProps;
+        if (dataKey != nextLocation.query.dataKey.trim()
+            || mode != nextLocation.query.isProOrStage.trim()) {
             //设置新的dataKey和mode
             this.setState({
-                    dataKey: location.query.dataKey.trim(),
-                    mode: location.query.isProOrStage.trim(),
+                    dataKey: nextLocation.query.dataKey.trim(),
+                    mode: nextLocation.query.isProOrStage.trim(),
                 }
             );
         }
@@ -125,19 +127,22 @@ class Index extends Component {
 
         const blockPromise = AreaService.getAreaList(step, mode, versionId).then(data => data.rows);
         const planQuotaPromise = AreaService.getAreaPlanQuota(step, versionId).then(data => data.rows);
-        const versionPromise = AreaService.getVersion(step, dataKey, mode);
+        const versionPromise = AreaService.getVersion(step, dataKey, mode).then(data => data.rows);
+        const getCreateConditionPromise = AreaService.getCreateCondition(step, dataKey, mode);
         Promise.all([blockPromise, planQuotaPromise, versionPromise])
-            .then(([blockData, planData, versionData]) => {
+            .then(([blockData, planData, versionData, conditionData]) => {
                 this.setState({
                     loading: false,
                     areaData: {
                         planData,
                         blockData,
-                        versionData: versionData,
-                    }
+                    },
+                    versionData,
+                    conditionData,
                 });
             })
             .catch(err => {
+
                 this.setState({
                     loading: false,
                 });
@@ -226,7 +231,7 @@ class Index extends Component {
         const {step, areaData, searchKey} = this.state;
         const panelArray = [];
         const planData = areaData["planData"] || [];
-
+         
         panelArray.push(<TabPane tab="规划方案指标" key="plan-quota"><PlanQuota planData={planData}/></TabPane>);
 
         if (parseInt(step.guid) < 3) {
@@ -269,10 +274,10 @@ class Index extends Component {
         });
     };
     renderEditOrAdjust = () => {
-        const {modalKey, modalParam} = this.state;
+        const {modalKey, modalParam, conditionData} = this.state;
         switch (modalKey) {
             case "block-format-edit":
-                return <BlockFormatEdit onHideModal={this.handleHideModal}/>;
+                return <BlockFormatEdit onHideModal={this.handleHideModal} conditionData={conditionData}/>;
             case "building-format-edit":
                 return <BuildingFormatEdit/>;
             default:
@@ -312,7 +317,6 @@ class Index extends Component {
      */
     renderEmpty = () => {
         const {loading} = this.state;
-        console.log("返回空视图");
         return (
             <div className="processBar">
                 <Spin size="large" spinning={loading}>

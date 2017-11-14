@@ -1,11 +1,13 @@
-import iss from '../js/iss';
+import iss from '../../Content/js/iss';
+
+const website = "http://192.168.10.164:8000";
 
 /**
  * 获取步骤
  */
 const getStep = (dataKey, mode) => {
     return iss.fetch({
-        url: "http://192.168.10.164:8000/Common/IGetStept",
+        url: website.concat("/Common/IGetStept"),
         type: "get",
         data: {
             ProjectStageId: dataKey,
@@ -25,7 +27,7 @@ const getStep = (dataKey, mode) => {
  */
 const getAreaList = (step, mode, versionId, descType = "Building") => {
     return iss.fetch({
-        url: "http://192.168.10.164:8000/AreaInfo/IGetAreaListInfo",
+        url: website.concat("/AreaInfo/IGetAreaListInfo"),
         type: "get",
         data: {
             step: step.code,
@@ -38,14 +40,10 @@ const getAreaList = (step, mode, versionId, descType = "Building") => {
 
 /**
  * 获取面积的规划方案指标
- * @param stepInfo
- * @param versionId
- * @param dataType
- * @returns {*}
  */
 const getAreaPlanQuota = (step, versionId, dataType = "Area") => {
     return iss.fetch({
-            url: "http://192.168.10.164:8000/AreaInfo/IGetAreaPlanInfo",
+            url: website.concat("/AreaInfo/IGetAreaPlanInfo"),
             type: "get",
             data: {
                 step: step.code,
@@ -56,15 +54,19 @@ const getAreaPlanQuota = (step, versionId, dataType = "Area") => {
     );
 };
 
-//创建版本
+/**
+ * 创建版本
+ */
 const createVersion = (stepInfo, dataKey, mode) => {
     return null;
 };
 
-//获取版本
+/**
+ * 获取版本
+ */
 const getVersion = (stepInfo, dataKey, mode) => {
     return iss.fetch({
-        url: "http://192.168.10.164:8000/Common/IGetVersionListByBusinessId",
+        url: website.concat("/Common/IGetVersionListByBusinessId"),
         type: "get",
         data: {
             ProjectStageId: dataKey,
@@ -75,8 +77,107 @@ const getVersion = (stepInfo, dataKey, mode) => {
     });
 };
 
+/**
+ * 保存版本
+ */
 const saveVersion = () => {
     return null;
+};
+
+/**
+ * 获取生成业态的条件
+ */
+const getCreateCondition = (stepInfo, dataKey, mode) => {
+    return iss.fetch({
+        url: website.concat("/AreaInfo/IGetSerchInfo"),
+        type: "get",
+        data: {
+            projectLevel: mode,
+            ProjectStageId: dataKey,
+            step: stepInfo.code,
+        },
+    })
+        .then(res => res.rows)
+        .then(({serchList}) => {
+            const result = {
+                land: [],//地块
+                residence: [],//住宅
+                commercial: [],//商办
+                business: [],//商业
+                parkAndSupport: [],//车位以及配套
+            };
+
+            const land = serchList.filter(item => item.typeCode === "land")[0];
+            const residence = serchList.filter(item => item.typeCode === "residence")[0];
+            const commercial = serchList.filter(item => item.typeCode === "commercial")[0];
+            const business = serchList.filter(item => item.typeCode === "business")[0];
+            const parkAndSupport = serchList.filter(item => item.typeCode === "parkandsupport")[0];
+            if (land && Array.isArray(land.typelist)) {
+                result.land = convertConditionData(land.typelist);
+            }
+            if (residence && Array.isArray(residence.typelist)) {
+                result.residence = convertConditionData(residence.typelist);
+            }
+            if (commercial && Array.isArray(commercial.typelist)) {
+                result.commercial = convertConditionData(commercial.typelist);
+            }
+            if (business && Array.isArray(business.typelist)) {
+                result.business = convertConditionData(business.typelist);
+            }
+            if (parkAndSupport && Array.isArray(parkAndSupport.typelist)) {
+                result.parkAndSupport = convertConditionData(parkAndSupport.typelist);
+            }
+
+            return result;
+        });
+};
+
+/**
+ *  转换条件数据
+ */
+const convertConditionData = (originalData) => {
+    return originalData.map(item => {
+        const obj = {
+            id: item["val"],
+            name: item["lable"],
+            children: [],
+        };
+        loadChildren(obj, item["children"]);
+        return obj;
+    });
+};
+
+/**
+ * 加载子集
+ */
+const loadChildren = (obj, children) => {
+    children.forEach(child => {
+        obj.children.push({
+            id: child["val"],
+            name: child["lable"],
+        });
+    });
+};
+
+
+/**
+ * 获取地块业态数据
+ */
+const getFormatData = () => {
+
+};
+/**
+ * 生成地块业态数据
+ */
+const createFormatData = () => {
+
+};
+
+/**
+ * 保存地块业态数据
+ */
+const saveFormatData = () => {
+
 };
 
 
@@ -87,4 +188,9 @@ export {
     createVersion,
     getVersion,
     saveVersion,
+    getCreateCondition,
+
+    getFormatData,
+    createFormatData,
+    saveFormatData,
 };

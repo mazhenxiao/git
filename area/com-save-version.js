@@ -30,7 +30,8 @@ class SaveVersion extends Component {
     render() {
         const {versionData, currentVersion} = this.props;
         return <div className="PosRight">
-            <button type="button" className="jh_btn jh_btn33 jh_btn_save Left">保存</button>
+        	<span className="areaUnit Left">（面积单位：㎡，车位单位：个，限高单位：米）</span>
+            <button type="button" className="jh_btn jh_btn28 jh_btn_save Left">保存</button>
             <div className="areaVeSel">
                 <WrapperSelect dataSource={versionData} labelText="当前版本" showDefault={false}
                                style={{width: "100px"}}

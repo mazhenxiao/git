@@ -631,8 +631,8 @@ class StagingInformation extends React.Component {
         th.setState({
             STAGENAME:name
         });
-        clearTimeout(th.time);
-        th.time = setTimeout(arg=>{
+        //clearTimeout(th.time);
+        //th.time = setTimeout(arg=>{
             iss.ajax({
                 type:"POST",
                 url:"/Stage/ICheckStageName",
@@ -652,7 +652,7 @@ class StagingInformation extends React.Component {
                 error:function (e) {
                 }
             });
-        },500);
+        //},500);
        
     }
     xmViewError(event){
@@ -770,7 +770,7 @@ class StagingInformation extends React.Component {
                                         <label className="formTableLabel boxSizing redFont">分期名称</label>
                                     </th>
                                     <td>
-                                        <input  onChange={this.BIND_CHECKPROJECTNAME.bind(this)} id="STAGENAME" value={this.state.STAGENAME||""} className="inputTextBox boxSizing stage-validatebox" type="text" maxLength="20" />
+                                        <input  onBlur={this.BIND_CHECKPROJECTNAME.bind(this)} onChange={this.handleInputTextChange.bind(this)} id="STAGENAME" value={this.state.STAGENAME||""} className="inputTextBox boxSizing stage-validatebox" type="text" maxLength="20" />
                                     </td>
                                 </tr>
                                 <tr>
