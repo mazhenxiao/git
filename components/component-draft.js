@@ -17,8 +17,6 @@ class Draft extends React.Component {
     componentWillMount() {
         this.getAjax();
     }
-
-
     EVENT_CLICK_PROJECTNAME(da) {
 
       /*  let search = ""

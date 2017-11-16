@@ -51,11 +51,20 @@ class Agenty extends React.Component {
         		search="?"+pageUrlArr[1];
         	}else{
         		switch(da.ENTIID){
-	                case iss.getEVal("newProjectStatus"):search=`?e=${da.ENTIID}&dataKey=${da.RUNTRECORDID}&current=ProcessApprover`;break; //项目
-	                case iss.getEVal("intallmentStatus"):search=`?e=${da.ENTIID}&dataKey=${da.RUNTRECORDID}&current=ProcessApprover`;break; //分期
-	            }
+	                case iss.getEVal("newProjectStatus"):
+	                	search=`?e=${da.ENTIID}&dataKey=${da.RUNTRECORDID}&current=ProcessApprover`;
+	                	break;
+	                case iss.getEVal("intallmentStatus"):
+	                	search=`?e=${da.ENTIID}&dataKey=${da.RUNTRECORDID}&current=ProcessApprover`;
+	                	break;
+	                default:
+	                	search="";
+	           }
         	}
-            
+            if(search==""){
+	        	iss.popover({ content: "此条数据异常，请联系后台工作人员！" });
+	        	return false;
+	        }
             iss.hashHistory.push({ 
                 pathname: "/ProcessApprover",
                 search:search

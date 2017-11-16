@@ -1,6 +1,6 @@
 webpackJsonp([26],{
 
-/***/ 1538:
+/***/ 1498:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12,142 +12,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(15);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(35);
+__webpack_require__(58);
 
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-__webpack_require__(25);
-
-__webpack_require__(30);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-/**
- * 首页导航条
- * index  identity  supply  所需
- */
-
-
-//兼容ie
-
-var IndexTab = function (_React$Component) {
-    _inherits(IndexTab, _React$Component);
-
-    function IndexTab(arg) {
-        _classCallCheck(this, IndexTab);
-
-        var _this = _possibleConstructorReturn(this, (IndexTab.__proto__ || Object.getPrototypeOf(IndexTab)).call(this, arg));
-
-        _this.bindTab();
-        _this.state = {
-            data: [{ "guid": "1", "text": "项目概览", "tap": "index" }]
-        };
-        return _this;
-    }
-
-    _createClass(IndexTab, [{
-        key: 'bindTab',
-        value: function bindTab(prop) {
-            $(".JH-Content").removeClass("CLASS_AGENTY");
-            // ReactDOM.render(<ToolsTtab parent={prop}/>,document.querySelector("#React-tools-tab"));
-        }
-        /* 事件 */
-
-    }, {
-        key: 'Event_click',
-        value: function Event_click(data, ev) {
-            var el = $(ev.target);
-            el.parent().find("li").removeClass("active");
-            setTimeout(function () {
-                el.addClass("active");
-            });
-            switch (data) {
-                case "index":
-                    iss.hashHistory.push("index", { "state": "001" });break;
-                case "identity":
-                    iss.hashHistory.push("identity", { "state": "002" });break;
-                case "supply":
-                    iss.hashHistory.push("supply", { "state": "002" });break;
-            }
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var th = this,
-                current = this.props.parent.location.pathname;
-            var th;
-            var list = this.state.data.map(function (da, ind) {
-
-                if (current.indexOf(da.tap) >= 0) {
-                    return _react2.default.createElement(
-                        'li',
-                        { key: ind, className: 'J-List active', onClick: th.Event_click.bind(th, da.tap) },
-                        da.text
-                    );
-                } else {
-                    return _react2.default.createElement(
-                        'li',
-                        { key: ind, className: 'J-List', onClick: th.Event_click.bind(th, da.tap) },
-                        da.text
-                    );
-                }
-            });
-            return _react2.default.createElement(
-                'header',
-                { className: 'JH-HeadTab' },
-                _react2.default.createElement(
-                    'ul',
-                    { className: 'JH-HeadList' },
-                    list
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'JH-RightFlot' },
-                    _react2.default.createElement(
-                        'a',
-                        { className: 'btn-refish', href: 'javascript:;' },
-                        '\u5237\u65B0'
-                    )
-                )
-            );
-        }
-    }]);
-
-    return IndexTab;
-}(_react2.default.Component);
-
-exports.default = IndexTab;
-
-/***/ }),
-
-/***/ 595:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(15);
-
-var _react2 = _interopRequireDefault(_react);
-
-__webpack_require__(30);
-
-var _toolsIndexTab = __webpack_require__(1538);
+var _toolsIndexTab = __webpack_require__(1539);
 
 var _toolsIndexTab2 = _interopRequireDefault(_toolsIndexTab);
 
@@ -365,6 +236,135 @@ var supply = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = supply;
+
+/***/ }),
+
+/***/ 1539:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(12);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+__webpack_require__(52);
+
+__webpack_require__(58);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/**
+ * 首页导航条
+ * index  identity  supply  所需
+ */
+
+
+//兼容ie
+
+var IndexTab = function (_React$Component) {
+    _inherits(IndexTab, _React$Component);
+
+    function IndexTab(arg) {
+        _classCallCheck(this, IndexTab);
+
+        var _this = _possibleConstructorReturn(this, (IndexTab.__proto__ || Object.getPrototypeOf(IndexTab)).call(this, arg));
+
+        _this.bindTab();
+        _this.state = {
+            data: [{ "guid": "1", "text": "项目概览", "tap": "index" }]
+        };
+        return _this;
+    }
+
+    _createClass(IndexTab, [{
+        key: 'bindTab',
+        value: function bindTab(prop) {
+            $(".JH-Content").removeClass("CLASS_AGENTY");
+            // ReactDOM.render(<ToolsTtab parent={prop}/>,document.querySelector("#React-tools-tab"));
+        }
+        /* 事件 */
+
+    }, {
+        key: 'Event_click',
+        value: function Event_click(data, ev) {
+            var el = $(ev.target);
+            el.parent().find("li").removeClass("active");
+            setTimeout(function () {
+                el.addClass("active");
+            });
+            switch (data) {
+                case "index":
+                    iss.hashHistory.push("index", { "state": "001" });break;
+                case "identity":
+                    iss.hashHistory.push("identity", { "state": "002" });break;
+                case "supply":
+                    iss.hashHistory.push("supply", { "state": "002" });break;
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var th = this,
+                current = this.props.parent.location.pathname;
+            var th;
+            var list = this.state.data.map(function (da, ind) {
+
+                if (current.indexOf(da.tap) >= 0) {
+                    return _react2.default.createElement(
+                        'li',
+                        { key: ind, className: 'J-List active', onClick: th.Event_click.bind(th, da.tap) },
+                        da.text
+                    );
+                } else {
+                    return _react2.default.createElement(
+                        'li',
+                        { key: ind, className: 'J-List', onClick: th.Event_click.bind(th, da.tap) },
+                        da.text
+                    );
+                }
+            });
+            return _react2.default.createElement(
+                'header',
+                { className: 'JH-HeadTab' },
+                _react2.default.createElement(
+                    'ul',
+                    { className: 'JH-HeadList' },
+                    list
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'JH-RightFlot' },
+                    _react2.default.createElement(
+                        'a',
+                        { className: 'btn-refish', href: 'javascript:;' },
+                        '\u5237\u65B0'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return IndexTab;
+}(_react2.default.Component);
+
+exports.default = IndexTab;
 
 /***/ })
 

@@ -718,7 +718,8 @@ a:hover {
   width: 100%;
   box-sizing: border-box;
 }
-.formTable td #GROUPNUMBER {
+.formTable td #GROUPNUMBER,
+.formTable td #PUSHPLATENUMBER {
   width: 22%;
   margin-right: 10px;
   text-align: center;

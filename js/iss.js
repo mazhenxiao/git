@@ -1,5 +1,7 @@
+import { message, notification } from 'antd';
 import "babel-polyfill";  //兼容ie  
 import 'whatwg-fetch';//兼容ie fetch
+require("../../Content/css/antd.min.css");
 class $iss {
     constructor() {
         this.pagination();
@@ -8,8 +10,8 @@ class $iss {
         this.userInfo = userInfo ? eval(`(${userInfo})`) : "";//用户信息，在main.js中ajax获取
         this.mapEUrl = "";/*标记总图地址*/
     }
-    url(arg){
-        return "http://192.168.10.164:8000/"+(arg||"")
+    url(arg) {
+        return "http://192.168.10.164:8000/" + (arg || "")
     }
     pagination() {
         $.extend($.fn.pagination.defaults, {
@@ -34,13 +36,13 @@ class $iss {
         };
         return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
     }
- 
-    fetch(opt) { 
+
+    fetch(opt) {
         const { url, ...params } = opt;
         let requestInfo = {
             method: opt["type"] ? opt.type : 'POST',
             mode: 'cors',
-            cache: 'default',
+            cache: 'no-cache',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -49,10 +51,10 @@ class $iss {
         let _URL = url;
         if (params) {
             let _data = JSON.stringify(params["data"] || {});
+            let str = _data.replace(/[{}]/ig, "").replace(/:/ig, "=").replace(/\,/ig, "&").replace(/\"/ig, "");
             if (requestInfo.method.toLocaleLowerCase() == "post") {
-                requestInfo.body = _data
+                requestInfo.body = str
             } else {
-                let str = _data.replace(/[{}]/ig, "").replace(/:/ig, "=").replace(/\,/ig, "&").replace(/\"/ig,"");
                 _URL = url.indexOf("?") >= 0 ? url + "&" + str : url + "?" + str;
             }
 
@@ -60,30 +62,45 @@ class $iss {
 
         return fetch(_URL, requestInfo)
             .then(res => {
-            
+
                 return res.json()
                     .catch(arg => {
-                        iss.popover({content:"提交服务器失败！"})
+                        iss.tip({
+                            type:"error",
+                            message:"服务器错误",
+                            description:`${_URL}接口错误！`
+                        })
+                        //iss.popover({ content: "提交服务器失败！" })
                         //return arg;
-                       return Promise.reject({errorcode:"444",data:requestInfo,message:"提交服务器错误"});
+                        return Promise.reject({ errorcode: "444", data: requestInfo, message: `服务器错误`, url: _URL });
                     });
             })
-            .then(res=>{
-                if (res["errorcode"] &&res.errorcode == "200") {
+            .then(res => {
+                if (res["errorcode"] && res.errorcode == "200") {
                     return res;
-                }else if(res["errorcode"] &&res.errorcode == "302"){
-                    iss.popover({content:"登陆超时请重新登陆！"});
+                } else if (res["errorcode"] && res.errorcode == "302") {
+                   // iss.popover({ content: "登陆超时请重新登陆！" });
+                   iss.tip({
+                    type:"error",
+                    message:"登陆超时",
+                    description:`登陆超时请重新登陆！`
+                })
                     top.window.location.href = "/account/Login";
-                }else if(res["errorcode"]&&res["errorcode"] == "300"){
-                    iss.popover({content:"操作失败，请联系后台工作人员！"});
+                } else if (res["errorcode"] && res["errorcode"] == "300") {
+                    iss.tip({
+                        type:"error",
+                        message:"服务器错误",
+                        description:`操作失败，请联系后台工作人员！`
+                    })
+                    //iss.popover({ content: "操作失败，请联系后台工作人员！" });
                     return Promise.reject(res);
-                }else{
+                } else {
                     return Promise.reject(res);
                 }
             })
             .catch(arg => {
                 //console.log(arg);
-                
+
                 return Promise.reject(arg);
             })
     }
@@ -596,7 +613,50 @@ class $iss {
         });
 
     }
+    /** sucess,error,error,warning,warn,
+     * iss.message({
+	    type:"sucess", //类型
+        content:"内容", //内容
+        onClose(){}  //关闭事件
+        })
+     */
+    message = (opt) => {
+        let _opt = {
+            content: "",
+            duration: 1,
+            onClose() { },
+            type: "sucess",
+            ...opt
+        }
+        let { content, duration, onClose, type } = opt,
+            TYPE = "success",
+            str = "success,error,info,warning,warn,loading";
+        type = type == "2" ? "success" : "error";
+        TYPE = new RegExp(type).exec(str) || TYPE;
+        message[TYPE](content, duration, onClose);
+        return
+    }
+    /**sucess,error,error,warning,warn
+     * iss.tip({
+        message:"提示消息",  //标题
+        description:"消息内容", //内容
+        onClose(){ alert(1)}   //关闭
+        })
+     */
+    tip = (opt) => {
+        let _opt = {
+            message: "提示",
+            description: "",
+            onClose() { }, //关闭提价
+            ...opt
+        },
+            TYPE = "success",
+            str = "success,error,info,warning,warn,loading";
+        TYPE = new RegExp(opt["type"] || "success").exec(str) || TYPE;
+        notification[TYPE](_opt)
+    }
     popover(opt) {
+
         var red = "rgba(218, 79, 61, 0.9)", green = "rgba(0,230,255,0.9)";
         var obj = {
             type: opt["type"] ? opt["type"] == 2 ? green : red : red,
@@ -827,7 +887,7 @@ class $iss {
 }
 
 //let iss = window["iss"] = 
-let iss =window["iss"]= new $iss();
+let iss = window["iss"] = new $iss();
 $(function () {
     iss.getEUrl();
 });

@@ -35,7 +35,7 @@ class ProcessApproval extends React.Component {
         let th = this;
         return <section className="ProcessApproval">
             <ProcessApprovalTab  id={th.props.location.query["e"]} current="ProcessApprover" allSearchArg={th.state.allSearchArg}  />
-            <h3>审批流程</h3>
+            <h3 className="boxGroupTit"><p><span>审批流程</span></p></h3>
             <article>
                 <div className="mgT10">
                     <ApprovalControlNode2 guid={th.state.guid}  allSearchArg={th.state.allSearchArg} callback={th.evSetRemarkTxt.bind(th)}/>

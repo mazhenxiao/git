@@ -226,6 +226,8 @@ class NewProject extends React.Component {
     SET_PARENTCOUNT(list, d) {  //地块计算
         let da = {};
         let data = list.forEach((el, ind) => {
+            let numreg = (/number\((\d+)\)/).exec(el.regExp||"");
+            let fixed = numreg? numreg[1]:"";
             for (var i in d.parent) {
                 if (el.id == i) {
                     let exec = el.exec;
@@ -237,7 +239,8 @@ class NewProject extends React.Component {
                             exec = exec.replace(regs,parseFloat(el.child[ee.replace(/[{}]/ig, "")].val||0))
                         });
                         let _exec = eval(exec)||0;
-                        el.val = _exec==Infinity? "0":_exec.String();
+                        if(fixed){_exec = parseFloat(_exec).toFixed(fixed)}
+                        el.val = _exec==Infinity? "0":_exec;
                         return;
                     }
 
@@ -380,6 +383,8 @@ class NewProject extends React.Component {
         da.forEach((el, ind) => {
             let reg = /\{.*?\}[\+\-\*\/]/, regcount = /\{.*?\}/ig, arr = regcount.exec(el.exec || ""), list = th.state.DynamicData;
             let reg2 = /\<.*?\>[\+\-\*\/]/, regcount2 = /\<.*?\>/ig, arr2 = el.exec.match(regcount2), list2 = th.state.CountData;
+            let numreg = (/number\((\d+)\)/).exec(el.regExp||"");
+            let  fixed = numreg? numreg[1]:"";
             if (el.exec && !reg.exec(el.exec)) {
                 if (arr && arr[0]) {
                     let _id = arr[0].replace(/[{}]/ig, ""), _str = [];
@@ -393,7 +398,8 @@ class NewProject extends React.Component {
 
                     }
                     let n_n = eval(_str.join("+"))||0;
-                    el.val = n_n == Infinity ? 0 : n_n.String();
+                    if(fixed){n_n = parseFloat(n_n).toFixed(fixed)}
+                    el.val = n_n == Infinity ? 0 : n_n;
                     return;
                 } else if (el.exec && reg2.exec(el.exec)) {
                     let str = el.exec, nums = 0;
@@ -405,8 +411,9 @@ class NewProject extends React.Component {
                             }
                         })
                     });
-                    let _n_n_ = eval(str)||0;
-                    el.val = (_n_n_ == Infinity || !_n_n_) ? 0 : _n_n_.String();
+                    let _n_n_ = eval(str)||0; 
+                    if(fixed){_n_n_ = parseFloat(_n_n_).toFixed(fixed)}
+                    el.val = (_n_n_ == Infinity || !_n_n_) ? 0 : _n_n_;
                     return
                 }
             }

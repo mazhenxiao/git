@@ -50,7 +50,7 @@ class ProcessApproval extends React.Component {
         let th = this;
         return <section className="ProcessApproval">
             <ProcessApprovalTab   allSearchArg={th.state.allSearchArg} current="ProcessApproval" />
-            <h3>审批流程</h3>
+            <h3 className="boxGroupTit"><p><span>审批流程</span></p></h3>
             <article>
                 <table className="table PATextarea" width="100%">
                     <tbody>

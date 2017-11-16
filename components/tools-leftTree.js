@@ -233,7 +233,7 @@ class ToolsTree extends React.Component {
                             success(res) {
                                 
                                 if(res.rows==true){
-                                    iss.popover({ content: "删除成功！" });
+                                    iss.popover({ content: "删除成功！",type:2 });
                                     iss.hashHistory.replace("/index");
                                     $(window).trigger("treeLoad");
                                 }else{
@@ -275,7 +275,7 @@ class ToolsTree extends React.Component {
                             success(res) {
                                 
                                 if(res.errorcode==200){
-                                    iss.popover({ content: "删除成功！" });
+                                    iss.popover({ content: "删除成功！",type:2});
                                     iss.hashHistory.replace("/index");
                                     $(window).trigger("treeLoad");
                                 }else{

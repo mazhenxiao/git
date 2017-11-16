@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import "../js/iss.js";
 import "babel-polyfill";  //兼容ie
 import GroupIframe from "./component-stagingInformation-groupIframe.js";
-//import PlateIframe from "./component-stagingInformation-plateIframe.js";
+import PlateIframe from "./component-stagingInformation-plateIframe.js";
 // import Abc from "xxx.js";
       
 class StagingInformation extends React.Component {
@@ -29,7 +29,8 @@ class StagingInformation extends React.Component {
 	        "PRINCIPALNAME":"",
 	        "PRINCIPAL":"",
 	        "ID":"",
-	        "GROUPNUMBER":"",
+            "GROUPNUMBER":"",
+            "PUSHPLATENUMBER":"",
 	        "STAGECREATEDATE":"1900-01-01T00:00:00",
 	        "STAGEUPDATEDATE":"1900-01-01T00:00:00",
 	        "STARTDATE":"1900-01-01T00:00:00",
@@ -48,6 +49,7 @@ class StagingInformation extends React.Component {
 
         this.tiem="";
         this.grupInfo=[];//组团数据  
+        this.plateInfo = []//推盘数据
     }
     /*获取分期信息*/
     getAjax(callback){
@@ -104,10 +106,11 @@ class StagingInformation extends React.Component {
                     "PRINCIPALNAME":baseformInfo.PRINCIPALNAME,
                     "PRINCIPAL":baseformInfo.PRINCIPAL,
                     "GROUPNUMBER":baseformInfo.GROUPNUMBER||0,
+                    "PUSHPLATENUMBER":baseformInfo.PUSHPLATENUMBER||0,
                     "STAGESELFPRODUCTS":baseformInfo.STAGESELFPRODUCTS,
                     "CITYID":baseformInfo.CITYID,/*城市id*/
-						        "CITYNAME":baseformInfo.CITYNAME,/*城市name*/
-						        "AREAID":baseformInfo.AREAID,/*区域id*/
+                    "CITYNAME":baseformInfo.CITYNAME,/*城市name*/
+                    "AREAID":baseformInfo.AREAID,/*区域id*/
                     "AREANAME":baseformInfo.AREANAME,/*区域name*/
                     "ISINITDATA":baseformInfo.ISINITDATA,/*判断否是历史分期 返回1 为历史项目*/
 
@@ -152,7 +155,7 @@ class StagingInformation extends React.Component {
     }
     //推盘划分
     BIND_OPENPlateIframe(){
-        var th=this,data = this.grupInfo;
+        var th=this,data = this.plateInfo;
         let status = th.props.status;
         if(status=="add"){
         		iss.popover({ content: "请先暂存分期信息"});
@@ -165,58 +168,61 @@ class StagingInformation extends React.Component {
             content:`<div id="PlateIframeBox"></div>`,
             okVal:"确定",
             ok(da){
+                //console.log(th.plateInfo.state.dataList)
                 var stageversionid = th.state.STAGEVERSIONID,
-                    newGroup = [],
-                    buildingGroupMapping = [],
+                    newPushPlate = [],
+                    buildingPushPlateMapping = [],
                     valueNumber=[],
-                    deleteGroup=[],
-                    newGroupNumber=[];
-                th.grupInfo.state.dataList.map((el,ind) =>{
+                    deletePushPlate=[],
+                    newPushPlateNumber=[];
+                th.plateInfo.state.dataList.map((el,ind) =>{
                     if(el.delete == 'del'){
-                        if(deleteGroup.indexOf(el.groupId) == -1){
-                            deleteGroup.push(el.groupId)
-                            el.groupId = null;
+                        if(deletePushPlate.indexOf(el.pushPlateId) == -1 && el.pushPlateId != null){
+                            deletePushPlate.push(el.pushPlateId)
+                            el.pushPlateId = null;
                         }
                     }
-                    if(el.groupId != null && el.groupnumber != 0){
+                    if(el.pushPlateId != null && el.pushPlateNumber != 0){
                         var nGn = {
-                            "key":el.groupId,
-                            "value":el.groupnumber
+                            "key":el.pushPlateId,
+                            "value":el.pushPlateNumber
                         }
-                        newGroupNumber.push(nGn)
+                        newPushPlateNumber.push(nGn)
+                    }
+                    
+                    if(el.delete == null){
+                        var oldG = {
+                            "key": el.buildingId,
+                            "value": el.pushPlateId
+                        }
+                        buildingPushPlateMapping.push(oldG)
                     }
                     
                     
-                    if(el.current == "new"){
-                        var newG = {
-                            "key": el.groupId,
-                            "value": el.groupnumber
+                    if(valueNumber.indexOf(el.pushPlateNumber) == -1){
+                        valueNumber.push(el.pushPlateNumber)
+                        if(el.current == "new" && el.pushPlateNumber != 0){
+                            var newG = {
+                                "key": el.pushPlateId,
+                                "value": el.pushPlateNumber
+                            }
+                            newPushPlate.push(newG)
                         }
-                        newGroup.push(newG)
-                    }
-                    var oldG = {
-                        "key": el.buildingId,
-                        "value": el.groupId
-                    }
-                    buildingGroupMapping.push(oldG)
-                    if(valueNumber.indexOf(el.groupnumber) == -1){
-                        valueNumber.push(el.groupnumber)
                     }
                 })
                 let json = {
                     "stageversionid":stageversionid,
-                    "newGroup":newGroup,
-                    "buildingGroupMapping":buildingGroupMapping,
-                    "deleteGroup":deleteGroup,
-                    "newGroupNumber":newGroupNumber
+                    "newPushPlate":newPushPlate,
+                    "buildingPushPlateMapping":buildingPushPlateMapping,
+                    "deletePushPlate":deletePushPlate,
+                    "newPushPlateNumber":newPushPlateNumber
                 }
-                //console.log(json)
                 iss.ajax({
-                    url: "/Stage/ISaveGroupBuildingMapping",
+                    url: "/Stage/ISavePushPlateMapping",
                     data:json,
                     success(data) {
                         th.setState({
-                            "GROUPNUMBER":Math.max.apply(null, valueNumber)
+                            "PUSHPLATENUMBER":Math.max.apply(null, valueNumber)
                         })
                     },
                     error() {
@@ -225,7 +231,7 @@ class StagingInformation extends React.Component {
                 })
             }
         })
-        ReactDOM.render(<PlateIframe  data={data} callback={th.GroupIframeCallback.bind(this)}  versionId = {th.state.STAGEVERSIONID} />,document.querySelector("#PlateIframeBox"));
+        ReactDOM.render(<PlateIframe  data={data} callback={th.PlateIframeCallback.bind(this)}  versionId = {th.state.STAGEVERSIONID} />,document.querySelector("#PlateIframeBox"));
     }
     
     //组团划分
@@ -307,6 +313,9 @@ class StagingInformation extends React.Component {
     }
     GroupIframeCallback(da){
         this.grupInfo=da;
+    }
+    PlateIframeCallback(da){
+        this.plateInfo=da;
     }
     BIND_CHECK_INPUT(name){ //检查非法查询
         var reg = /[^\u4e00-\u9fa5\w\d\_\-]/ig;
@@ -440,9 +449,9 @@ class StagingInformation extends React.Component {
         var th = this;
         let target = e.target.id;
         //console.log(len);
-        if(this.BIND_CHECK_INPUT(e.target.value)){ //检查特殊字符
+      /*   if(this.BIND_CHECK_INPUT(e.target.value)){ //检查特殊字符
             return
-        }
+        } */
         if(e.target.getAttribute("data-type")&&e.target.getAttribute("data-type").indexOf("number")>=0){
             var max = e.target.getAttribute("data-max")||"",min=e.target.getAttribute("data-max")||"",
                 numreg = /^[1-9]\d*$/ig;
@@ -455,7 +464,7 @@ class StagingInformation extends React.Component {
                 }
         }
          this.setState({
-           [target]: target=="GROUPNUMBER"? (e.target.value||0):e.target.value // 将表单元素的值的变化映射到state中
+           [target]: target=="GROUPNUMBER"? (e.target.value.trim()||0):e.target.value.trim(), // 将表单元素的值的变化映射到state中
          },()=>{
             //console.log(th.state[target]) 
             th.BIND_CHANGE_DATA(this.state)
@@ -904,6 +913,15 @@ class StagingInformation extends React.Component {
                                         </th>
 								    	<td>
                                         <button type="button" onClick={this.BIND_EditPushPlate.bind(this)} className="btn btnStyle uploadIconBtn">标记推盘批次</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label className="formTableLabel boxSizing redFont">推盘批次</label>
+                                        </th>
+                                        <td>
+                                            <input data-type="number" readOnly="true" disabled="disabled" data-max="10" data-min="1" id="PUSHPLATENUMBER" value={this.state.PUSHPLATENUMBER||1} className="inputTextBox boxSizing stage-validatebox" type="text" maxLength="4" />
+                                            <input onClick={this.BIND_OPENPlateIframe.bind(this)} className='btn btnStyle uploadIconBtn' value='推盘划分' type='button' />  
                                         </td>
                                     </tr>
                             </tbody>

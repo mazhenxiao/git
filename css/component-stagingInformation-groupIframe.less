@@ -8,13 +8,21 @@
     padding: 2px 3px;
     border: #204d74 1px solid;
     color: #fff;
+    &:nth-child(1){
+        margin-right: 10px;
+    }
 }
 
 .groupList{
     height: 214px;
 }
+.plateName ul li span{
+    position: absolute;
+    right: -9px;
+    top: 0px;
+}
 .groupName{
-    width: 100px;
+    width: 20%;
     float: left;
     border-right:solid 1px #eee;
     height: 214px;
@@ -78,15 +86,25 @@
     }
 }
 .groupFloor{
-    width: 398px;
+    width: 80%;
     height: 100%;
     float: left;
     li{
         float: left;
-        width:20%;
-        position: relative;
-        padding-left:30px;
-        line-height: 40px;  
+        width:15%;
+        position: relative; 
+        height: 30px;
+        margin-top:8px;
+        margin-left: 15px;
+        border: #eee 1px solid;
+        .buildingName{
+            z-index: 999;
+            position: absolute;
+            top:3px;
+            left: 28%;
+            font-size: 14px;
+            font-weight: normal;
+        }
     }
 }
 .clear{
@@ -95,30 +113,41 @@
 
 .toggle-checkbox input[type=checkbox]:checked + .track .icon{
   display: block; }
-
+//   .toggle-checkbox input[type=checkbox]:checked + .track + .buildingName{
+//     color: #fff }
 .toggle-checkbox input[type=checkbox] {
 display: none; }
 
+
+//方案一
 .toggle-checkbox .track .icon {
-width: 10px;
-height: 6px;
-display: none;
-margin-left: 2px;
-margin-top: 3px;
-border-left: 2px solid #666;
-border-bottom: 2px solid #666;
-transform: rotate(-45deg); 
+    position: absolute;
+    top: 0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background: rgb(177, 247, 127);
+    z-index: 2;
 }
 
 .toggle-checkbox .track {
     position: absolute;
-    top:11px;
-    left: 10px;
-    width: 16px;
-    height: 16px;
-    display: inline-block;
-    overflow: hidden;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    box-sizing: border-box; 
+    top: 0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+//
+.Promptinfo{
+    padding-left: 30px;
+    padding-right: 50px;
+    font-size: 16px;
+    &:nth-child(1){
+        padding-top: 100px;
+    }
+    &:nth-child(2){
+        padding-left: 110px;
+    }
 }

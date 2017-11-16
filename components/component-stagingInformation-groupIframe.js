@@ -142,11 +142,12 @@ class GroupIframe extends React.Component{
     }
 
     //复选框
-    inputChange(ind,ev){
+    inputChange(ind,el,ev){
+   
         const target = ev.target;
         var th = this,
             domType = target.type === 'checkbox' ? target.checked : target.value,
-            text = target.parentNode.innerText,
+            text = el.buildingName, //target.parentNode.innerText,
             brr = th.state.dataList,
             newBr = [];
         var n = th.state.index,idN = 0;
@@ -215,25 +216,27 @@ class GroupIframe extends React.Component{
                 if(id == th.state.index && null!=el.buildingName && id != 0){
                     
                     return <li key={ind} className='toggle-checkbox'>
-                                <input type="checkbox" checked={true} id={"check"+ind} onChange={this.inputChange.bind(this,el)} />
+                                <input type="checkbox" checked={true} id={"check"+ind} onChange={this.inputChange.bind(this,ind,el)} />
                                 <label className="track" htmlFor={"check"+ind}>
+                                <span className="buildingName">{el.buildingName}</span>
                                     <span className="icon"></span>
                                 </label>
-                                {el.buildingName}
+                                
                         </li>
                 }else if(id == 0 && null!=el.buildingName){
 
                     if(th.state.index == 0){
                         return <li key={ind}>
-                                    {el.buildingName}
+                                    <span className="buildingName">{el.buildingName}</span>
                             </li>
                     }else{
                         return <li key={ind} className='toggle-checkbox'>
-                                    <input type="checkbox" id={"check"+ind} checked={false} onChange={this.inputChange.bind(this,ind)} />
+                                    <input type="checkbox" id={"check"+ind} checked={false} onChange={this.inputChange.bind(this,ind,el)} />
                                     <label className="track" htmlFor={"check"+ind}>
                                         <span className="icon"></span>
+                                        <span className="buildingName">{el.buildingName}</span>
                                     </label>
-                                    {el.buildingName}
+                                    
                             </li>
                     }
                     

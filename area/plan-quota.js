@@ -28,7 +28,7 @@ class PlanQuota extends Component {
         let data = nextProps.planData.map(arg=>{
             
                 arg["valueId"]=iss.guid();
-                arg["edit"]="+w";
+                arg["edit"]="+m";
               //  console.log(arg);
                 return arg;
             });

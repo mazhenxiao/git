@@ -1,26 +1,26 @@
 webpackJsonp([31],{
 
-/***/ 587:
+/***/ 1490:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _react = __webpack_require__(15);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(35);
+var _reactDom = __webpack_require__(12);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-__webpack_require__(30);
+__webpack_require__(58);
 
-var _iss = __webpack_require__(25);
+var _iss = __webpack_require__(52);
 
 var _iss2 = _interopRequireDefault(_iss);
 
-var _router = __webpack_require__(588);
+var _router = __webpack_require__(1491);
 
 var _router2 = _interopRequireDefault(_router);
 
@@ -44,7 +44,7 @@ new Openmain();
 
 /***/ }),
 
-/***/ 588:
+/***/ 1491:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54,19 +54,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(15);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(35);
+var _reactDom = __webpack_require__(12);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouter = __webpack_require__(158);
+var _reactRouter = __webpack_require__(305);
 
-__webpack_require__(30);
+__webpack_require__(58);
 
-var _iss = __webpack_require__(25);
+var _iss = __webpack_require__(52);
 
 var _iss2 = _interopRequireDefault(_iss);
 
@@ -80,8 +80,8 @@ var rootRout = {
   childRoutes: [{
     path: "/peripheral",
     getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(20).then((function (require) {
-        var peripheral = __webpack_require__(617); //============================首页
+      __webpack_require__.e/* require.ensure */(21).then((function (require) {
+        var peripheral = __webpack_require__(1520); //============================首页
         callback(null, peripheral.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -92,4 +92,4 @@ exports.default = rootRout;
 
 /***/ })
 
-},[587]);
+},[1490]);

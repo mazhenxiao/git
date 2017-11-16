@@ -38,10 +38,20 @@ class Apply extends React.Component {
             });
             $(".JH-Content").removeClass("CLASS_AGENTY");
         }else{
-            switch (da.entiid) {
-                case iss.getEVal("newProjectStatus"): search = `?e=${da.entiid}&dataKey=${da.runtrecordid}&current=ProcessApprover`; break; //项目
-                case iss.getEVal("intallmentStatus"): search = `?e=${da.entiid}&dataKey=${da.runtrecordid}&current=ProcessApprover`; break; //分歧
+            switch(da.entiid) {
+                case iss.getEVal("newProjectStatus"): 
+                	search = `?e=${da.entiid}&dataKey=${da.runtrecordid}&current=ProcessApprover`; 
+                	break;
+                case iss.getEVal("intallmentStatus"): 
+                	search = `?e=${da.entiid}&dataKey=${da.runtrecordid}&current=ProcessApprover`; 
+                	break;
+                default:
+                	search="";
             }
+            if(search==""){
+	        	iss.popover({ content: "此条数据异常，请联系后台工作人员！" });
+	        	return false;
+	        }
             iss.hashHistory.push({
                 pathname: "/ProcessApprover",
                 search: search

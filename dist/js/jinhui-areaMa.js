@@ -1,6 +1,226 @@
 webpackJsonp([30],{
 
-/***/ 167:
+/***/ 1488:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); //兼容ie
+//公共类
+//路由
+//头部
+
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(12);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+__webpack_require__(58);
+
+var _iss = __webpack_require__(52);
+
+var _iss2 = _interopRequireDefault(_iss);
+
+var _routerArea = __webpack_require__(1489);
+
+var _routerArea2 = _interopRequireDefault(_routerArea);
+
+var _toolsList = __webpack_require__(314);
+
+var _toolsList2 = _interopRequireDefault(_toolsList);
+
+var _toolsLeftTree = __webpack_require__(315);
+
+var _toolsLeftTree2 = _interopRequireDefault(_toolsLeftTree);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+//左侧树形
+/* 公共页面js */
+var AreaMa = function () {
+  function AreaMa() {
+    _classCallCheck(this, AreaMa);
+
+    var th = this;
+    !_iss2.default.userInfo && this.getUser(); //如果用户从没登陆过则ajax获取用户信息
+    this.TransHeight();
+    this.bindScroll();
+    this.bingBar();
+    //document.addEventListener("fullscreenchange",th.TransHeight,false);
+    // document.addEventListener("mozfullscreenchange",th.TransHeight,false);
+    // document.addEventListener("msfullscreenchange",th.TransHeight,false);
+    window.onresize = this.TransHeight;
+  }
+
+  _createClass(AreaMa, [{
+    key: 'getUser',
+    value: function getUser() {
+      //获取登陆信息
+
+      _iss2.default.ajax({
+        url: "/Account/IGetUserInfo",
+        success: function success(da) {
+          _iss2.default.userInfo = da; //获取数据
+          sessionStorage.setItem("userInfo", JSON.stringify(da)); //存入session
+        }
+      });
+    }
+  }, {
+    key: 'TransHeight',
+    value: function TransHeight() {
+      var JH_Nav = document.querySelector(".JH-Nav"),
+          JH_Content = document.querySelector(".JH-Content"),
+          h = 640;
+      var rh = JH_Content.offsetHeight,
+          lh = JH_Nav.offsetHeight,
+          $wh = Math.max(document.body.clientHeight, document.documentElement.clientHeight) - 60;
+      var $h = Math.max(rh, lh, $wh, 640);
+      JH_Nav.style.minHeight = $h + "px";
+      JH_Content.style.minHeight = $h - 10 + "px";
+    }
+  }, {
+    key: 'bindScroll',
+    value: function bindScroll() {
+      var JHNav = $(".JH-Nav"),
+          win = $(window),
+          bs = $(".icon-bar");
+      window.onscroll = function (ev) {
+        var top = win.scrollTop(),
+            left = win.scrollLeft(),
+            icons = $(".icon-bar");
+
+        if (top >= 60) {
+          /*如果左侧树，处于隐藏状态，则不固定*/
+          if (JHNav.hasClass("active")) return false;
+          JHNav.addClass("fixed");
+        } else {
+          JHNav.removeClass("fixed");
+        }
+      };
+    }
+  }, {
+    key: 'bingBar',
+    value: function bingBar() {
+      var cont = $(".JH-RightBox"),
+          icons = $(".icon-bar");
+      icons.bind("click.bar", function (e) {
+        var el = $(e.currentTarget),
+            pa = $(el.attr("target"));
+        if (pa.hasClass("fixed")) return false;
+
+        if (pa.hasClass("active")) {
+          pa.removeClass("active");
+          cont.removeClass("active");
+        } else {
+          pa.addClass("active");
+          cont.addClass("active");
+        }
+
+        icons.trigger("EVENT_TOGGLEBAR");
+      });
+    }
+  }]);
+
+  return AreaMa;
+}();
+
+new AreaMa();
+
+/***/ }),
+
+/***/ 1489:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(12);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _reactRouter = __webpack_require__(305);
+
+__webpack_require__(58);
+
+var _iss = __webpack_require__(52);
+
+var _iss2 = _interopRequireDefault(_iss);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//公共类
+_iss2.default.use({ Router: _reactRouter.Router, Route: _reactRouter.Route, hashHistory: _reactRouter.hashHistory });
+/* 路由 */
+//兼容ie
+var rootRout = {
+  path: "/",
+  childRoutes: [
+  /*     {
+        path: "/index",
+        getComponent: function (next, callback) {
+          require.ensure([], function (require) {
+            var app = require('../area');//============================首页
+            callback(null, app.default);
+          }, "area-index");
+        }
+      }, */
+  {
+    path: "/manage",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(0).then((function (require) {
+        var app = __webpack_require__(1519); /*面积管理*/
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, {
+    path: "/payment",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(34).then((function (require) {
+        var app = __webpack_require__(1613); /*签约回款*/
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, {
+    path: "/primarykey",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(35).then((function (require) {
+        var app = __webpack_require__(1615); /*关键指标*/
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+
+  }, {
+    path: "/supply",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(36).then((function (require) {
+        var app = __webpack_require__(1616); /*供货*/
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+
+  }]
+};
+_reactDom2.default.render(_react2.default.createElement(_reactRouter.Router, { history: _reactRouter.hashHistory, routes: rootRout }), document.querySelector("#JH-Router"));
+exports.default = rootRout;
+
+/***/ }),
+
+/***/ 314:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8,17 +228,17 @@ webpackJsonp([30],{
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(15);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(35);
+var _reactDom = __webpack_require__(12);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-__webpack_require__(25);
+__webpack_require__(52);
 
-__webpack_require__(30);
+__webpack_require__(58);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -292,7 +512,7 @@ var ToolsList = function (_React$Component) {
                         null,
                         _react2.default.createElement(
                             'a',
-                            { id: 'areaInfo', href: 'javascript:void(0);', onClick: this.EVENT_CLICK.bind(this, "AreaInfo", "index") },
+                            { id: 'areaInfo', href: 'javascript:void(0);' /* onClick={this.EVENT_CLICK.bind(this,"AreaInfo","index")} */ },
                             '\u4FE1\u606F\u586B\u62A5'
                         ),
                         _react2.default.createElement(
@@ -312,7 +532,7 @@ var ToolsList = function (_React$Component) {
                                 null,
                                 _react2.default.createElement(
                                     'a',
-                                    { href: 'javascript:void(0);', onClick: this.EVENT_CLICK.bind(this, "Home", "priceControl") },
+                                    { href: 'javascript:void(0);' },
                                     '\u4EF7\u683C\u7BA1\u7406'
                                 )
                             ),
@@ -321,7 +541,7 @@ var ToolsList = function (_React$Component) {
                                 null,
                                 _react2.default.createElement(
                                     'a',
-                                    { href: 'InformationProvidedSupply.html' },
+                                    { href: 'javascript:void(0);', onClick: this.EVENT_CLICK.bind(this, "AreaInfo", "supply") },
                                     '\u4F9B\u8D27'
                                 )
                             ),
@@ -330,7 +550,7 @@ var ToolsList = function (_React$Component) {
                                 null,
                                 _react2.default.createElement(
                                     'a',
-                                    { href: 'signingReceivable.html' },
+                                    { href: 'javascript:void(0);', onClick: this.EVENT_CLICK.bind(this, "AreaInfo", "payment") },
                                     '\u7B7E\u7EA6\u4E0E\u56DE\u6B3E'
                                 )
                             ),
@@ -339,7 +559,7 @@ var ToolsList = function (_React$Component) {
                                 null,
                                 _react2.default.createElement(
                                     'a',
-                                    { href: 'keyIssues.html' },
+                                    { href: 'javascript:void(0);' },
                                     '\u91CD\u70B9\u4E8B\u9879'
                                 )
                             ),
@@ -348,7 +568,7 @@ var ToolsList = function (_React$Component) {
                                 null,
                                 _react2.default.createElement(
                                     'a',
-                                    { href: 'keyIndicators.html' },
+                                    { href: 'javascript:void(0);', onClick: this.EVENT_CLICK.bind(this, "AreaInfo", "primarykey") },
                                     '\u5173\u952E\u6307\u6807'
                                 )
                             )
@@ -384,7 +604,7 @@ _reactDom2.default.render(_react2.default.createElement(ToolsList, null), docume
 
 /***/ }),
 
-/***/ 168:
+/***/ 315:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -392,21 +612,21 @@ _reactDom2.default.render(_react2.default.createElement(ToolsList, null), docume
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(15);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(35);
+var _reactDom = __webpack_require__(12);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-__webpack_require__(30);
+__webpack_require__(58);
 
-var _iss = __webpack_require__(25);
+var _iss = __webpack_require__(52);
 
 var _iss2 = _interopRequireDefault(_iss);
 
-var _toolsTree = __webpack_require__(169);
+var _toolsTree = __webpack_require__(316);
 
 var _toolsTree2 = _interopRequireDefault(_toolsTree);
 
@@ -674,7 +894,7 @@ var ToolsTree = function (_React$Component) {
                                 success: function success(res) {
 
                                     if (res.rows == true) {
-                                        _iss2.default.popover({ content: "删除成功！" });
+                                        _iss2.default.popover({ content: "删除成功！", type: 2 });
                                         _iss2.default.hashHistory.replace("/index");
                                         $(window).trigger("treeLoad");
                                     } else {
@@ -716,7 +936,7 @@ var ToolsTree = function (_React$Component) {
                                 success: function success(res) {
 
                                     if (res.errorcode == 200) {
-                                        _iss2.default.popover({ content: "删除成功！" });
+                                        _iss2.default.popover({ content: "删除成功！", type: 2 });
                                         _iss2.default.hashHistory.replace("/index");
                                         $(window).trigger("treeLoad");
                                     } else {
@@ -816,7 +1036,7 @@ _reactDom2.default.render(_react2.default.createElement(ToolsTree, null), docume
 
 /***/ }),
 
-/***/ 169:
+/***/ 316:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -830,7 +1050,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      import ReactDOM from 'react-dom'; */
 
 
-var _iss = __webpack_require__(25);
+var _iss = __webpack_require__(52);
 
 var _iss2 = _interopRequireDefault(_iss);
 
@@ -933,200 +1153,6 @@ var $tree = function () {
 var tree = new $tree();
 exports.default = tree;
 
-/***/ }),
-
-/***/ 585:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); //兼容ie
-//公共类
-//路由
-//头部
-
-
-var _react = __webpack_require__(15);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(35);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-__webpack_require__(30);
-
-var _iss = __webpack_require__(25);
-
-var _iss2 = _interopRequireDefault(_iss);
-
-var _routerArea = __webpack_require__(586);
-
-var _routerArea2 = _interopRequireDefault(_routerArea);
-
-var _toolsList = __webpack_require__(167);
-
-var _toolsList2 = _interopRequireDefault(_toolsList);
-
-var _toolsLeftTree = __webpack_require__(168);
-
-var _toolsLeftTree2 = _interopRequireDefault(_toolsLeftTree);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-//左侧树形
-/* 公共页面js */
-var AreaMa = function () {
-  function AreaMa() {
-    _classCallCheck(this, AreaMa);
-
-    var th = this;
-    !_iss2.default.userInfo && this.getUser(); //如果用户从没登陆过则ajax获取用户信息
-    this.TransHeight();
-    this.bindScroll();
-    this.bingBar();
-    //document.addEventListener("fullscreenchange",th.TransHeight,false);
-    // document.addEventListener("mozfullscreenchange",th.TransHeight,false);
-    // document.addEventListener("msfullscreenchange",th.TransHeight,false);
-    window.onresize = this.TransHeight;
-  }
-
-  _createClass(AreaMa, [{
-    key: 'getUser',
-    value: function getUser() {
-      //获取登陆信息
-
-      _iss2.default.ajax({
-        url: "/Account/IGetUserInfo",
-        success: function success(da) {
-          _iss2.default.userInfo = da; //获取数据
-          sessionStorage.setItem("userInfo", JSON.stringify(da)); //存入session
-        }
-      });
-    }
-  }, {
-    key: 'TransHeight',
-    value: function TransHeight() {
-      var JH_Nav = document.querySelector(".JH-Nav"),
-          JH_Content = document.querySelector(".JH-Content"),
-          h = 640;
-      var rh = JH_Content.offsetHeight,
-          lh = JH_Nav.offsetHeight,
-          $wh = Math.max(document.body.clientHeight, document.documentElement.clientHeight) - 60;
-      var $h = Math.max(rh, lh, $wh, 640);
-      JH_Nav.style.minHeight = $h + "px";
-      JH_Content.style.minHeight = $h - 10 + "px";
-    }
-  }, {
-    key: 'bindScroll',
-    value: function bindScroll() {
-      var JHNav = $(".JH-Nav"),
-          win = $(window),
-          bs = $(".icon-bar");
-      window.onscroll = function (ev) {
-        var top = win.scrollTop(),
-            left = win.scrollLeft(),
-            icons = $(".icon-bar");
-
-        if (top >= 60) {
-          /*如果左侧树，处于隐藏状态，则不固定*/
-          if (JHNav.hasClass("active")) return false;
-          JHNav.addClass("fixed");
-        } else {
-          JHNav.removeClass("fixed");
-        }
-      };
-    }
-  }, {
-    key: 'bingBar',
-    value: function bingBar() {
-      var cont = $(".JH-RightBox"),
-          icons = $(".icon-bar");
-      icons.bind("click.bar", function (e) {
-        var el = $(e.currentTarget),
-            pa = $(el.attr("target"));
-        if (pa.hasClass("fixed")) return false;
-
-        if (pa.hasClass("active")) {
-          pa.removeClass("active");
-          cont.removeClass("active");
-        } else {
-          pa.addClass("active");
-          cont.addClass("active");
-        }
-
-        icons.trigger("EVENT_TOGGLEBAR");
-      });
-    }
-  }]);
-
-  return AreaMa;
-}();
-
-new AreaMa();
-
-/***/ }),
-
-/***/ 586:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(15);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(35);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _reactRouter = __webpack_require__(158);
-
-__webpack_require__(30);
-
-var _iss = __webpack_require__(25);
-
-var _iss2 = _interopRequireDefault(_iss);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//公共类
-_iss2.default.use({ Router: _reactRouter.Router, Route: _reactRouter.Route, hashHistory: _reactRouter.hashHistory });
-/* 路由 */
-//兼容ie
-var rootRout = {
-  path: "/",
-  childRoutes: [
-  /*     {
-        path: "/index",
-        getComponent: function (next, callback) {
-          require.ensure([], function (require) {
-            var app = require('../area');//============================首页
-            callback(null, app.default);
-          }, "area-index");
-        }
-      }, */
-  {
-    path: "/manage",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(0).then((function (require) {
-        var app = __webpack_require__(616); /*面积管理*/
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }]
-};
-_reactDom2.default.render(_react2.default.createElement(_reactRouter.Router, { history: _reactRouter.hashHistory, routes: rootRout }), document.querySelector("#JH-Router"));
-exports.default = rootRout;
-
 /***/ })
 
-},[585]);
+},[1488]);

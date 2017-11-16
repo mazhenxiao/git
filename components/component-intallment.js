@@ -18,6 +18,7 @@ class Intallment extends React.Component {
             status:"show",
             versionId:"",//版本id
             versionOldId:"",/*老版本ID*/
+           	versionNewId:iss.guid().toString(),/*如果是升级，就会生成一个新的versionId,用于暂存和发起审批*/
             projectId:"",/*项目iD*/
             STAGEID_guid:STAGEID_guid,
             ID_guid:ID_guid,
@@ -151,6 +152,7 @@ class Intallment extends React.Component {
         var projectId=dta.PROJECTID;/*项目id*/
         var areaId=dta.AREAID;/*区域id*/
         var areaName=dta.AREANAME;/*区域名字*/
+        var final_versionId=versionId;/*最后发起审批 需要传递的id*/
         
         var intallmentStatus=iss.getEVal("intallmentStatus");
         dta.LandList=th.state.landList;
@@ -172,12 +174,11 @@ class Intallment extends React.Component {
         }else if(status=="upgrade"){
             SumbitType="Upgrade";
             dta.STAGEVERSIONIDOLD=versionId;
-            dta.STAGEVERSIONID=this.state.versionId;
+            dta.STAGEVERSIONID=th.state.versionNewId;
             dta.STAGEID=this.state.STAGEID_guid;
             dta.ID=this.state.ID_guid;
+            final_versionId=th.state.versionNewId;
         }
-    
-       
         iss.ajax({
             type:"POST",
             url:"/Stage/IToCreate",
@@ -187,10 +188,9 @@ class Intallment extends React.Component {
                 EditType:"Submit", 
             },
             success:function (data) {
-            	
 				iss.hashHistory.push({
 					pathname: "/ProcessApproval",
-					search:'?e='+intallmentStatus+'&dataKey='+versionId+'&current=ProcessApproval&areaId='+areaId+'&areaName='+areaName
+					search:'?e='+intallmentStatus+'&dataKey='+final_versionId+'&current=ProcessApproval&areaId='+areaId+'&areaName='+areaName
 				});
 				
             }
@@ -220,8 +220,8 @@ class Intallment extends React.Component {
             dta.SEQNUM=Number(maxCode.replace("Q",""))*10;
         }else if(status=="upgrade"){  //升级版本是
             SumbitType="Upgrade";
-            dta.STAGEVERSIONIDOLD=th.state.versionOldId;/*老版本的id*/
-            dta.STAGEVERSIONID=versionId;
+            dta.STAGEVERSIONIDOLD=versionId;
+            dta.STAGEVERSIONID=th.state.versionNewId;;
             dta.STAGEID=this.state.STAGEID_guid;
             dta.ID=this.state.ID_guid;
         }

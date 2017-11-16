@@ -166,6 +166,9 @@ class DynamicTable extends React.Component {
 
     setList(da) {
         let typeBox = el => {
+            let numreg = (/number\((\d+)\)/).exec(el.regExp||"");
+            let fixed = numreg? numreg[1]:"";
+           // fixed=2;
             if (this.state.readOnly) {
                 if (el.type == "select") {
                     let list = el.data.map((_d, _i) => {
@@ -173,7 +176,12 @@ class DynamicTable extends React.Component {
                     })
                     return <select readOnly="true" disabled="disabled" name={el.id} className={(el.edit.indexOf("+m") >= 0 && !el.val) ? "required" : ""} onChange={this.EVENT_CHANGE_SELECT.bind(this, el)} value={el.val || ""}>{list}</select>
                 }
-                return <input className="" type="text" readOnly="true" value={el.val || ""} />
+               
+                if(fixed||fixed=="0"){
+                    return <input className="" type="text" readOnly="true" value={el.val? parseFloat(el.val).toFixed(fixed):""} />
+                }else{
+                    return <input className="" type="text" readOnly="true" value={el.val || ""} />
+                }
             } else {
                 if (el.type == "select") { //单选
                     let list = el.data.map((_d, _i) => {
@@ -188,8 +196,12 @@ class DynamicTable extends React.Component {
                     })
                     return <Select mode="tags" name={el.id} tokenSeparators={[',']} className={(el.edit.indexOf("+m") >= 0 && !el.val) ? "required selects" : "selects"} onChange={this.EVENT_CHANGE_ANTD_SELECTS.bind(this,el)} defaultValue={el.val ||[]}>{children}</Select>
                 }else{
-
-                    return <input name={el.id} id={el.id} className={(el.edit.indexOf("+m") >= 0 && !el.val) ? " required" : ""} data-pid={el.pid} value={el.val || ""} placeholder={el.edit.indexOf("+m") >= 0 ? "" : ""} type="text" onBlur={this.EVENT_BLUR_INPUT.bind(this, el)} onChange={this.EVENT_CHANGE_INPUT.bind(this, el)} readOnly={el.edit.indexOf("+r") >= 0} />
+                    if(el.edit.indexOf("+r")>=0&&(fixed=="0"||fixed)){
+                        return <input name={el.id} id={el.id} className={(el.edit.indexOf("+m") >= 0 && !el.val) ? " required" : ""} data-pid={el.pid} value={el.val? parseFloat(el.val).toFixed(fixed):""} placeholder={el.edit.indexOf("+m") >= 0 ? "" : ""} type="text" onBlur={this.EVENT_BLUR_INPUT.bind(this, el)} onChange={this.EVENT_CHANGE_INPUT.bind(this, el)} readOnly={el.edit.indexOf("+r") >= 0} />
+                    }else{
+                        return <input name={el.id} id={el.id} className={(el.edit.indexOf("+m") >= 0 && !el.val) ? " required" : ""} data-pid={el.pid} value={el.val || ""} placeholder={el.edit.indexOf("+m") >= 0 ? "" : ""} type="text" onBlur={this.EVENT_BLUR_INPUT.bind(this, el)} onChange={this.EVENT_CHANGE_INPUT.bind(this, el)} readOnly={el.edit.indexOf("+r") >= 0} />
+                    }
+                       
                 }
             }
         }

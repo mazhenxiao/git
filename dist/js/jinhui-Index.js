@@ -1,6 +1,267 @@
 webpackJsonp([29],{
 
-/***/ 167:
+/***/ 1463:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(12);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _reactRouter = __webpack_require__(305);
+
+__webpack_require__(58);
+
+var _iss = __webpack_require__(52);
+
+var _iss2 = _interopRequireDefault(_iss);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//公共类
+_iss2.default.use({ Router: _reactRouter.Router, Route: _reactRouter.Route, hashHistory: _reactRouter.hashHistory });
+/* 路由 */
+//兼容ie
+var rootRout = {
+  path: "/",
+  childRoutes: [{
+    path: "/index",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(19).then((function (require) {
+        var app = __webpack_require__(1493); //============================首页
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, {
+    path: "/draft",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(22).then((function (require) {
+        var app = __webpack_require__(1494); //============================我的草稿
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, {
+    path: "/apply",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(24).then((function (require) {
+        var app = __webpack_require__(1495); //============================我的申请
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, {
+    path: "/approalHistory",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(23).then((function (require) {
+        var app = __webpack_require__(1496); //============================我的历史
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, {
+    path: "/identity",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(20).then((function (require) {
+        var app = __webpack_require__(1497); //============================项目身份
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, {
+    path: "/supply",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(26).then((function (require) {
+        var app = __webpack_require__(1498); //============================生日祝福
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, {
+    path: "/projectList",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(28).then((function (require) {
+        var app = __webpack_require__(1499); //============================生日祝福
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, //代办
+  {
+    path: "/agenty",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(25).then((function (require) {
+        var app = __webpack_require__(1500); //============================生日祝福
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, //弹出层
+  {
+    path: "/todo",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(27).then((function (require) {
+        var app = __webpack_require__(1501); //============================生日祝福
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //分期
+    path: "/intallment",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(1).then((function (require) {
+        var app = __webpack_require__(1502); //============================分期
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //项目
+    path: "/newProject",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(2).then((function (require) {
+        var app = __webpack_require__(1503); //============================分期
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理 
+    path: "/priceControl",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(18).then((function (require) {
+        var app = __webpack_require__(1492); //============================价格管理
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-投决会
+    path: "/component-priceControl-Investment",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(12).then((function (require) {
+        var app = __webpack_require__(1504); //============================价格管理-投决会
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-产品定位会
+    path: "/component-priceControl-Productlocat",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(9).then((function (require) {
+        var app = __webpack_require__(1505); //============================价格管理-产品定位会
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-项目定位会
+    path: "/component-priceControl-Projectlocat",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(8).then((function (require) {
+        var app = __webpack_require__(1506); //============================价格管理-项目定位会
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-启动会
+    path: "/component-priceControl-Startup",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(7).then((function (require) {
+        var app = __webpack_require__(1507); //============================价格管理-项目定位会
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-工规证
+    path: "/component-priceControl-Certificate",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(16).then((function (require) {
+        var app = __webpack_require__(1508); //============================价格管理-工规证
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-决策书
+    path: "/component-priceControl-Decision",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(14).then((function (require) {
+        var app = __webpack_require__(1509); //============================价格管理-决策书
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-预售证
+    path: "/component-priceControl-Presell",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(10).then((function (require) {
+        var app = __webpack_require__(1510); //============================价格管理-预售证
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-签约
+    path: "/component-priceControl-Contract",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(15).then((function (require) {
+        var app = __webpack_require__(1511); //============================价格管理-签约
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-交付
+    path: "/component-priceControl-Deliver",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(13).then((function (require) {
+        var app = __webpack_require__(1512); //============================价格管理-交付
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-表格页
+    path: "/component-priceControl-Management",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(11).then((function (require) {
+        var app = __webpack_require__(1513); //============================价格管理-表格页
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //面积
+    path: "/areaManagement",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(17).then((function (require) {
+        var app = __webpack_require__(1514); //============================价格管理-交付
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+
+  }, { //发起审批 提交人
+    path: "/ProcessApproval",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(6).then((function (require) {
+        var app = __webpack_require__(1515); //============================价格管理-交付
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //发起审批 审批人
+    path: "/ProcessApprover",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(5).then((function (require) {
+        var app = __webpack_require__(1516); //============================价格管理-交付
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //发起审批项目
+    path: "/newProjectApproval",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(3).then((function (require) {
+        var app = __webpack_require__(1517); //============================价格管理-交付
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+
+  }, { //发起审批分期
+    path: "/newProjectStage",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(4).then((function (require) {
+        var app = __webpack_require__(1518); //============================价格管理-交付
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }]
+};
+_reactDom2.default.render(_react2.default.createElement(_reactRouter.Router, { history: _reactRouter.hashHistory, routes: rootRout }), document.querySelector("#JH-Router"));
+exports.default = rootRout;
+
+/***/ }),
+
+/***/ 314:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8,17 +269,17 @@ webpackJsonp([29],{
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(15);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(35);
+var _reactDom = __webpack_require__(12);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-__webpack_require__(25);
+__webpack_require__(52);
 
-__webpack_require__(30);
+__webpack_require__(58);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -292,7 +553,7 @@ var ToolsList = function (_React$Component) {
                         null,
                         _react2.default.createElement(
                             'a',
-                            { id: 'areaInfo', href: 'javascript:void(0);', onClick: this.EVENT_CLICK.bind(this, "AreaInfo", "index") },
+                            { id: 'areaInfo', href: 'javascript:void(0);' /* onClick={this.EVENT_CLICK.bind(this,"AreaInfo","index")} */ },
                             '\u4FE1\u606F\u586B\u62A5'
                         ),
                         _react2.default.createElement(
@@ -312,7 +573,7 @@ var ToolsList = function (_React$Component) {
                                 null,
                                 _react2.default.createElement(
                                     'a',
-                                    { href: 'javascript:void(0);', onClick: this.EVENT_CLICK.bind(this, "Home", "priceControl") },
+                                    { href: 'javascript:void(0);' },
                                     '\u4EF7\u683C\u7BA1\u7406'
                                 )
                             ),
@@ -321,7 +582,7 @@ var ToolsList = function (_React$Component) {
                                 null,
                                 _react2.default.createElement(
                                     'a',
-                                    { href: 'InformationProvidedSupply.html' },
+                                    { href: 'javascript:void(0);', onClick: this.EVENT_CLICK.bind(this, "AreaInfo", "supply") },
                                     '\u4F9B\u8D27'
                                 )
                             ),
@@ -330,7 +591,7 @@ var ToolsList = function (_React$Component) {
                                 null,
                                 _react2.default.createElement(
                                     'a',
-                                    { href: 'signingReceivable.html' },
+                                    { href: 'javascript:void(0);', onClick: this.EVENT_CLICK.bind(this, "AreaInfo", "payment") },
                                     '\u7B7E\u7EA6\u4E0E\u56DE\u6B3E'
                                 )
                             ),
@@ -339,7 +600,7 @@ var ToolsList = function (_React$Component) {
                                 null,
                                 _react2.default.createElement(
                                     'a',
-                                    { href: 'keyIssues.html' },
+                                    { href: 'javascript:void(0);' },
                                     '\u91CD\u70B9\u4E8B\u9879'
                                 )
                             ),
@@ -348,7 +609,7 @@ var ToolsList = function (_React$Component) {
                                 null,
                                 _react2.default.createElement(
                                     'a',
-                                    { href: 'keyIndicators.html' },
+                                    { href: 'javascript:void(0);', onClick: this.EVENT_CLICK.bind(this, "AreaInfo", "primarykey") },
                                     '\u5173\u952E\u6307\u6807'
                                 )
                             )
@@ -384,7 +645,7 @@ _reactDom2.default.render(_react2.default.createElement(ToolsList, null), docume
 
 /***/ }),
 
-/***/ 168:
+/***/ 315:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -392,21 +653,21 @@ _reactDom2.default.render(_react2.default.createElement(ToolsList, null), docume
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(15);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(35);
+var _reactDom = __webpack_require__(12);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-__webpack_require__(30);
+__webpack_require__(58);
 
-var _iss = __webpack_require__(25);
+var _iss = __webpack_require__(52);
 
 var _iss2 = _interopRequireDefault(_iss);
 
-var _toolsTree = __webpack_require__(169);
+var _toolsTree = __webpack_require__(316);
 
 var _toolsTree2 = _interopRequireDefault(_toolsTree);
 
@@ -674,7 +935,7 @@ var ToolsTree = function (_React$Component) {
                                 success: function success(res) {
 
                                     if (res.rows == true) {
-                                        _iss2.default.popover({ content: "删除成功！" });
+                                        _iss2.default.popover({ content: "删除成功！", type: 2 });
                                         _iss2.default.hashHistory.replace("/index");
                                         $(window).trigger("treeLoad");
                                     } else {
@@ -716,7 +977,7 @@ var ToolsTree = function (_React$Component) {
                                 success: function success(res) {
 
                                     if (res.errorcode == 200) {
-                                        _iss2.default.popover({ content: "删除成功！" });
+                                        _iss2.default.popover({ content: "删除成功！", type: 2 });
                                         _iss2.default.hashHistory.replace("/index");
                                         $(window).trigger("treeLoad");
                                     } else {
@@ -816,7 +1077,7 @@ _reactDom2.default.render(_react2.default.createElement(ToolsTree, null), docume
 
 /***/ }),
 
-/***/ 169:
+/***/ 316:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -830,7 +1091,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      import ReactDOM from 'react-dom'; */
 
 
-var _iss = __webpack_require__(25);
+var _iss = __webpack_require__(52);
 
 var _iss2 = _interopRequireDefault(_iss);
 
@@ -935,7 +1196,7 @@ exports.default = tree;
 
 /***/ }),
 
-/***/ 253:
+/***/ 646:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -947,29 +1208,29 @@ var _createClass = function () { function defineProperties(target, props) { for 
 //头部
 
 
-var _react = __webpack_require__(15);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(35);
+var _reactDom = __webpack_require__(12);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-__webpack_require__(30);
+__webpack_require__(58);
 
-var _iss = __webpack_require__(25);
+var _iss = __webpack_require__(52);
 
 var _iss2 = _interopRequireDefault(_iss);
 
-var _router = __webpack_require__(559);
+var _router = __webpack_require__(1463);
 
 var _router2 = _interopRequireDefault(_router);
 
-var _toolsList = __webpack_require__(167);
+var _toolsList = __webpack_require__(314);
 
 var _toolsList2 = _interopRequireDefault(_toolsList);
 
-var _toolsLeftTree = __webpack_require__(168);
+var _toolsLeftTree = __webpack_require__(315);
 
 var _toolsLeftTree2 = _interopRequireDefault(_toolsLeftTree);
 
@@ -1068,267 +1329,6 @@ var main = function () {
 
 new main();
 
-/***/ }),
-
-/***/ 559:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(15);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(35);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _reactRouter = __webpack_require__(158);
-
-__webpack_require__(30);
-
-var _iss = __webpack_require__(25);
-
-var _iss2 = _interopRequireDefault(_iss);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//公共类
-_iss2.default.use({ Router: _reactRouter.Router, Route: _reactRouter.Route, hashHistory: _reactRouter.hashHistory });
-/* 路由 */
-//兼容ie
-var rootRout = {
-  path: "/",
-  childRoutes: [{
-    path: "/index",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(21).then((function (require) {
-        var app = __webpack_require__(590); //============================首页
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, {
-    path: "/draft",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(22).then((function (require) {
-        var app = __webpack_require__(591); //============================我的草稿
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, {
-    path: "/apply",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(24).then((function (require) {
-        var app = __webpack_require__(592); //============================我的申请
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, {
-    path: "/approalHistory",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(23).then((function (require) {
-        var app = __webpack_require__(593); //============================我的历史
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, {
-    path: "/identity",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(19).then((function (require) {
-        var app = __webpack_require__(594); //============================项目身份
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, {
-    path: "/supply",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(26).then((function (require) {
-        var app = __webpack_require__(595); //============================生日祝福
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, {
-    path: "/projectList",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(28).then((function (require) {
-        var app = __webpack_require__(596); //============================生日祝福
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, //代办
-  {
-    path: "/agenty",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(25).then((function (require) {
-        var app = __webpack_require__(597); //============================生日祝福
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, //弹出层
-  {
-    path: "/todo",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(27).then((function (require) {
-        var app = __webpack_require__(598); //============================生日祝福
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //分期
-    path: "/intallment",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(1).then((function (require) {
-        var app = __webpack_require__(599); //============================分期
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //项目
-    path: "/newProject",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(2).then((function (require) {
-        var app = __webpack_require__(600); //============================分期
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理 
-    path: "/priceControl",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(18).then((function (require) {
-        var app = __webpack_require__(589); //============================价格管理
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理-投决会
-    path: "/component-priceControl-Investment",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(12).then((function (require) {
-        var app = __webpack_require__(601); //============================价格管理-投决会
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理-产品定位会
-    path: "/component-priceControl-Productlocat",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(9).then((function (require) {
-        var app = __webpack_require__(602); //============================价格管理-产品定位会
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理-项目定位会
-    path: "/component-priceControl-Projectlocat",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(8).then((function (require) {
-        var app = __webpack_require__(603); //============================价格管理-项目定位会
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理-启动会
-    path: "/component-priceControl-Startup",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(7).then((function (require) {
-        var app = __webpack_require__(604); //============================价格管理-项目定位会
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理-工规证
-    path: "/component-priceControl-Certificate",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(16).then((function (require) {
-        var app = __webpack_require__(605); //============================价格管理-工规证
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理-决策书
-    path: "/component-priceControl-Decision",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(14).then((function (require) {
-        var app = __webpack_require__(606); //============================价格管理-决策书
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理-预售证
-    path: "/component-priceControl-Presell",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(10).then((function (require) {
-        var app = __webpack_require__(607); //============================价格管理-预售证
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理-签约
-    path: "/component-priceControl-Contract",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(15).then((function (require) {
-        var app = __webpack_require__(608); //============================价格管理-签约
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理-交付
-    path: "/component-priceControl-Deliver",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(13).then((function (require) {
-        var app = __webpack_require__(609); //============================价格管理-交付
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理-表格页
-    path: "/component-priceControl-Management",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(11).then((function (require) {
-        var app = __webpack_require__(610); //============================价格管理-表格页
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //面积
-    path: "/areaManagement",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(17).then((function (require) {
-        var app = __webpack_require__(611); //============================价格管理-交付
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-
-  }, { //发起审批 提交人
-    path: "/ProcessApproval",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(6).then((function (require) {
-        var app = __webpack_require__(612); //============================价格管理-交付
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //发起审批 审批人
-    path: "/ProcessApprover",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(5).then((function (require) {
-        var app = __webpack_require__(613); //============================价格管理-交付
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //发起审批项目
-    path: "/newProjectApproval",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(3).then((function (require) {
-        var app = __webpack_require__(614); //============================价格管理-交付
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-
-  }, { //发起审批分期
-    path: "/newProjectStage",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(4).then((function (require) {
-        var app = __webpack_require__(615); //============================价格管理-交付
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }]
-};
-_reactDom2.default.render(_react2.default.createElement(_reactRouter.Router, { history: _reactRouter.hashHistory, routes: rootRout }), document.querySelector("#JH-Router"));
-exports.default = rootRout;
-
 /***/ })
 
-},[253]);
+},[646]);

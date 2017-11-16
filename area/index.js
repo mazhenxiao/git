@@ -64,21 +64,19 @@ class Index extends Component {
      */
     componentWillReceiveProps(nextProps) {
         const {dataKey, mode} = this.state;
-        const {nextLocation} = nextProps;
-        if (dataKey != nextLocation.query.dataKey.trim()
-            || mode != nextLocation.query.isProOrStage.trim()) {
+        const {location} = nextProps;
+        if (dataKey != location.query.dataKey.trim()
+            || mode != location.query.isProOrStage.trim()) {
             //设置新的dataKey和mode
             this.setState({
-                    dataKey: nextLocation.query.dataKey.trim(),
-                    mode: nextLocation.query.isProOrStage.trim(),
+                    dataKey: location.query.dataKey.trim(),
+                    mode: location.query.isProOrStage.trim(),
                 }
             );
         }
     }
 
     componentDidMount() {
-        // const {step, mode, versionId} = this.state;
-        // this.loadData(step, mode, versionId);
         this.loadStep();
     }
 
@@ -90,17 +88,9 @@ class Index extends Component {
         this.setState({
             loading: true,
         });
+
         AreaService.getStep(dataKey, mode)
-            .then(data => data.rows)
-            .then(serverSteps => {
-                const stepData = [];
-                AreaManageStep.forEach(localStep => {
-                    const matchStep = serverSteps.filter(serverStep => serverStep.code === localStep.code)[0]
-                    if (matchStep) {
-                        localStep.name = matchStep.name;
-                        stepData.push(localStep);
-                    }
-                });
+            .then(stepData => {
                 const step = stepData[0];
                 this.setState({
                     stepData,
@@ -125,11 +115,16 @@ class Index extends Component {
         versionId = versionId || this.state.versionId;
         dataKey = dataKey || this.state.dataKey;
 
+        //获取地块·面积数据
         const blockPromise = AreaService.getAreaList(step, mode, versionId).then(data => data.rows);
+        //获取规划方案指标数据
         const planQuotaPromise = AreaService.getAreaPlanQuota(step, versionId).then(data => data.rows);
+        //获取版本数据
         const versionPromise = AreaService.getVersion(step, dataKey, mode).then(data => data.rows);
+        //获取生成业态数据的筛选条件
         const getCreateConditionPromise = AreaService.getCreateCondition(step, dataKey, mode);
-        Promise.all([blockPromise, planQuotaPromise, versionPromise])
+
+        Promise.all([blockPromise, planQuotaPromise, versionPromise, getCreateConditionPromise])
             .then(([blockData, planData, versionData, conditionData]) => {
                 this.setState({
                     loading: false,
@@ -142,11 +137,10 @@ class Index extends Component {
                 });
             })
             .catch(err => {
-
                 this.setState({
                     loading: false,
                 });
-                console.log("发生错误", err);
+                console.error("发生错误", err);
             });
     };
 
@@ -231,7 +225,7 @@ class Index extends Component {
         const {step, areaData, searchKey} = this.state;
         const panelArray = [];
         const planData = areaData["planData"] || [];
-         
+
         panelArray.push(<TabPane tab="规划方案指标" key="plan-quota"><PlanQuota planData={planData}/></TabPane>);
 
         if (parseInt(step.guid) < 3) {
@@ -274,10 +268,18 @@ class Index extends Component {
         });
     };
     renderEditOrAdjust = () => {
-        const {modalKey, modalParam, conditionData} = this.state;
+        const {modalKey, modalParam, conditionData, step, mode, versionId} = this.state;
         switch (modalKey) {
             case "block-format-edit":
-                return <BlockFormatEdit onHideModal={this.handleHideModal} conditionData={conditionData}/>;
+                return (
+                    <BlockFormatEdit
+                        onHideModal={this.handleHideModal}
+                        conditionData={conditionData}
+                        step={step}
+                        mode={mode}
+                        versionId={versionId}
+                        blockDataSource={conditionData.land}/>
+                );
             case "building-format-edit":
                 return <BuildingFormatEdit/>;
             default:

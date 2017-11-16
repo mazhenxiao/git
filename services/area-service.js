@@ -1,6 +1,10 @@
-import iss from '../../Content/js/iss';
+import iss from '../js/iss';
+import {AreaConstants} from '../constants';
 
-const website = "http://192.168.10.164:8000";
+const {AreaManageStep} = AreaConstants;
+
+const website = "http://192.168.10.164:8066";
+// const website = "http://192.168.14.119:65162";
 
 /**
  * 获取步骤
@@ -14,7 +18,19 @@ const getStep = (dataKey, mode) => {
             projectOrStage: mode,
             dataType: "Area",
         },
-    });
+    })
+        .then(data => data.rows)
+        .then(serverSteps => {
+            const stepData = [];
+            AreaManageStep.forEach(localStep => {
+                const matchStep = serverSteps.filter(serverStep => serverStep.code === localStep.code)[0]
+                if (matchStep) {
+                    localStep.name = matchStep.name;
+                    stepData.push(localStep);
+                }
+            });
+            return stepData;
+        })
 };
 
 /**
@@ -113,7 +129,12 @@ const getCreateCondition = (stepInfo, dataKey, mode) => {
             const business = serchList.filter(item => item.typeCode === "business")[0];
             const parkAndSupport = serchList.filter(item => item.typeCode === "parkandsupport")[0];
             if (land && Array.isArray(land.typelist)) {
-                result.land = convertConditionData(land.typelist);
+                result.land = land.typelist.map(item => {
+                    return {
+                        id: item["val"],
+                        name: item["lable"],
+                    };
+                });
             }
             if (residence && Array.isArray(residence.typelist)) {
                 result.residence = convertConditionData(residence.typelist);
@@ -161,23 +182,39 @@ const loadChildren = (obj, children) => {
 
 
 /**
- * 获取地块业态数据
+ * 获取地块业态数据 (获取业态维护页面的数据)
  */
-const getFormatData = () => {
-
+const getSearchData = (stepInfo, mode, versionId = "1c52cb5b-674b-4a8c-8a49-bec93681e690") => {
+    return iss.fetch({
+        url: website.concat("/areaInfo/IGetSearchData"),
+        type: "get",
+        data: {
+            step: stepInfo.code,
+            projectLevel: mode,
+            versionId: versionId,
+        },
+    }).then(res => res.rows);
 };
 /**
  * 生成地块业态数据
  */
-const createFormatData = () => {
-
+const createFormatData = (paramsValue) => {
+    return iss.fetch({
+        url: website.concat("/areainfo/ICreateProductType"),
+        type: "post",
+        data: paramsValue,
+    }).then(res => res.rows);
 };
 
 /**
  * 保存地块业态数据
  */
-const saveFormatData = () => {
-
+const saveFormatData = (paramsValue) => {
+    return iss.fetch({
+        url: website.concat("/areainfo/ISaveProductType"),
+        type: "post",
+        data: paramsValue,
+    }).then(res => res.rows)
 };
 
 
@@ -190,7 +227,7 @@ export {
     saveVersion,
     getCreateCondition,
 
-    getFormatData,
+    getSearchData,
     createFormatData,
     saveFormatData,
 };

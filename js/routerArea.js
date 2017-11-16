@@ -25,8 +25,37 @@ var rootRout = {
           callback(null, app.default);
         }, "area-manage");
       }
+    },
+    {
+      path: "/payment",
+      getComponent: function (next, callback) {
+        require.ensure([], function (require) {
+          var app = require('../payment/index.js');/*签约回款*/
+          callback(null, app.default);
+        }, "payment-index");
+      }
+    },
+    {
+      path: "/primarykey",
+      getComponent: function (next, callback) {
+        require.ensure([], function (require) {
+          var app = require('../primaryKey/index.js');/*关键指标*/
+          callback(null, app.default);
+        }, "primaryKey-index");
+      }
+      
+    },
+    {
+      path: "/supply",
+      getComponent: function (next, callback) {
+        require.ensure([], function (require) {
+          var app = require('../supply/index.js');/*供货*/
+          callback(null, app.default);
+        }, "supply-index");
+      }
+      
     }
-
+     
   ] 
 }
 ReactDOM.render(<Router history={hashHistory} routes={rootRout}></Router>, document.querySelector("#JH-Router"));

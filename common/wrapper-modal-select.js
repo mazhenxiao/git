@@ -31,6 +31,7 @@ class WrapperModalSelect extends Component {
         dataSource: React.PropTypes.array,//同步情况下的数据源
         onSelectChange: React.PropTypes.func,//选择项发生改变时
         showRequired: React.PropTypes.bool,//显示必填 *
+        showDefault: React.PropTypes.bool,//是否显示默认
     };
 
     static defaultProps = {
@@ -43,11 +44,6 @@ class WrapperModalSelect extends Component {
         promiseLoader: () => {
             return Promise.resolve([]);
         },
-        dataSource: [
-            {id: "100", name: "独立商业", children: [{id: "101", name: "单层"}]},
-            {id: "200", name: "底商商铺", children: [{id: "201", name: "双层"}]},
-            {id: "300", name: "酒店", children: [{id: "301", name: "超高层"}]}
-        ],
     };
 
     state = {
@@ -79,40 +75,47 @@ class WrapperModalSelect extends Component {
     };
 
     handleChange = (value) => {
+        const {multiple} = this.props;
         const {selectedValue, filterData} = this.state;
-        const selectingValue = [...value];
-        // console.log(`handleChange > value`, value);
 
-        if (selectingValue.length > selectedValue.length) {
-            //当选中某一项时, 记录当前选择的项， 打开属性选择窗口 选择属性， 最后点击确认按钮， 这个才是选中某一项目的的整个操作
-            const addingValue = selectingValue[selectingValue.length - 1];
+        if (multiple) {
+            const selectingValue = [...value];
+            if (selectingValue.length > selectedValue.length) {
+                //当选中某一项时, 记录当前选择的项， 打开属性选择窗口 选择属性， 最后点击确认按钮， 这个才是选中某一项目的的整个操作
+                const addingValue = selectingValue[selectingValue.length - 1];
 
+                this.setState({
+                    visible: true,
+                    addingValue,
+                    propertyData: {},
+                });
+            }
+            else {
+                //当取消选择项时
+                const newSelectedValue = selectingValue;
+                const newFilterData = filterData;
+                const validFilterData = this.getValidConditionData(newSelectedValue, newFilterData);
+                //触发回调函数
+                this.props.onSelectChange && this.props.onSelectChange(validFilterData);
+
+                this.setState({
+                    selectedValue: newSelectedValue,
+                    propertyData: {},
+                });
+            }
+        } else {
             this.setState({
                 visible: true,
-                addingValue,
+                addingValue: value,
                 propertyData: {},
             });
         }
-        else {
-            //当取消选择项时
-            const newSelectedValue = selectingValue;
-            const newFilterData = filterData;
-            const validFilterData = this.getValidFilterData(newSelectedValue, newFilterData);
-            //触发回调函数
-            this.props.onSelectChange && this.props.onSelectChange(validFilterData);
-
-            this.setState({
-                selectedValue: newSelectedValue,
-                propertyData: {},
-            });
-        }
-
     };
 
     renderGroupOption = () => {
         const {dataSource} = this.props;
         const optArray = [];
-        dataSource.forEach(item => {
+        dataSource && dataSource.forEach(item => {
             optArray.push(
                 <OptGroup key={item.id} label={item.name}>
                     {item.children.map(child => {
@@ -129,9 +132,10 @@ class WrapperModalSelect extends Component {
 
     handleOk = () => {
 
-        if (this.checkPropertyValue("rights")
-            || this.checkPropertyValue("hardcover")
-            || this.checkPropertyValue("layer")) {
+        if (this.checkPropertyValue("ishaveproperty")//产权属性
+            || this.checkPropertyValue("isdecoration")//精装属性
+            || this.checkPropertyValue("storeyheight")) //层高属性
+        {
             return;
         }
 
@@ -141,7 +145,7 @@ class WrapperModalSelect extends Component {
             ...filterData,
             [addingValue]: propertyData,
         };
-        const validFilterData = this.getValidFilterData(newSelectedValue, newFilterData);
+        const validFilterData = this.getValidConditionData(newSelectedValue, newFilterData);
         //触发回调函数
         this.props.onSelectChange && this.props.onSelectChange(validFilterData);
 
@@ -158,18 +162,23 @@ class WrapperModalSelect extends Component {
     };
 
     /**
-     * 获取有效的筛选条件
-     * @returns {{}}
+     * 获取有效的筛选条件 []
      */
-    getValidFilterData = (newSelectedValue, newFilterData) => {
-        const validFilterData = {};
+    getValidConditionData = (newSelectedValue, newFilterData) => {
+        const validConditionData = [];
         const keys = Object.keys(newFilterData);
         keys.forEach(key => {
             if (newSelectedValue.includes(key)) {
-                validFilterData[key] = newFilterData[key];
+                const validCondition = {
+                    id: key,
+                    isdecoration: newFilterData[key]["isdecoration"],
+                    storeyheight: newFilterData[key]["storeyheight"],
+                    ishaveproperty: newFilterData[key]["ishaveproperty"],
+                };
+                validConditionData.push(validCondition);
             }
         });
-        return validFilterData;
+        return validConditionData;
     };
 
     renderPropertyModal = () => {
@@ -185,22 +194,22 @@ class WrapperModalSelect extends Component {
                 onOk={this.handleOk}
                 onCancel={this.handleCancel}
                 maskClosable={false}
-                width="300px"
+                width="360px"
             >
                 <Row>
                     <WrapperSelect labelText="产权属性：" dataSource={AreaConstants.RightsProperty}
-                                   showRequired={this.checkPropertyValue("rights")}
-                                   onChange={this.handlePropertyChange("rights")}/>
+                                   showRequired={this.checkPropertyValue("ishaveproperty")}
+                                   onChange={this.handlePropertyChange("ishaveproperty")}/>
                 </Row>
                 <Row>
                     <WrapperSelect labelText="精装属性：" dataSource={AreaConstants.HardcoverProperty}
-                                   showRequired={this.checkPropertyValue("hardcover")}
-                                   onChange={this.handlePropertyChange("hardcover")}/>
+                                   showRequired={this.checkPropertyValue("isdecoration")}
+                                   onChange={this.handlePropertyChange("isdecoration")}/>
                 </Row>
                 <Row>
                     <WrapperSelect labelText="层高属性：" dataSource={AreaConstants.LayerProperty}
-                                   showRequired={this.checkPropertyValue("layer")}
-                                   onChange={this.handlePropertyChange("layer")}/>
+                                   showRequired={this.checkPropertyValue("storeyheight")}
+                                   onChange={this.handlePropertyChange("storeyheight")}/>
                 </Row>
             </Modal>
         );
@@ -223,7 +232,10 @@ class WrapperModalSelect extends Component {
             });
         }
 
-        const {selectedValue} = this.state;
+        let {selectedValue, addingValue} = this.state;
+        if (!multiple) {
+            selectedValue = addingValue;
+        }
 
         return (
             <div>
@@ -233,7 +245,7 @@ class WrapperModalSelect extends Component {
                         <Select
                             mode={!!multiple ? "multiple" : "-"}
                             value={selectedValue}
-                            style={{width: "200px"}}
+                            style={{width: "65%"}}
                             onChange={this.handleChange}
                             placeholder="请选择"
                         >
