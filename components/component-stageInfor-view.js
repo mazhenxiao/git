@@ -58,14 +58,16 @@ class StageInforView extends React.Component {
                 let STAGESELFPRODUCTS=basicFormInfo.STAGESELFPRODUCTS,
                     ISELFPRODUCTTYPE=res.rows.SelectOptions.ISELFPRODUCTTYPE,
                     str=STAGESELFPRODUCTS.join(",");
-                let valFilter=[];
+                let valFilter="";
                 ISELFPRODUCTTYPE.forEach(function(obj){
-                   if(obj.val!=""&&str.indexOf(obj.val)>-1){
-                      valFilter.push(obj.label);
+                   if(obj.val&&str.indexOf(obj.val)>-1){
+                        valFilter=valFilter.replace(/无\,?/,"");
+                        valFilter+=obj.label+",";
                    }else if(obj.val==""){
-                      valFilter=["无"];
+                        valFilter+="无,";
                    }
                 });
+                valFilter = valFilter.replace(/\,$/,"").split(",");
                 let MERGEWAY=res.rows.SelectOptions.MERGEWAY,
                     MERGEWAYSTR=basicFormInfo.MERGEWAY||"",
                     MERGEWAYVAL="";
@@ -147,6 +149,7 @@ class StageInforView extends React.Component {
                     "PRINCIPALNAME":basicFormInfo.PRINCIPALNAME,
                     "PRINCIPAL":basicFormInfo.PRINCIPAL,
                     "GROUPNUMBER":basicFormInfo.GROUPNUMBER,//组团数量
+                    "PUSHPLATENUMBER":basicFormInfo.PUSHPLATENUMBER,
                     "STAGESELFPRODUCTS":valFilter.join(","),//自持业态
 
                     //"TRADERMODE":res.rows.SelectOptions.TRADERMODE[basicFormInfo.Project.TRADERMODE].label,//操盘方式                    
@@ -301,6 +304,12 @@ class StageInforView extends React.Component {
                                 <td className="stageViewCon">{STARTDATE}</td>
                                 <td className="stageViewTitle">组团数量</td>
                                 <td className="stageViewCon">{th.GROUPNUMBER}</td>
+                            </tr>
+                            <tr>
+                                <td className="stageViewTitle">推盘批次</td>
+                                <td className="stageViewCon">{th.PUSHPLATENUMBER}</td>
+                                <td className="stageViewTitle"></td>
+                                <td className="stageViewCon"></td>
                             </tr>
                         </tbody>
                     </table>

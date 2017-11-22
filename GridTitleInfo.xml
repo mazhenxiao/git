@@ -6,39 +6,39 @@
       <!--表头行数-->
       <TitleRowCount>2</TitleRowCount>
       <!--表头行属性，rindex为行号-->
-      <TitleRowInfo field ="CLASSNAME" align="center" name="业态/楼栋" width="0" />
-      <TitleRowInfo field ="ISHAVEPROPERTY" align="center" name="是否有产权" width="0" />
-      <TitleRowInfo field ="ISDECORATION" align="center" name="是否精装" width="0" />
-      <TitleRowInfo field ="STOREYHEIGHT" align="center" name="层高属性" width="0" />
-      <TitleRowInfo field ="STANDARDFLOORHEIGHT" align="center" name="标准层层高(m)" width="0" />
-      <TitleRowInfo field ="" align="center" name="总建筑面积（㎡）" >
+      <TitleRowInfo field ="PRODUCTNAME" align="center" name="业态/楼栋" width="0" edit="+r"/>
+      <TitleRowInfo field ="ISHAVEPROPERTYNAME" align="center" name="是否有产权" width="0" edit="+r" />
+      <TitleRowInfo field ="ISDECORATIONNAME" align="center" name="是否精装" width="0" edit="+r"/>
+      <TitleRowInfo field ="STOREYHEIGHTNAME" align="center" name="层高属性" width="0" edit="+r"/>
+      <TitleRowInfo field ="STANDARDFLOORHEIGHT" align="center" name="标准层层高(m)" width="0" edit="+r"/>
+      <TitleRowInfo field ="" align="center" name="总建筑面积（㎡）" width="0" >
         <TitleRowInfo field ="TOTALBUILDINGAREA" align="center" name="总面积" width="0" />
         <TitleRowInfo field ="UPPERBUILDINGAREA" align="center" name="地上" width="0" />
         <TitleRowInfo field ="UNDERBUILDINGAREA" align="center" name="地下" width="0" />
       </TitleRowInfo>
-      <TitleRowInfo field ="" align="center" name="实际建筑面积（㎡）" >
+      <TitleRowInfo field ="" align="center" name="实际建筑面积（㎡）" width="0" >
         <TitleRowInfo field ="TOTALBUILDINGAREA_ACT" align="center" name="总实际面积" width="0" />
         <TitleRowInfo field ="UPPERBUILDINGAREA_ACT" align="center" name="地上" width="0" />
-        <TitleRowInfo field ="UNDERBUILDINGAREA_ACT" align="center" name="地下" width="0" />
+        <TitleRowInfo field ="UNDERBUILDINGAREA_ACT" align="center" name="地下" width="0"/>
       </TitleRowInfo>
-      <TitleRowInfo field ="" align="center" name="可租售面积（㎡/个）" >
+      <TitleRowInfo field ="" align="center" name="可租售面积（㎡/个）" width="0" >
         <TitleRowInfo field ="TOTALRENTALSALEAREA" align="center" name="总可租售面积" width="0" />
         <TitleRowInfo field ="TOTALSALEAREA" align="center" name="总可售面积" width="0" />
-        <TitleRowInfo field ="UPPERSALEAREA" align="center" name="地上—可售" width="0" />
+        <TitleRowInfo field ="UPPERSALEAREA" align="center" name="地上—可售" width="0"/>
         <TitleRowInfo field ="UNDERSALEAREA" align="center" name="地下—可售" width="0" />
         <TitleRowInfo field ="TOTALRENTALAREA" align="center" name="总可租面积" width="0" />
         <TitleRowInfo field ="UPPERRENTALAREA" align="center" name="地上—可租" width="0" />
         <TitleRowInfo field ="UNDERRENTALAREA" align="center" name="地下—可租" width="0" />
       </TitleRowInfo>
       <TitleRowInfo field ="" align="center" name="非可租售面积（㎡/个）" width="0" >
-        <TitleRowInfo field ="TOTALUNRENTALSALEAREA" align="center" name="总非可租售面积" width="0"/>
-        <TitleRowInfo field ="UPPERUNRENTALSALEAREA" align="center" name="地上—非可租售" width="0"/>
-        <TitleRowInfo field ="UNDERUNRENTALSALEAREA" align="center" name="地下—非可租售" width="0"/>
+        <TitleRowInfo field ="TOTALUNRENTALSALEAREA" align="center" name="总非可租售面积" width="0" />
+        <TitleRowInfo field ="UPPERUNRENTALSALEAREA" align="center" name="地上—非可租售" width="0" />
+        <TitleRowInfo field ="UNDERUNRENTALSALEAREA" align="center" name="地下—非可租售" width="0" />
       </TitleRowInfo>
-      <TitleRowInfo field ="" align="center" name="赠送面积（㎡）" width="0" >
-        <TitleRowInfo field ="TOTALGIFTAREA" align="center" name="总赠送面积" width="0"/>
-        <TitleRowInfo field ="UPPERGIFTAREA" align="center" name="地上赠送" width="0"/>
-        <TitleRowInfo field ="UNDERGIFTAREA" align="center" name="地下赠送" width="0"/>
+      <TitleRowInfo field ="" align="center" name="赠送面积（㎡）" width="0" IsEdit="" >
+        <TitleRowInfo field ="TOTALGIFTAREA" align="center" name="总赠送面积" width="0" />
+        <TitleRowInfo field ="UPPERGIFTAREA" align="center" name="地上赠送" width="0" />
+        <TitleRowInfo field ="UNDERGIFTAREA" align="center" name="地下赠送" width="0" />
       </TitleRowInfo>
       <TitleRowInfo field ="" align="center" name="批量精装修" width="0" >
         <TitleRowInfo field ="FINEHOUSEAREA" align="center" name="批量精装修套内面积" width="0"/>

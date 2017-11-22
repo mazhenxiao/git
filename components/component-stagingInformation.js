@@ -166,7 +166,8 @@ class StagingInformation extends React.Component {
             width:500,
             height:250,
             content:`<div id="PlateIframeBox"></div>`,
-            okVal:"确定",
+            okVal:"保存",
+            cancel:"取消",
             ok(da){
                 //console.log(th.plateInfo.state.dataList)
                 var stageversionid = th.state.STAGEVERSIONID,
@@ -229,7 +230,8 @@ class StagingInformation extends React.Component {
                         console.log('失败')
                     }
                 })
-            }
+            },
+            cancel(){}
         })
         ReactDOM.render(<PlateIframe  data={data} callback={th.PlateIframeCallback.bind(this)}  versionId = {th.state.STAGEVERSIONID} />,document.querySelector("#PlateIframeBox"));
     }
@@ -247,7 +249,8 @@ class StagingInformation extends React.Component {
             width:500,
             height:250,
             content:`<div id="GroupIframeBox"></div>`,
-            okVal:"确定",
+            okVal:"保存",
+            cancel:"取消",
             ok(da){
                 var stageversionid = th.state.STAGEVERSIONID,
                     newGroup = [],
@@ -307,6 +310,9 @@ class StagingInformation extends React.Component {
                         console.log('失败')
                     }
                 })
+            },
+            cancel(){
+
             }
         })
         ReactDOM.render(<GroupIframe  data={data} callback={th.GroupIframeCallback.bind(this)}  versionId = {th.state.STAGEVERSIONID} />,document.querySelector("#GroupIframeBox"));

@@ -3,9 +3,10 @@ import {AreaConstants} from '../constants';
 
 const {AreaManageStep} = AreaConstants;
 
-const website = "http://192.168.10.164:8066";
-// const website = "http://192.168.14.119:65162";
-
+//const website = "http://192.168.10.164:8066";
+ //const website = "http://192.168.14.119:65162";
+ const website = "";
+ 
 /**
  * 获取步骤
  */
@@ -23,7 +24,7 @@ const getStep = (dataKey, mode) => {
         .then(serverSteps => {
             const stepData = [];
             AreaManageStep.forEach(localStep => {
-                const matchStep = serverSteps.filter(serverStep => serverStep.code === localStep.code)[0]
+                const matchStep = serverSteps.filter(serverStep => serverStep.code === localStep.code)[0];
                 if (matchStep) {
                     localStep.name = matchStep.name;
                     stepData.push(localStep);
@@ -42,6 +43,12 @@ const getStep = (dataKey, mode) => {
  *  versionId:1c52cb5b-674b-4a8c-8a49-bec93681e690  版本
  */
 const getAreaList = (step, mode, versionId, descType = "Building") => {
+    // //TODO 测试数据
+    // versionId = "1c52cb5b-674b-4a8c-8a49-bec93681e690";
+    // step = {code: "Vote"};
+    // mode = "Project";
+    // descType = "Building";
+
     return iss.fetch({
         url: website.concat("/AreaInfo/IGetAreaListInfo"),
         type: "get",
@@ -51,7 +58,27 @@ const getAreaList = (step, mode, versionId, descType = "Building") => {
             versionId,
             descType: descType,
         },
-    });
+    }).then(res => res.rows);
+};
+
+/**
+ * 获取面积编辑页面的数据
+ * @param step
+ * @param mode
+ * @param versionId
+ * @param productTypeId  点击的业态id
+ */
+const getAreaEditData = (step, mode, versionId, productTypeId) => {
+    return iss.fetch({
+        url: website.concat("/AreaInfo/IGetAreaEditData"),
+        type: "get",
+        data: {
+            step: step.code,
+            projectLevel: mode,
+            versionId,
+            productTypeId: productTypeId,
+        },
+    }).then(res => res.rows);
 };
 
 /**
@@ -67,22 +94,36 @@ const getAreaPlanQuota = (step, versionId, dataType = "Area") => {
                 dataType
             },
         }
-    );
+    ).then(res => res.rows);
 };
 
 /**
  * 创建版本
  */
 const createVersion = (stepInfo, dataKey, mode) => {
-    return null;
+    return iss.fetch({
+        url: website.concat("/AreaInfo/CreateAreaVersion"),
+        type: "post",
+        data: {
+            step: stepInfo.code,
+            psVersionId: dataKey,
+            projectLevel: mode,
+        },
+    }).then(res => res.rows);
 };
 
 /**
  * 获取版本
  */
 const getVersion = (stepInfo, dataKey, mode) => {
+    // //TODO 测试数据
+    // stepInfo = {code: "Vote"};
+    // dataKey = "56EF7587243E4B9EB05029800BFC1F81";
+    // mode = "Project";
+
     return iss.fetch({
-        url: website.concat("/Common/IGetVersionListByBusinessId"),
+      //  url: website.concat("/Common/IGetVersionListByBusinessId"),
+        url: "/Common/IGetVersionListByBusinessId",
         type: "get",
         data: {
             ProjectStageId: dataKey,
@@ -90,14 +131,19 @@ const getVersion = (stepInfo, dataKey, mode) => {
             projectLevel: mode,
             dataType: "Area",
         },
-    });
-};
-
-/**
- * 保存版本
- */
-const saveVersion = () => {
-    return null;
+    })
+        .then(res => res.rows)
+        .then(rows => {
+            return rows.map(item => {
+                return {
+                    id: item["id"],
+                    name: item["versioncode"],
+                    statusName: item["statusname"]
+                };
+            });
+        }).catch(error=>{
+            console.log(error)
+        });
 };
 
 /**
@@ -184,7 +230,7 @@ const loadChildren = (obj, children) => {
 /**
  * 获取地块业态数据 (获取业态维护页面的数据)
  */
-const getSearchData = (stepInfo, mode, versionId = "1c52cb5b-674b-4a8c-8a49-bec93681e690") => {
+const getSearchData = (stepInfo, mode, versionId) => {
     return iss.fetch({
         url: website.concat("/areaInfo/IGetSearchData"),
         type: "get",
@@ -217,17 +263,29 @@ const saveFormatData = (paramsValue) => {
     }).then(res => res.rows)
 };
 
+/**
+ * 调整数据
+ */
+const adjustFormatData = (paramsValue) => {
+    return iss.fetch({
+        url: website.concat("/AreaInfo/ISaveAreaEditData"),
+        type: "post",
+        data: paramsValue,
+    }).then(res => res.rows)
+};
+
 
 export {
     getStep,
     getAreaList,
+    getAreaEditData,
     getAreaPlanQuota,
     createVersion,
     getVersion,
-    saveVersion,
     getCreateCondition,
 
     getSearchData,
     createFormatData,
     saveFormatData,
+    adjustFormatData,
 };

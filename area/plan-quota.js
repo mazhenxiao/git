@@ -4,12 +4,13 @@
 
 import React, {Component} from 'react';
 import {Button,Select} from 'antd';
-import {shallowCompare} from '../utils';
-import iss from "../../Content/js/iss.js";//公共类
+import "babel-polyfill";  //兼容ie
+import {shallowCompare,knife} from '../utils';
+import iss from "../js/iss.js";//公共类
 import { AreaConstants } from '../constants'; 
-require("../../Content/css/antd.min.css");
-require("../../Content/css/tools-dynamicTable.less");//专用css
-import DynamicTable from "../../Content/components/tools-dynamicTable.js"
+require("../css/antd.min.css");
+require("../css/tools-dynamicTable.less");//专用css
+import DynamicTable from "../components/tools-dynamicTable.js";
 class PlanQuota extends Component {
     state={
         pid:1,//项目id或当前版本id
@@ -22,10 +23,12 @@ class PlanQuota extends Component {
      * 发送数据给
      */
     postData={
-
+ 
     }
+
     componentWillReceiveProps(nextProps,nextState){
-        let data = nextProps.planData.map(arg=>{
+   
+     /*    let data = nextProps.planData.map(arg=>{
             
                 arg["valueId"]=iss.guid();
                 arg["edit"]="+m";
@@ -49,6 +52,8 @@ class PlanQuota extends Component {
                     "val": null,
                     "label": "请选择"
                   },
+
+
                   {
                     "val": "1",
                     "label": "拍卖"
@@ -85,9 +90,9 @@ class PlanQuota extends Component {
                   "val": null
                 }
               }
-        )
+        ) */
             this.setState({
-                "DynamicData":data
+                "DynamicData":nextProps.planData
                });
     }
      shouldComponentUpdate(nextProps, nextState){
@@ -95,16 +100,28 @@ class PlanQuota extends Component {
     } 
 
     componentWillMount() {
+      
       //  console.log("haha-will",this.props.planData)
     }
     componentDidMount() {
       //  console.log("haha-did",this.props.planData)
-        
-    }   
+     // this.GET_FetchData()
+    // knife.SET_CountExec({a:1,b:2,c:0},"{a}+{b}")
+    }
+    GET_FetchData=arg=>{  //测试数据减损
+      let th = this;
+      iss.fetch({url:"/AreaInfo/ISaveAreaPlanInfo",data:{"projectId":"d068e21e-5c2f-a0c0-1dbf-39f50bc7812c"}})
+      .then(arg=>{
+       // console.log("arg.row",arg.rows)
+        th.setState({
+          "DynamicData":arg.rows
+         });
+      })
+    }
     BIND_CALLBACK=(da, e)=>{ //子页面返回callback
         // if(this.time){ clearTimeout(this.time) }
         var th = this;
-        var el = (e&&e["target"]) ? e.target.value : da.val, list = this.state.DynamicData;
+        var el = (e&&e["target"]) ? e.target.value :e, list = this.state.DynamicData;
         list.forEach((d, i) => {
             if (da.id == d.id) {
                 d["val"] = el; 
@@ -113,23 +130,66 @@ class PlanQuota extends Component {
             }
 
         });
+        let newList = knife.SET_CountExec(list); //通用计算
+        
         th.setState({
-           "DynamicData": list
+           "DynamicData": newList
         });
 
-        this.postData=list.filter(arg=>{
+        this.postData=newList.filter(arg=>{  //过滤传入所有已填数据
             if(arg["val"]){
+              delete arg["parent"]
+              delete arg["child"]
                 return arg
             }
+         
         });
-        console.log("postData",this.postData)
-       // this.props.CallBack(this.postData)
+
+       this.props["onPlanQuotaDataChange"]&&this.props.onPlanQuotaDataChange(this.postData);
+      
+       
+      // let validates = knife.valid(list);  //数据校验
+       //console.log(validates);
+    }
+    EVENT_ClickSave=arg=>{
+       //  let detaileData = this.postData.filter(arg=>{ if(arg["val"]){ delete arg["parent"];delete arg["child"];return arg} }); //数据
+        
+          let _data_=this.postData.map((arg,ind)=>{
+                return { 
+                     "id":arg["id"],
+                     "val":arg["val"],
+                     "label":arg["label"],
+                     "valueId":arg["valueId"]
+                }
+             }),
+             versionId="e2f23b9a-31e4-821d-25cf-22c46927e1b8",//分期或版本id
+             step="2",//阶段
+             url="/AreaInfo/ISaveAreaPlanInfo";
+            // console.log((detaileData));
+             //return;
+            // debugger
+             iss.fetch({
+               url:url,
+               data:{
+                versionId,
+                step,
+                detaileData:JSON.stringify(_data_)
+               }
+             })
+             .then(arg=>{
+              console.log("then",arg)
+             })
+             .catch(error=>{
+                console.log("error",error)
+             })
+               
 
     }
     render() {
       
         return (
             <article>
+                 <button onClick={this.EVENT_ClickSave}>保存</button>
                  <DynamicTable pid={this.state.pid} DynamicData={this.state.DynamicData} CallBack={this.BIND_CALLBACK} />
             </article>
         );

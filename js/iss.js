@@ -41,8 +41,9 @@ class $iss {
         const { url, ...params } = opt;
         let requestInfo = {
             method: opt["type"] ? opt.type : 'POST',
-            mode: 'cors',
+           mode: 'cors',
             cache: 'no-cache',
+           credentials:"include", 
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -50,12 +51,16 @@ class $iss {
         };
         let _URL = url;
         if (params) {
-            let _data = JSON.stringify(params["data"] || {});
-            let str = _data.replace(/[{}]/ig, "").replace(/:/ig, "=").replace(/\,/ig, "&").replace(/\"/ig, "");
+            let ParamsStr = new URLSearchParams();
+            for(var li in params["data"]){
+                ParamsStr.append(li,params["data"][li]);
+            }
+           // let _data = JSON.stringify(params["data"] || {});
+           // let str = _data.replace(/[{}]/ig, "").replace(/:/ig, "=").replace(/\,/ig, "&").replace(/\"/ig, "");
             if (requestInfo.method.toLocaleLowerCase() == "post") {
-                requestInfo.body = str
+                requestInfo.body = ParamsStr
             } else {
-                _URL = url.indexOf("?") >= 0 ? url + "&" + str : url + "?" + str;
+                _URL = url.indexOf("?") >= 0 ? url + "&" + ParamsStr : url + "?" + ParamsStr;
             }
 
         }
@@ -802,13 +807,18 @@ class $iss {
                     clearInterval(mapMarkInter);
                     $('#geogrMarker').remove();
                     $("body").removeClass("geogrMarker_body");
-                    window.location.href = urlPath;
-                    window.location.reload();
+                   // $("window").trigger("EVENT_REOLOADIFRAME");
+                    top.window.location.href = urlPath;
+                    top.window.location.reload();
+                   // [...document.querySelectorAll("iframe")].forEach(arg=>{ arg.src=arg.src})
                 } else if (markCookie == "back") {
                     clearInterval(mapMarkInter);
                     $("body").removeClass("geogrMarker_body");
                     $('#geogrMarker').remove();
-                    window.location.reload();
+                   // $("window").trigger("EVENT_REOLOADIFRAME");
+                   top.window.location.href = urlPath;
+                   top.window.location.reload();
+                   // [...document.querySelectorAll("iframe")].forEach(arg=>{ arg.src=arg.src})
                 }
             }, 100);
         });

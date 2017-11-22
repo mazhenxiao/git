@@ -1,4 +1,4 @@
-webpackJsonp([1],{
+webpackJsonp([4],{
 
 /***/ 1502:
 /***/ (function(module, exports, __webpack_require__) {
@@ -20,11 +20,11 @@ __webpack_require__(52);
 
 __webpack_require__(58);
 
-var _componentStagingInformation = __webpack_require__(1563);
+var _componentStagingInformation = __webpack_require__(1586);
 
 var _componentStagingInformation2 = _interopRequireDefault(_componentStagingInformation);
 
-var _componentIndicators = __webpack_require__(1567);
+var _componentIndicators = __webpack_require__(1590);
 
 var _componentIndicators2 = _interopRequireDefault(_componentIndicators);
 
@@ -38,7 +38,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //兼容ie
 
 
-__webpack_require__(1540);
+__webpack_require__(1560);
 
 var Intallment = function (_React$Component) {
     _inherits(Intallment, _React$Component);
@@ -444,6 +444,64 @@ exports.default = Intallment;
 
 
 Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _shallowCompare = __webpack_require__(1536);
+
+Object.defineProperty(exports, "shallowCompare", {
+  enumerable: true,
+  get: function get() {
+    return _shallowCompare.shallowCompare;
+  }
+});
+
+var _knife = __webpack_require__(1537);
+
+Object.defineProperty(exports, "knife", {
+  enumerable: true,
+  get: function get() {
+    return _knife.knife;
+  }
+});
+
+/***/ }),
+
+/***/ 1530:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHxJREFUeNpinDlzJgM5gAlKewLxMyD+TwA/g6qFa5wLxGFAzAjlM6JhmFgYVC1coyQQH8Hiov9o/CNQtXCNZPsRGTwHYhsk51kD8Qt0RSxYNKYA8WogloDynwJxMjEat8H8QapTyfbjINeIHAX4ADxqWHBEAS4AjxqAAAMASR4bIq9a4swAAAAASUVORK5CYII="
+
+/***/ }),
+
+/***/ 1531:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJFJREFUeNpi/P//PwM5gAVEePnleAKpuUAsSUD9cyBO3rZpynYGkI2evtnPgNgGyv4PopExTAykBqQWxGaCmiQJNOUIuvFAl6D4A6oG7ComBjIBNo3PgTbZQG1gBLKtgcwXWAMHDaQA8WqgBgko/ykoQAhqBNqyjYjQpa4fB7lGeBTgA8hRw4IjCnABeNQABBgANs1HTp7NXyoAAAAASUVORK5CYII="
+
+/***/ }),
+
+/***/ 1532:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABVklEQVQ4T6WTzXHCQAyFn/bAcAsdxCW4BHcQSogvaH0jHZAOuBlxASoIqSDuAHcQ0gE5cmCVkcdmjDFkMtnbrqRPTz9L+OehvngRmarqExHFqlqq6muWZUWf7xVARGYAosFgME3T9LBcLuMQwpqIZsy87UIuAKvVanQ8Hgvvfdx2zPM8cs4VzBzdBeR5nhDR2Hs/7TqKiDLzleKLB8tERNsbCkpmHt1VYMbFYrElok9mfrF7Lf8NwIaZ578CrGmq+gFgpKp7IopU9d17P24Bd6q6sVIvSqgn8AxgHkIom2zD4bBsJnI6nWLnXAIgsaaeASKytoBmfF2pbWUhhBRAkWXZvgJY951zNmcjX512MIBvIkomk0mlsALUjVv3Lcq94DNARPZ9S2IOZgPw2M3cyKwU3FqSOvsOwJctWCO7XWMDOAB4aBts62wH7M2adevT9v7Gv/zwH4PhtBGvNQeUAAAAAElFTkSuQmCC"
+
+/***/ }),
+
+/***/ 1533:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABaklEQVQ4T6WTzU3DQBCF3+BF4oY7wCVsDpHsmzsgxyhypNBB6MB0kBIc2ULcCBXg21ri4O2A0EG4RSJk0Do/bJwlCOGbtTPfvJl5Q/jnR658GQ3HYL4GkQSzBnCnq6J0xR4BZJikAAIsxVjrbCG7A0neWcaEVKti1oYcAKQc+XSxKuuqkHagDPsBkShrVQSnAWESg9DTqhi3AzvRkGuVHyk+VGAqQcycCiB0XRX+SQXmUUZD0+erVvlt8x/2A5B4BGiqVT75HdAdSAjvmQCfGXMiBAw8aZX3voHnNcBT02qrhSQlwohBk+36NgWXQu82As+TAMdEiM1Q9wAZJtk2uFlfW6pZp6XsBvgodfUwbwDSTB+U6iqPncayksH8zp/rWL/cG4NhA2gGx5nLKHbldvIe0ImSucskJsC8AXTlSrYAbpM0Nhaemfgbr9a9nWy7zaaFTpgsQHRpPxjXNR4AYIb109E6r/EvF/4FXk6sEdl++K0AAAAASUVORK5CYII="
+
+/***/ }),
+
+/***/ 1535:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
@@ -484,7 +542,8 @@ var DynamicTable = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (DynamicTable.__proto__ || Object.getPrototypeOf(DynamicTable)).call(this, arg));
 
         _this.EVENT_CHANGE_ANTD_SELECTS = function (da, el) {
-            _this.props.CallBack(da, el);
+
+            _this.props.CallBack(da, Array.isArray(el) ? el.join(",") : el);
         };
 
         _this.count = 0; //初始化记录
@@ -685,6 +744,9 @@ var DynamicTable = function (_React$Component) {
                 } else {
                     if (el.type == "select") {
                         //单选
+                        if (!Array.isArray(el.data)) {
+                            return;
+                        }
                         var _list = el.data.map(function (_d, _i) {
                             return _react2.default.createElement(
                                 "option",
@@ -702,6 +764,9 @@ var DynamicTable = function (_React$Component) {
                         return _react2.default.createElement("input", { name: el.id, className: el.edit.indexOf("+m") >= 0 && !el.val ? "esayuiDate required" : "esayuiDate", id: el.id, "data-pid": el.pid, value: el.val || "", placeholder: el.edit.indexOf("+m") >= 0 ? "" : "", type: "text", onClick: _this2.setEventDate.bind(_this2, el), readOnly: "true" });
                     } else if (el.type == "selects") {
                         //多选
+                        if (!Array.isArray(el.data)) {
+                            return;
+                        }
                         var children = el.data.map(function (_d, _i) {
                             return _react2.default.createElement(
                                 Option,
@@ -711,7 +776,7 @@ var DynamicTable = function (_React$Component) {
                         });
                         return _react2.default.createElement(
                             _antd.Select,
-                            { mode: "tags", name: el.id, tokenSeparators: [','], className: el.edit.indexOf("+m") >= 0 && !el.val ? "required selects" : "selects", onChange: _this2.EVENT_CHANGE_ANTD_SELECTS.bind(_this2, el), defaultValue: el.val || [] },
+                            { mode: "tags", name: el.id, tokenSeparators: [','], className: el.edit.indexOf("+m") >= 0 && !el.val ? "required selects" : "selects", onChange: _this2.EVENT_CHANGE_ANTD_SELECTS.bind(_this2, el), defaultValue: Array.isArray(el.val) ? el.val : el.val ? el.val.split(",") : [] },
                             children
                         );
                     } else {
@@ -808,13 +873,356 @@ exports.default = DynamicTable;
 
 /***/ }),
 
-/***/ 1527:
+/***/ 1536:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/**
+ * Created by ZhangRuiTao on 2017/4/26.
+ */
+
+/**
+ * 自定义浅比较
+ */
+var shallowCompare = function shallowCompare(instance, nextProps, nextState) {
+	return !shallowEqual(instance.props, nextProps) || !shallowEqual(instance.state, nextState);
+};
+
+var shallowEqual = function shallowEqual(objA, objB) {
+	if (is(objA, objB)) {
+		return true;
+	}
+
+	if ((typeof objA === 'undefined' ? 'undefined' : _typeof(objA)) !== 'object' || objA === null || (typeof objB === 'undefined' ? 'undefined' : _typeof(objB)) !== 'object' || objB === null) {
+		return false;
+	}
+
+	var keysA = Object.keys(objA);
+	var keysB = Object.keys(objB);
+
+	if (keysA.length !== keysB.length) {
+		return false;
+	}
+
+	// Test for A's keys different from B.
+	for (var i = 0; i < keysA.length; i++) {
+		if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+			return false;
+		}
+	}
+
+	return true;
+};
+
+var is = function is(x, y) {
+	/**
+     * 类型为函数时 比较函数的字符串
+     */
+	if (typeof x === "function" && typeof y === "function") {
+		return x.toString() === y.toString();
+	}
+
+	if (x === y) {
+		return x !== 0 || y !== 0 || 1 / x === 1 / y;
+	} else {
+		return x !== x && y !== y;
+	}
+};
+
+exports.shallowCompare = shallowCompare;
+
+/***/ }),
+
+/***/ 1537:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.knife = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * 数据校验
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+//兼容ie
+
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _antd = __webpack_require__(644);
+
+__webpack_require__(58);
+
+var _iss = __webpack_require__(52);
+
+var _iss2 = _interopRequireDefault(_iss);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+//公共类
+__webpack_require__(645);
+
+var $knife = function () {
+    function $knife() {
+        var _this = this;
+
+        _classCallCheck(this, $knife);
+
+        this.checked = true;
+
+        this.messageBox = function (arg) {
+            _antd.Modal.error({
+                title: '提示',
+                content: _react2.default.createElement(
+                    'article',
+                    null,
+                    arg
+                ),
+                okText: "确定"
+            });
+        };
+
+        this.count = function (arg) {};
+
+        this.recursion = function (arg, num) {
+            var ii = num;
+            for (var i = 0; i < arg.length; i++) {
+                if (arg[i]["children"] && arg[i]["children"].length) {
+                    ii = _this.recursion(arg[i]["children"], ii);
+                } else {
+                    ii += parseInt(arg[i].width);
+                }
+            }
+            return ii;
+        };
+    }
+
+    _createClass($knife, [{
+        key: 'valid',
+        //默认校验数据为真
+        /**
+        *  数据校验 
+        * knife.valid([接口定义好的Filed内容])  
+        * 参数                返回值
+        * 接口Filed内容        true/false
+        */
+        value: function valid(arg) {
+            var _this2 = this;
+
+            this.checked = true;
+            var arr = Array.isArray(arg);
+            var msg = [];
+            if (arr) {
+                arg.forEach(function (el, ind) {
+                    var str = "",
+                        reg = el.regExp && eval("(" + el.regExp + ")");
+                    if (el["edit"].indexOf("+m") >= 0 && (!el["val"] || el["val"].length <= 0)) {
+                        str += "内容不能为空-";
+                        _this2.checked = false;
+                        msg.push(_react2.default.createElement(
+                            'p',
+                            { key: ind },
+                            _react2.default.createElement(
+                                'b',
+                                null,
+                                el.label,
+                                '\uFF1A'
+                            ),
+                            _react2.default.createElement(
+                                'span',
+                                null,
+                                str
+                            )
+                        ));
+                    } else if (reg) {
+                        //范围限制带添加
+                        var max = parseFloat(reg["max"]);
+                        var min = parseFloat(reg["min"]);
+                        var val = reg["type"].indexOf("string") >= 0 ? (el.val || "").length : parseFloat(el.val || 0);
+
+                        if (!Number.isNaN(max) && val > max) {
+                            _this2.checked = false;
+                            str += '\u503C\u4E0D\u5E94\u5927\u4E8E' + max + (el.unit || "") + '-';
+                            msg.push(_react2.default.createElement(
+                                'p',
+                                { key: ind },
+                                _react2.default.createElement(
+                                    'b',
+                                    null,
+                                    el.label,
+                                    '\uFF1A'
+                                ),
+                                _react2.default.createElement(
+                                    'span',
+                                    null,
+                                    str
+                                )
+                            ));
+                        } else if (!Number.isNaN(min) && val < min) {
+                            _this2.checked = false;
+                            str += '\u503C\u4E0D\u5E94\u5C0F\u4E8E' + min + (el.unit || "");
+                            msg.push(_react2.default.createElement(
+                                'p',
+                                { key: ind },
+                                _react2.default.createElement(
+                                    'b',
+                                    null,
+                                    el.label,
+                                    '\uFF1A'
+                                ),
+                                _react2.default.createElement(
+                                    'span',
+                                    null,
+                                    str
+                                )
+                            ));
+                        }
+                    }
+                });
+            } else {
+                console.log("validate", "校验数据不合法");
+            }
+            if (!this.checked) {
+                this.messageBox(msg);
+            }
+            return this.checked;
+        }
+        /**
+         * 弹出提示
+         */
+
+        /**
+         * 统计公式计算
+         * knife.count()
+         * 参数                   返回值
+         */
+
+        /**
+         * 递归计算用于处理包含children递归
+         */
+
+    }, {
+        key: 'SET_CountExec',
+
+        /**
+         * 
+         * @param {Array} list  全部数据    
+         * @param {Object} d    当前数据
+         * 第一种计算
+         *  let newList = knife.SET_CountExec(list); //通用计算传入json 修改json后返回json
+            th.setState({
+               "DynamicData": newList
+            });
+            //第二种计算
+            knife.SET_CountExec({a:1,b:2,c:0},"{a}+{b}");//返回当前计算结果
+         */
+        value: function SET_CountExec(list, d) {
+            //地块计算
+            var da = {};
+            if (Array.isArray(list)) {
+                // 既定json
+                var data = list.forEach(function (el, ind) {
+                    //   debugger
+                    var numreg = /number\((\d+)\)/.exec(el.regExp || "");
+                    var fixed = numreg ? numreg[1] : "";
+                    if (el.exec) {
+                        var exec = el.exec;
+                        var reg = /{.*?}/ig;
+                        var arr = exec.match(reg) || [];
+                        arr.forEach(function (ee, ii) {
+                            var regs = new RegExp('' + ee, "ig");
+                            list.forEach(function (ref) {
+                                var _id = ee.replace(/[{}]/ig, "");
+                                if (ref["id"] == _id) {
+                                    exec = exec.replace(regs, parseFloat(ref.val || 0));
+                                }
+                            });
+                        });
+                        if (arr && arr.length) {
+                            var _exec = eval(exec) || 0;
+                            el["val"] = Number.isFinite(_exec) ? _exec : 0;
+                        }
+                    }
+                });
+                return list;
+            } else if (typeof d == "string") {
+                //第二种计算
+                var exec = d;
+                var reg = /{.*?}/ig;
+                var arr = exec.match(reg) || [];
+                arr.forEach(function (ee, ind) {
+                    var _id = ee.replace(/[{}]/ig, "");
+                    var regs = new RegExp('\\{' + _id + '\\}', "ig");
+                    for (var me in list) {
+                        if (me == _id) {
+                            exec = exec.replace(regs, parseFloat(list[me] || 0));
+                        }
+                    }
+                });
+                var _exec = eval(exec) || 0;
+                return _exec;
+            }
+        }
+        /**
+         * 数据有效性检测
+         * @param {*} da   当前数据
+         * {"pid":"","id":"","label":"","text":"","val":"","type":"input","unit":"万元","edit":"+w","exec":null,"regExp":"{\r\n  \"type\": \"number(2)\",\r\n  \"max\": \"1000\",\r\n  \"min\": \"0\"\r\n}","colspan":0,"data":null,"valuetype":"number","valueId":null,"test":null}
+         * @param {*} val  input输入值
+         */
+
+    }, {
+        key: 'CHECK_InputValue',
+        value: function CHECK_InputValue(da, val) {
+            //检测数据
+            var reg = eval('(' + da.regExp + ')');
+            if (reg && reg.type.indexOf("number") >= 0) {
+                var regs = /\d/,
+                    num = /\d+/.exec(reg.type);
+                var numreg = /[^(\d+\.?\d+)|^\.\d+]/ig;
+
+                if (num) {
+                    var _reg = new RegExp("^\\d+(\.\\d{0," + num[0] + "})?$");
+                    var _reg2 = /(?:\d{1}|\.{1})$/;
+                    var tested = _reg.test(val) && _reg2.test(val);
+                    return val == "" ? true : tested;
+                }
+                return val == "" ? true : !numreg.test(val);
+            }
+            return true;
+        }
+    }]);
+
+    return $knife;
+}();
+
+var knife = new $knife();
+
+exports.knife = knife;
+
+/***/ }),
+
+/***/ 1538:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1528);
+var content = __webpack_require__(1539);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -840,7 +1248,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 1528:
+/***/ 1539:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(642)(undefined);
@@ -848,55 +1256,27 @@ exports = module.exports = __webpack_require__(642)(undefined);
 
 
 // module
-exports.push([module.i, "/*\ntools-dynamicTable.less\n*/\n.tools-dynamicTable {\n  margin-top: 10px;\n}\n.tools-dynamicTable ul li {\n  height: 40px;\n  overflow: hidden;\n}\n.tools-dynamicTable ul li label {\n  font-size: 12px;\n  color: #333;\n  font-weight: normal;\n  width: 110px;\n  text-align: right;\n  padding-top: 5px;\n  float: left;\n}\n.tools-dynamicTable ul li .dynamicTableDIV {\n  display: block;\n  margin: 0 65px 0 115px;\n}\n.tools-dynamicTable ul li .dynamicTableDIV input {\n  width: 100%;\n  padding: 3px;\n  border: #ddd solid 1px;\n}\n.tools-dynamicTable ul li .dynamicTableDIV input[readonly] {\n  background: #fbfbfb;\n}\n.tools-dynamicTable ul li .dynamicTableDIV input.required {\n  background: #fff3f3;\n}\n.tools-dynamicTable ul li .dynamicTableDIV select {\n  width: 100%;\n  height: 25px;\n  border: #ddd solid 1px;\n}\n.tools-dynamicTable ul li .dynamicTableDIV select.required {\n  background: #fff3f3;\n}\n.tools-dynamicTable ul li .dynamicTableDIV .selects {\n  width: 100%;\n  height: 25px;\n  overflow: hidden;\n}\n.tools-dynamicTable ul li .dynamicTableDIV .selects .ant-select-selection--multiple {\n  min-height: 25px;\n  border-radius: 0;\n  padding-bottom: 0;\n  height: 25px;\n  overflow: hidden;\n}\n.tools-dynamicTable ul li .dynamicTableDIV .ant-select-search__field {\n  border: none;\n  padding: 0;\n}\n.tools-dynamicTable ul li .dynamicTableDIV .ant-select-selection__choice {\n  margin-top: 2px;\n  padding: 0 15px 0 0;\n  float: none;\n  display: inline-block;\n}\n.tools-dynamicTable ul li .dynamicTableDIV .ant-select-selection__choice__remove {\n  right: 0;\n}\n.tools-dynamicTable ul li i {\n  font-style: normal;\n  width: 60px;\n  float: right;\n  padding-top: 3px;\n  position: relative;\n  top: 0;\n  left: 0;\n}\n.tools-dynamicTable ul li i b {\n  position: absolute;\n  top: 0;\n  left: 0;\n  background: rgba(255, 255, 255, 0.7);\n  color: #c00;\n  font-weight: normal;\n  font-size: 12px;\n}\n.tools-dynamicTable ul li i.date {\n  display: inline-block;\n  height: 30px;\n  background: url(" + __webpack_require__(1529) + ") no-repeat 3px 50%;\n}\n.BIND_LAND_BTN {\n  padding: 10px;\n}\n.BIND_LAND_BTN li {\n  display: inline-block;\n  padding: 5px 10px;\n  border: #ddd solid 1px;\n  cursor: pointer;\n  margin: 10px;\n  position: relative;\n  top: 0;\n  left: 0;\n}\n.BIND_LAND_BTN li.active {\n  background: #e4e4e4;\n}\n.BIND_LAND_BTN li .icon-delete {\n  position: absolute;\n  top: -10px;\n  right: -10px;\n  display: none;\n}\n.BIND_LAND_BTN li:hover .icon-delete {\n  display: block;\n}\n", ""]);
+exports.push([module.i, "/*\ntools-dynamicTable.less\n*/\n.tools-dynamicTable {\n  margin-top: 10px;\n}\n.tools-dynamicTable ul li {\n  height: 40px;\n  overflow: hidden;\n}\n.tools-dynamicTable ul li label {\n  font-size: 12px;\n  color: #333;\n  font-weight: normal;\n  width: 110px;\n  text-align: right;\n  padding-top: 5px;\n  float: left;\n}\n.tools-dynamicTable ul li .dynamicTableDIV {\n  display: block;\n  margin: 0 65px 0 115px;\n}\n.tools-dynamicTable ul li .dynamicTableDIV input {\n  width: 100%;\n  padding: 3px;\n  border: #ddd solid 1px;\n}\n.tools-dynamicTable ul li .dynamicTableDIV input[readonly] {\n  background: #fbfbfb;\n}\n.tools-dynamicTable ul li .dynamicTableDIV input.required {\n  background: #fff3f3;\n}\n.tools-dynamicTable ul li .dynamicTableDIV select {\n  width: 100%;\n  height: 25px;\n  border: #ddd solid 1px;\n}\n.tools-dynamicTable ul li .dynamicTableDIV select.required {\n  background: #fff3f3;\n}\n.tools-dynamicTable ul li .dynamicTableDIV .selects {\n  width: 100%;\n  height: 25px;\n  overflow: hidden;\n}\n.tools-dynamicTable ul li .dynamicTableDIV .selects .ant-select-selection--multiple {\n  min-height: 25px;\n  border-radius: 0;\n  padding-bottom: 0;\n  height: 25px;\n  overflow: hidden;\n}\n.tools-dynamicTable ul li .dynamicTableDIV .ant-select-search__field {\n  border: none;\n  padding: 0;\n}\n.tools-dynamicTable ul li .dynamicTableDIV .ant-select-selection__choice {\n  margin-top: 2px;\n  padding: 0 15px 0 0;\n  float: none;\n  display: inline-block;\n}\n.tools-dynamicTable ul li .dynamicTableDIV .ant-select-selection__choice__remove {\n  right: 0;\n}\n.tools-dynamicTable ul li i {\n  font-style: normal;\n  width: 60px;\n  float: right;\n  padding-top: 3px;\n  position: relative;\n  top: 0;\n  left: 0;\n}\n.tools-dynamicTable ul li i b {\n  position: absolute;\n  top: 0;\n  left: 0;\n  background: rgba(255, 255, 255, 0.7);\n  color: #c00;\n  font-weight: normal;\n  font-size: 12px;\n}\n.tools-dynamicTable ul li i.date {\n  display: inline-block;\n  height: 30px;\n  background: url(" + __webpack_require__(1540) + ") no-repeat 3px 50%;\n}\n.BIND_LAND_BTN {\n  padding: 10px;\n}\n.BIND_LAND_BTN li {\n  display: inline-block;\n  padding: 5px 10px;\n  border: #ddd solid 1px;\n  cursor: pointer;\n  margin: 10px;\n  position: relative;\n  top: 0;\n  left: 0;\n}\n.BIND_LAND_BTN li.active {\n  background: #e4e4e4;\n}\n.BIND_LAND_BTN li .icon-delete {\n  position: absolute;\n  top: -10px;\n  right: -10px;\n  display: none;\n}\n.BIND_LAND_BTN li:hover .icon-delete {\n  display: block;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 1529:
+/***/ 1540:
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,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"
 
 /***/ }),
 
-/***/ 1533:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHxJREFUeNpinDlzJgM5gAlKewLxMyD+TwA/g6qFa5wLxGFAzAjlM6JhmFgYVC1coyQQH8Hiov9o/CNQtXCNZPsRGTwHYhsk51kD8Qt0RSxYNKYA8WogloDynwJxMjEat8H8QapTyfbjINeIHAX4ADxqWHBEAS4AjxqAAAMASR4bIq9a4swAAAAASUVORK5CYII="
-
-/***/ }),
-
-/***/ 1534:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJFJREFUeNpi/P//PwM5gAVEePnleAKpuUAsSUD9cyBO3rZpynYGkI2evtnPgNgGyv4PopExTAykBqQWxGaCmiQJNOUIuvFAl6D4A6oG7ComBjIBNo3PgTbZQG1gBLKtgcwXWAMHDaQA8WqgBgko/ykoQAhqBNqyjYjQpa4fB7lGeBTgA8hRw4IjCnABeNQABBgANs1HTp7NXyoAAAAASUVORK5CYII="
-
-/***/ }),
-
-/***/ 1535:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABVklEQVQ4T6WTzXHCQAyFn/bAcAsdxCW4BHcQSogvaH0jHZAOuBlxASoIqSDuAHcQ0gE5cmCVkcdmjDFkMtnbrqRPTz9L+OehvngRmarqExHFqlqq6muWZUWf7xVARGYAosFgME3T9LBcLuMQwpqIZsy87UIuAKvVanQ8Hgvvfdx2zPM8cs4VzBzdBeR5nhDR2Hs/7TqKiDLzleKLB8tERNsbCkpmHt1VYMbFYrElok9mfrF7Lf8NwIaZ578CrGmq+gFgpKp7IopU9d17P24Bd6q6sVIvSqgn8AxgHkIom2zD4bBsJnI6nWLnXAIgsaaeASKytoBmfF2pbWUhhBRAkWXZvgJY951zNmcjX512MIBvIkomk0mlsALUjVv3Lcq94DNARPZ9S2IOZgPw2M3cyKwU3FqSOvsOwJctWCO7XWMDOAB4aBts62wH7M2adevT9v7Gv/zwH4PhtBGvNQeUAAAAAElFTkSuQmCC"
-
-/***/ }),
-
-/***/ 1536:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABaklEQVQ4T6WTzU3DQBCF3+BF4oY7wCVsDpHsmzsgxyhypNBB6MB0kBIc2ULcCBXg21ri4O2A0EG4RSJk0Do/bJwlCOGbtTPfvJl5Q/jnR658GQ3HYL4GkQSzBnCnq6J0xR4BZJikAAIsxVjrbCG7A0neWcaEVKti1oYcAKQc+XSxKuuqkHagDPsBkShrVQSnAWESg9DTqhi3AzvRkGuVHyk+VGAqQcycCiB0XRX+SQXmUUZD0+erVvlt8x/2A5B4BGiqVT75HdAdSAjvmQCfGXMiBAw8aZX3voHnNcBT02qrhSQlwohBk+36NgWXQu82As+TAMdEiM1Q9wAZJtk2uFlfW6pZp6XsBvgodfUwbwDSTB+U6iqPncayksH8zp/rWL/cG4NhA2gGx5nLKHbldvIe0ImSucskJsC8AXTlSrYAbpM0Nhaemfgbr9a9nWy7zaaFTpgsQHRpPxjXNR4AYIb109E6r/EvF/4FXk6sEdl++K0AAAAASUVORK5CYII="
-
-/***/ }),
-
-/***/ 1540:
+/***/ 1560:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1541);
+var content = __webpack_require__(1561);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -922,7 +1302,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 1541:
+/***/ 1561:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(642)(undefined);
@@ -930,28 +1310,28 @@ exports = module.exports = __webpack_require__(642)(undefined);
 
 
 // module
-exports.push([module.i, "/*identity.less*/\n.clear {\n  clear: both;\n}\n.boxGroupTit {\n  height: 40px;\n  margin-bottom: 5px ;\n  position: relative;\n  margin-top: 0;\n}\n.boxGroupTit p {\n  height: 40px;\n  line-height: 40px;\n  color: #333333;\n  font-size: 14px;\n  border-bottom: 1px solid #c9c9c9;\n}\n.boxGroupTit p span {\n  display: inline-block;\n  line-height: 40px;\n  border-bottom: 2px solid #31395d;\n}\n.boxGroupTit p i {\n  font-style: normal;\n}\n.boxGroupTit span.functionButton {\n  position: absolute;\n  right: 0;\n  top: 0;\n  width: auto;\n  text-align: right;\n}\n.boxGroupTit span.functionButton a {\n  font-size: 12px;\n  height: 40px;\n  line-height: 40px;\n  display: inline-block;\n  padding-left: 20px;\n  padding-right: 20px;\n  color: #999999 !important;\n  background-repeat: no-repeat;\n  background-position: left center;\n}\n.boxGroupTit span.functionButton a:hover {\n  color: #31395d;\n}\n.boxGroupTit span.functionButton .refresh-icon {\n  background-image: url(" + __webpack_require__(1542) + ");\n}\n.boxGroupTit span.functionButton .refresh-icon:hover {\n  background-image: url(" + __webpack_require__(1543) + ");\n}\n.boxGroupTit span.functionButton .saveIcon {\n  background-image: url(" + __webpack_require__(1533) + ");\n}\n.boxGroupTit span.functionButton .saveIcon:hover {\n  background-image: url(" + __webpack_require__(1534) + ");\n}\n.boxGroupTit span.functionButton .approvalIcon {\n  background-image: url(" + __webpack_require__(1535) + ");\n}\n.boxGroupTit span.functionButton .approvalIcon:hover {\n  background-image: url(" + __webpack_require__(1536) + ");\n}\n.staging-left,\n.staging-right {\n  float: left;\n}\n.projectinFormation {\n  width: 66.6%;\n  height: auto;\n  margin-top: 10px;\n  padding-right: 20px;\n}\n.fieldLocation {\n  margin-top: 10px;\n  width: 33.3%;\n  height: 295px;\n  border: 1px solid #dddddd;\n}\n.carouselStyle .left,\n.carouselStyle .right {\n  background: none;\n}\n.carouselStyle .carousel-control {\n  width: 30px;\n  height: 30px;\n  line-height: 30px;\n  top: 50%;\n  margin-top: -15px;\n  background: #F1A118;\n}\n.carouselStyle .carousel-control:hover {\n  opacity: 0.8;\n}\n/*地图位置标记*/\n.geogrMarker_body {\n  position: relative;\n  overflow: hidden;\n}\n.geogrMarker_body .geogrMarker {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  z-index: 999997;\n}\n", ""]);
+exports.push([module.i, "/*identity.less*/\n.clear {\n  clear: both;\n}\n.boxGroupTit {\n  height: 40px;\n  margin-bottom: 5px ;\n  position: relative;\n  margin-top: 0;\n}\n.boxGroupTit p {\n  height: 40px;\n  line-height: 40px;\n  color: #333333;\n  font-size: 14px;\n  border-bottom: 1px solid #c9c9c9;\n}\n.boxGroupTit p span {\n  display: inline-block;\n  line-height: 40px;\n  border-bottom: 2px solid #31395d;\n}\n.boxGroupTit p i {\n  font-style: normal;\n}\n.boxGroupTit span.functionButton {\n  position: absolute;\n  right: 0;\n  top: 0;\n  width: auto;\n  text-align: right;\n}\n.boxGroupTit span.functionButton a {\n  font-size: 12px;\n  height: 40px;\n  line-height: 40px;\n  display: inline-block;\n  padding-left: 20px;\n  padding-right: 20px;\n  color: #999999 !important;\n  background-repeat: no-repeat;\n  background-position: left center;\n}\n.boxGroupTit span.functionButton a:hover {\n  color: #31395d;\n}\n.boxGroupTit span.functionButton .refresh-icon {\n  background-image: url(" + __webpack_require__(1562) + ");\n}\n.boxGroupTit span.functionButton .refresh-icon:hover {\n  background-image: url(" + __webpack_require__(1563) + ");\n}\n.boxGroupTit span.functionButton .saveIcon {\n  background-image: url(" + __webpack_require__(1530) + ");\n}\n.boxGroupTit span.functionButton .saveIcon:hover {\n  background-image: url(" + __webpack_require__(1531) + ");\n}\n.boxGroupTit span.functionButton .approvalIcon {\n  background-image: url(" + __webpack_require__(1532) + ");\n}\n.boxGroupTit span.functionButton .approvalIcon:hover {\n  background-image: url(" + __webpack_require__(1533) + ");\n}\n.staging-left,\n.staging-right {\n  float: left;\n}\n.projectinFormation {\n  width: 66.6%;\n  height: auto;\n  margin-top: 10px;\n  padding-right: 20px;\n}\n.fieldLocation {\n  margin-top: 10px;\n  width: 33.3%;\n  height: 295px;\n  border: 1px solid #dddddd;\n}\n.carouselStyle .left,\n.carouselStyle .right {\n  background: none;\n}\n.carouselStyle .carousel-control {\n  width: 30px;\n  height: 30px;\n  line-height: 30px;\n  top: 50%;\n  margin-top: -15px;\n  background: #F1A118;\n}\n.carouselStyle .carousel-control:hover {\n  opacity: 0.8;\n}\n/*地图位置标记*/\n.geogrMarker_body {\n  position: relative;\n  overflow: hidden;\n}\n.geogrMarker_body .geogrMarker {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  z-index: 999997;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 1542:
+/***/ 1562:
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABO0lEQVQ4T6VSsXHDMAwkWLBOJohG8AbRBrE3sBrxWNnZQNlAHUk1zgbWBlEmiD1Bkg3USgWQg45y7Fgn5s4sCeDx/3gQNz6Ymt/tdnd932+IaA0ASehpiagmohdjzNc4dwVQVdWCiN6I6J2ISmNMw838j4gMuEHEzBjzyv8XANbaREr5gYjPY8NfhmEBg6611vUFgPeeC43WupizxlqbSilrpVRyAgjbP5VS91mWtTFvnXMHlngOwKiF1jqNDXPdez+whKDpiYh4MAEANufI+uaAAkA6MAjaH8PAt1JqEZPhnCsBoB0A+O5d1zV8cwBI8zw/xGSwBwBQnDwIUpIY9cB4K4TYaq1/rxDbONa990smjYgrDtlklKfCg4gPQoglAKzGEF0lcYpF2LgnoiMAcHjKc4P/xWBO3s0AP2hInl/EMUEDAAAAAElFTkSuQmCC"
 
 /***/ }),
 
-/***/ 1543:
+/***/ 1563:
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA7ElEQVQ4T6WTgQ0BQRBFnw6ogBJ0QAfogArQAR3ogA7oABWgAnRwJcjb7CbncmcvMcnmkt2ZN//P7nX4MzoN9V1gCcyBQcwpgBOwBV6prg4wBM7AFdgBl5jsvkDBC+DgfhVgtxuwTgk1CgUJFXaqAjxwbTKjGUc7gzLA7k+gB+g3F3ctlgFS7ey3TQSVAvQ0iYWqcDiPKPEXKDRLCvQ9itnvCM3Z8IaKBPDehahAC/rLhTmb8gy0IsDHkosV4Pq6hVxROp8Ce2Cm6qanXIWprg9YbGF4RHUvsU6FRcfSzYTh/foX2loJeW0tNEI/qngqkZ/g9CsAAAAASUVORK5CYII="
 
 /***/ }),
 
-/***/ 1544:
+/***/ 1566:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -987,7 +1367,7 @@ $.extend($.fn.validatebox.defaults.rules, {
 
 /***/ }),
 
-/***/ 1545:
+/***/ 1567:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1007,7 +1387,9 @@ __webpack_require__(52);
 
 __webpack_require__(58);
 
-__webpack_require__(1546);
+__webpack_require__(1568);
+
+var _utils = __webpack_require__(1526);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1019,6 +1401,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //兼容ie
 
 
+//工具集
 var Winopen = function (_React$Component) {
     _inherits(Winopen, _React$Component);
 
@@ -1096,7 +1479,7 @@ var Winopen = function (_React$Component) {
                                 _react2.default.createElement(
                                     "td",
                                     null,
-                                    _react2.default.createElement("input", { type: "text", disabled: status == "view", id: obj.FieldList[0].id + '_' + obj.ID, readOnly: obj.IsAllDevel == 0 || obj.IsAllDevel == 1 || obj.IsAllDevel == 2 && obj.FieldList[0].edit == "+r", value: obj.FieldList[0].val == null ? "" : obj.FieldList[0].val, onChange: th.evInputChange.bind(th, obj.ID, obj.FieldList[0].id) })
+                                    _react2.default.createElement("input", { type: "text", disabled: status == "view", id: obj.FieldList[0].id + '_' + obj.ID, readOnly: obj.IsAllDevel == 0 || obj.IsAllDevel == 1 || obj.IsAllDevel == 2 && obj.FieldList[0].edit == "+r", value: obj.FieldList[0].text == null ? "" : obj.FieldList[0].text, onChange: th.evInputChange.bind(th, obj.ID, obj.FieldList[0].id) })
                                 ),
                                 _react2.default.createElement(
                                     "td",
@@ -1110,7 +1493,7 @@ var Winopen = function (_React$Component) {
                                 _react2.default.createElement(
                                     "td",
                                     null,
-                                    _react2.default.createElement("input", { type: "text", disabled: status == "view", id: obj.FieldList[1].id + '_' + obj.ID, readOnly: obj.IsAllDevel == 0 || obj.IsAllDevel == 1 || obj.IsAllDevel == 2 && obj.FieldList[1].edit == "+r", value: obj.FieldList[1].val == null ? "" : obj.FieldList[1].val, onChange: th.evInputChange.bind(th, obj.ID, obj.FieldList[1].id) })
+                                    _react2.default.createElement("input", { type: "text", disabled: status == "view", id: obj.FieldList[1].id + '_' + obj.ID, readOnly: obj.IsAllDevel == 0 || obj.IsAllDevel == 1 || obj.IsAllDevel == 2 && obj.FieldList[1].edit == "+r", value: obj.FieldList[1].text == null ? "" : obj.FieldList[1].text, onChange: th.evInputChange.bind(th, obj.ID, obj.FieldList[1].id) })
                                 ),
                                 _react2.default.createElement("td", { colSpan: "2" })
                             ),
@@ -1130,7 +1513,7 @@ var Winopen = function (_React$Component) {
                                 _react2.default.createElement(
                                     "td",
                                     null,
-                                    _react2.default.createElement("input", { type: "text", disabled: status == "view", id: obj.FieldList[2].id + '_' + obj.ID, readOnly: obj.IsAllDevel == 0 || obj.IsAllDevel == 1 || obj.IsAllDevel == 2 && obj.FieldList[2].edit == "+r", value: obj.FieldList[2].val == null ? "" : obj.FieldList[2].val, onChange: th.evInputChange.bind(th, obj.ID, obj.FieldList[2].id) })
+                                    _react2.default.createElement("input", { type: "text", disabled: status == "view", id: obj.FieldList[2].id + '_' + obj.ID, readOnly: obj.IsAllDevel == 0 || obj.IsAllDevel == 1 || obj.IsAllDevel == 2 && obj.FieldList[2].edit == "+r", value: obj.FieldList[2].text == null ? "" : obj.FieldList[2].text, onChange: th.evInputChange.bind(th, obj.ID, obj.FieldList[2].id) })
                                 ),
                                 _react2.default.createElement(
                                     "td",
@@ -1150,7 +1533,7 @@ var Winopen = function (_React$Component) {
                                 _react2.default.createElement(
                                     "td",
                                     null,
-                                    _react2.default.createElement("input", { type: "text", disabled: status == "view", className: "comp-validatebox", "data-regExp": obj.FieldList[3].regExp, autoComplete: "off", id: obj.FieldList[3].id + '_' + obj.ID, readOnly: obj.IsAllDevel == 0 || obj.IsAllDevel == 1 || obj.IsAllDevel == 2 && obj.FieldList[3].edit == "+r", value: obj.FieldList[3].val == null ? "" : obj.FieldList[3].val, onChange: th.evInputChange.bind(th, obj.ID, obj.FieldList[3].id) })
+                                    _react2.default.createElement("input", { type: "text", disabled: status == "view", className: "comp-validatebox", "data-regExp": obj.FieldList[3].regExp, autoComplete: "off", id: obj.FieldList[3].id + '_' + obj.ID, readOnly: obj.IsAllDevel == 0 || obj.IsAllDevel == 1 || obj.IsAllDevel == 2 && obj.FieldList[3].edit == "+r", value: obj.FieldList[3].text == null ? "" : obj.FieldList[3].text, onChange: th.evInputChange.bind(th, obj.ID, obj.FieldList[3].id) })
                                 ),
                                 _react2.default.createElement(
                                     "td",
@@ -1170,7 +1553,7 @@ var Winopen = function (_React$Component) {
                                 _react2.default.createElement(
                                     "td",
                                     null,
-                                    _react2.default.createElement("input", { type: "text", disabled: status == "view", className: "comp-validatebox", "data-regExp": obj.FieldList[4].regExp, autoComplete: "off", id: obj.FieldList[4].id + '_' + obj.ID, readOnly: obj.IsAllDevel == 0 || obj.IsAllDevel == 1 || obj.IsAllDevel == 2 && obj.FieldList[4].edit == "+r", value: obj.FieldList[4].val == null ? "" : obj.FieldList[4].val, onChange: th.evInputChange.bind(th, obj.ID, obj.FieldList[4].id) })
+                                    _react2.default.createElement("input", { type: "text", disabled: status == "view", className: "comp-validatebox", "data-regExp": obj.FieldList[4].regExp, autoComplete: "off", id: obj.FieldList[4].id + '_' + obj.ID, readOnly: obj.IsAllDevel == 0 || obj.IsAllDevel == 1 || obj.IsAllDevel == 2 && obj.FieldList[4].edit == "+r", value: obj.FieldList[4].text == null ? "" : obj.FieldList[4].text, onChange: th.evInputChange.bind(th, obj.ID, obj.FieldList[4].id) })
                                 )
                             ),
                             _react2.default.createElement(
@@ -1194,7 +1577,7 @@ var Winopen = function (_React$Component) {
                                 _react2.default.createElement(
                                     "td",
                                     null,
-                                    _react2.default.createElement("input", { type: "text", disabled: status == "view", className: "comp-validatebox", "data-regExp": obj.FieldList[5].regExp, autoComplete: "off", id: obj.FieldList[5].id + '_' + obj.ID, readOnly: obj.IsAllDevel == 0 || obj.IsAllDevel == 1 || obj.IsAllDevel == 2 && obj.FieldList[5].edit == "+r", value: obj.FieldList[5].val == null ? "" : obj.FieldList[5].val, onChange: th.evInputChange.bind(th, obj.ID, obj.FieldList[5].id) })
+                                    _react2.default.createElement("input", { type: "text", disabled: status == "view", className: "comp-validatebox", "data-regExp": obj.FieldList[5].regExp, autoComplete: "off", id: obj.FieldList[5].id + '_' + obj.ID, readOnly: obj.IsAllDevel == 0 || obj.IsAllDevel == 1 || obj.IsAllDevel == 2 && obj.FieldList[5].edit == "+r", value: obj.FieldList[5].text == null ? "" : obj.FieldList[5].text, onChange: th.evInputChange.bind(th, obj.ID, obj.FieldList[5].id) })
                                 ),
                                 _react2.default.createElement(
                                     "td",
@@ -1214,7 +1597,7 @@ var Winopen = function (_React$Component) {
                                 _react2.default.createElement(
                                     "td",
                                     null,
-                                    _react2.default.createElement("input", { type: "text", disabled: status == "view", className: "comp-validatebox", "data-regExp": obj.FieldList[6].regExp, autoComplete: "off", id: obj.FieldList[6].id + '_' + obj.ID, readOnly: obj.IsAllDevel == 0 || obj.IsAllDevel == 1 || obj.IsAllDevel == 2 && obj.FieldList[6].edit == "+r", value: obj.FieldList[6].val == null ? "" : obj.FieldList[6].val, onChange: th.evInputChange.bind(th, obj.ID, obj.FieldList[6].id) })
+                                    _react2.default.createElement("input", { type: "text", disabled: status == "view", className: "comp-validatebox", "data-regExp": obj.FieldList[6].regExp, autoComplete: "off", id: obj.FieldList[6].id + '_' + obj.ID, readOnly: obj.IsAllDevel == 0 || obj.IsAllDevel == 1 || obj.IsAllDevel == 2 && obj.FieldList[6].edit == "+r", value: obj.FieldList[6].text == null ? "" : obj.FieldList[6].text, onChange: th.evInputChange.bind(th, obj.ID, obj.FieldList[6].id) })
                                 ),
                                 _react2.default.createElement(
                                     "td",
@@ -1229,7 +1612,7 @@ var Winopen = function (_React$Component) {
                                 _react2.default.createElement(
                                     "td",
                                     null,
-                                    _react2.default.createElement("input", { type: "text", disabled: status == "view", id: obj.FieldList[7].id + '_' + obj.ID, readOnly: obj.IsAllDevel == 0 || obj.IsAllDevel == 1 || obj.IsAllDevel == 2 && obj.FieldList[7].edit == "+r", value: obj.FieldList[7].val == null ? "" : obj.FieldList[7].val, onChange: th.evInputChange.bind(th, obj.ID, obj.FieldList[7].id) })
+                                    _react2.default.createElement("input", { type: "text", disabled: status == "view", id: obj.FieldList[7].id + '_' + obj.ID, readOnly: obj.IsAllDevel == 0 || obj.IsAllDevel == 1 || obj.IsAllDevel == 2 && obj.FieldList[7].edit == "+r", value: obj.FieldList[7].val == null ? "" : parseFloat(obj.FieldList[7].text).toFixed(0), onChange: th.evInputChange.bind(th, obj.ID, obj.FieldList[7].id) })
                                 )
                             )
                         )
@@ -1267,6 +1650,7 @@ var Winopen = function (_React$Component) {
                 });
             }, 600);
         }
+
         /*input change*/
 
     }, {
@@ -1276,11 +1660,21 @@ var Winopen = function (_React$Component) {
             var list = th.state.listArr;
             var newList = [];
             var val = event.target.value;
+            var num = parseFloat(val);
+            if (!Number.isNaN(num) && num < 0) {
+                return;
+            }
             list.forEach(function (obj, index) {
                 if (obj.ID == listId) {
                     obj.FieldList.forEach(function (feildObj, fIndex) {
+                        var numreg = /number\((\d+)\)/.exec(feildObj.regExp || "");
+                        var fixed = numreg ? numreg[1] : "";
                         if (feildObj.id == fieldId) {
-                            feildObj.text = val;
+                            var _num = val;
+                            if (!_utils.knife.CHECK_InputValue(feildObj, val)) {
+                                return;
+                            }
+                            feildObj.text = _num;
                             feildObj.val = val;
                         }
                     });
@@ -1352,7 +1746,10 @@ var Winopen = function (_React$Component) {
             var list = th.state.listArr;
             var newList = [];
             var val = event.target.value;
-
+            var num = parseFloat(val);
+            if (!Number.isNaN(num) && num < 0) {
+                return;
+            }
             if (!$("#form_aBuiltLand").form("validate")) {
                 $("#errorTip").html("输入的数据有错误,请改正后再切换全部开发");
                 return false;
@@ -1363,11 +1760,14 @@ var Winopen = function (_React$Component) {
             list.forEach(function (obj, index) {
                 if (obj.ID == listId) {
                     obj.IsAllDevel = val;
+
                     if (val == 1) {
                         obj.FieldList.forEach(function (fObj, fIndex) {
+
                             var maxVal = iss.getRegExpkVal(fObj.regExp, "max");
                             var editS = fObj.edit;
                             if (editS == "+w" && maxVal != "") {
+
                                 fObj.val = maxVal;
                                 fObj.text = maxVal;
                             }
@@ -1451,13 +1851,13 @@ exports.default = Winopen;
 
 /***/ }),
 
-/***/ 1546:
+/***/ 1568:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1547);
+var content = __webpack_require__(1569);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -1483,7 +1883,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 1547:
+/***/ 1569:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(642)(undefined);
@@ -1498,13 +1898,13 @@ exports.push([module.i, "/*aBuilt.less文件*/\n.modal-title {\n  font-size: 16p
 
 /***/ }),
 
-/***/ 1555:
+/***/ 1580:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1565);
+var content = __webpack_require__(1588);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -1530,7 +1930,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 1563:
+/***/ 1586:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1554,11 +1954,11 @@ __webpack_require__(52);
 
 __webpack_require__(58);
 
-var _componentStagingInformationGroupIframe = __webpack_require__(1564);
+var _componentStagingInformationGroupIframe = __webpack_require__(1587);
 
 var _componentStagingInformationGroupIframe2 = _interopRequireDefault(_componentStagingInformationGroupIframe);
 
-var _componentStagingInformationPlateIframe = __webpack_require__(1566);
+var _componentStagingInformationPlateIframe = __webpack_require__(1589);
 
 var _componentStagingInformationPlateIframe2 = _interopRequireDefault(_componentStagingInformationPlateIframe);
 
@@ -1739,12 +2139,13 @@ var StagingInformation = function (_React$Component) {
                 iss.popover({ content: "请先暂存分期信息" });
                 return false;
             }
-            iss.Alert({
+            iss.Alert(_defineProperty({
                 title: "推盘划分",
                 width: 500,
                 height: 250,
                 content: '<div id="PlateIframeBox"></div>',
-                okVal: "确定",
+                okVal: "保存",
+                cancel: "取消",
                 ok: function ok(da) {
                     //console.log(th.plateInfo.state.dataList)
                     var stageversionid = th.state.STAGEVERSIONID,
@@ -1807,7 +2208,7 @@ var StagingInformation = function (_React$Component) {
                         }
                     });
                 }
-            });
+            }, 'cancel', function cancel() {}));
             _reactDom2.default.render(_react2.default.createElement(_componentStagingInformationPlateIframe2.default, { data: data, callback: th.PlateIframeCallback.bind(this), versionId: th.state.STAGEVERSIONID }), document.querySelector("#PlateIframeBox"));
         }
 
@@ -1823,12 +2224,13 @@ var StagingInformation = function (_React$Component) {
                 iss.popover({ content: "请先暂存分期信息" });
                 return false;
             }
-            iss.Alert({
+            iss.Alert(_defineProperty({
                 title: "组团划分",
                 width: 500,
                 height: 250,
                 content: '<div id="GroupIframeBox"></div>',
-                okVal: "确定",
+                okVal: "保存",
+                cancel: "取消",
                 ok: function ok(da) {
                     var stageversionid = th.state.STAGEVERSIONID,
                         newGroup = [],
@@ -1887,7 +2289,7 @@ var StagingInformation = function (_React$Component) {
                         }
                     });
                 }
-            });
+            }, 'cancel', function cancel() {}));
             _reactDom2.default.render(_react2.default.createElement(_componentStagingInformationGroupIframe2.default, { data: data, callback: th.GroupIframeCallback.bind(this), versionId: th.state.STAGEVERSIONID }), document.querySelector("#GroupIframeBox"));
         }
     }, {
@@ -2789,7 +3191,7 @@ exports.default = StagingInformation;
 
 /***/ }),
 
-/***/ 1564:
+/***/ 1587:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2809,7 +3211,7 @@ __webpack_require__(52);
 
 __webpack_require__(58);
 
-__webpack_require__(1555);
+__webpack_require__(1580);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3205,7 +3607,7 @@ exports.default = GroupIframe;
 
 /***/ }),
 
-/***/ 1565:
+/***/ 1588:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(642)(undefined);
@@ -3220,7 +3622,7 @@ exports.push([module.i, ".addGroup {\n  padding: 5px;\n  border-bottom: 1px #eee
 
 /***/ }),
 
-/***/ 1566:
+/***/ 1589:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3240,7 +3642,7 @@ __webpack_require__(52);
 
 __webpack_require__(58);
 
-__webpack_require__(1555);
+__webpack_require__(1580);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3710,7 +4112,7 @@ exports.default = PlateIframe;
 
 /***/ }),
 
-/***/ 1567:
+/***/ 1590:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3734,13 +4136,13 @@ __webpack_require__(52);
 
 __webpack_require__(58);
 
-__webpack_require__(1544);
+__webpack_require__(1566);
 
-var _toolsDynamicTable = __webpack_require__(1526);
+var _toolsDynamicTable = __webpack_require__(1535);
 
 var _toolsDynamicTable2 = _interopRequireDefault(_toolsDynamicTable);
 
-var _componentIndicatorsWinopen = __webpack_require__(1545);
+var _componentIndicatorsWinopen = __webpack_require__(1567);
 
 var _componentIndicatorsWinopen2 = _interopRequireDefault(_componentIndicatorsWinopen);
 
@@ -3754,7 +4156,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //兼容ie
 
 
-__webpack_require__(1527); //专用css
+__webpack_require__(1538); //专用css
 
 //弹出选择地块
 var Indicators = function (_React$Component) {

@@ -5,7 +5,7 @@ class $tree {
     constructor(ele) {
        
         this.state={
-            url:"/Home/GetTreeInfo",
+            url:"/Home/GetTreeInfo?Time="+new Date().getTime(),
             treeDate:[]
         }
         this.getAjax();
@@ -76,8 +76,11 @@ class $tree {
             pa.attr("id",id);
             pa.mCustomScrollbar({
                 autoDraggerLength:true,
-                scrollButtons:{enable:true}
+                scrollButtons:{enable:true},
+                scrollInertia:0,
+                mouseWheelPixels:20
             });
+         
                 
 
     }

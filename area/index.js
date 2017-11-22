@@ -50,13 +50,18 @@ class Index extends Component {
         conditionData: {},
 
         modalKey: "",
-        modalParam: null,
+        record: null,//面积调整时，点击的那一行数据
 
         toggleTab: 3, /* 默认打开的tap*/
         localSearch: "", /*地址栏参数*/
         showTap: false,//默认无阶段不显示按钮
         // activeTapKey: "com-block", /*选中状态tap的key*/
     };
+
+    /**
+     *  规划方案指标更新数据
+     */
+    planQuotaUpdateData = [];
 
     /**
      * 在组件接收到一个新的prop时被调用,这个方法在初始化render时不会被调用
@@ -85,75 +90,277 @@ class Index extends Component {
      */
     loadStep = () => {
         const {dataKey, mode} = this.state;
+        //临时存储当前的step
+        let step = undefined;
+        let versionId = undefined;
         this.setState({
             loading: true,
         });
 
+        /**
+         * 先获取阶段数据 => 然后根据阶段获取版本数据 => 最后获取 规划方案指标和面积数据
+         */
         AreaService.getStep(dataKey, mode)
             .then(stepData => {
-                const step = stepData[0];
+                step = stepData[0];
                 this.setState({
                     stepData,
-                    step,
+                    step: step,
                 });
 
                 if (step) {
-                    this.loadData(step);
+                    return AreaService.getVersion(step, dataKey, mode);
                 }
+                return Promise.reject("未获取到阶段数据！");
             })
-            .catch(err => {
-                console.log("发生错误", err);
+            .then(versionData => {
+                versionId = this.getDefaultVersionId(versionData);
+                this.setState({
+                    versionData,
+                    versionId,
+                });
+                this.loadData(true, step, mode, dataKey, versionId);
+            })
+            .catch(error => {
+                console.log("发生错误", error);
             })
     };
 
-    loadData = (step, mode, versionId, dataKey) => {
+    /**
+     *  加载数据
+     */
+    loadData = (isInit, step, mode, dataKey, versionId) => {
+        var versionId = versionId||this.props.location.query["dataKey"];
+        var dataKey = versionId;
         this.setState({
             loading: true,
         });
-        step = step || this.state.step;
-        mode = mode || this.state.mode;
-        versionId = versionId || this.state.versionId;
-        dataKey = dataKey || this.state.dataKey;
 
-        //获取地块·面积数据
-        const blockPromise = AreaService.getAreaList(step, mode, versionId).then(data => data.rows);
+        const allPromise = [];
         //获取规划方案指标数据
-        const planQuotaPromise = AreaService.getAreaPlanQuota(step, versionId).then(data => data.rows);
-        //获取版本数据
-        const versionPromise = AreaService.getVersion(step, dataKey, mode).then(data => data.rows);
-        //获取生成业态数据的筛选条件
-        const getCreateConditionPromise = AreaService.getCreateCondition(step, dataKey, mode);
+        const planQuotaPromise = AreaService.getAreaPlanQuota(step, versionId);
+        //获取地块·面积数据
+        const blockPromise = AreaService.getAreaList(step, mode, versionId);
 
-        Promise.all([blockPromise, planQuotaPromise, versionPromise, getCreateConditionPromise])
-            .then(([blockData, planData, versionData, conditionData]) => {
+        allPromise.push(planQuotaPromise);
+        allPromise.push(blockPromise);
+
+
+        if (isInit) {
+            //获取生成业态数据的筛选条件
+            const getCreateConditionPromise = AreaService.getCreateCondition(step, dataKey, mode);
+            allPromise.push(getCreateConditionPromise);
+        }
+
+        Promise.all(allPromise)
+            .then(([planData, blockData, conditionData]) => {
+                this.setState({
+                    loading: false,
+                    areaData: {
+                        planData,
+                        blockData,
+                    }
+                });
+                if (conditionData) {
+                    this.setState({
+                        conditionData
+                    });
+                }
+            })
+            .catch(error => {
+                this.setState({
+                    loading: false,
+                });
+                console.error("发生错误", error);
+            });
+    };
+
+    /**
+     * 处理版本切换
+     */
+    handleVersionChange = (versionId) => {
+        var versionId = versionId||this.props.location.query["dataKey"]
+        this.setState({
+            loading: true,
+            versionId,
+        });
+        const {step, mode} = this.state;
+
+        const allPromise = [];
+        //获取地块·面积数据
+        const blockPromise = AreaService.getAreaList(step, mode, versionId);
+        //获取规划方案指标数据
+        const planQuotaPromise = AreaService.getAreaPlanQuota(step, versionId);
+        allPromise.push(blockPromise);
+        allPromise.push(planQuotaPromise);
+
+        Promise.all(allPromise)
+            .then(([blockData, planData]) => {
                 this.setState({
                     loading: false,
                     areaData: {
                         planData,
                         blockData,
                     },
-                    versionData,
-                    conditionData,
                 });
             })
-            .catch(err => {
+            .catch(error => {
                 this.setState({
                     loading: false,
                 });
-                console.error("发生错误", err);
+                console.error("发生错误", error);
             });
     };
 
-    handleStepClick = (step) => {
+    /**
+     * 创建新版本
+     */
+    handleCreateVersion = () => {
+        this.setState({
+            loading: true,
+        });
+        const {step, mode, dataKey} = this.state;
+        AreaService.createVersion(step, dataKey, mode)
+            .then(result => {
+                if (result === "success") {
+                    console.log("版本创建成功");
+                } else {
+                    return Promise.reject("版本创建失败");
+                }
+            })
+            .then(() => {
+                return AreaService.getVersion(step, dataKey, mode);
+            })
+            .then(versionData => {
+                this.setState({
+                    loading: false,
+                    versionData,
+                    versionId: this.getDefaultVersionId(versionData)
+                });
+            })
+            .catch(error => {
+                this.setState({
+                    loading: false,
+                });
+                console.error("error", error);
+            })
+    };
+
+    /**
+     * 获取默认显示的版本Id
+     * @param versionData
+     * @returns {*}
+     */
+    getDefaultVersionId = (versionData) => {
+        if (!versionData || !Array.isArray(versionData) || versionData.length === 0) {
+            return "";
+        }
+
+        return versionData[0]["id"];
+    };
+
+    /**
+     *  保存当前版本的规划方案指标数据
+     */
+    handleSaveVersionData = () => {
+        //TODO 保存当前版本的规划方案指标数据，需要保存贞晓写的规划方案指标组件里的更新数据
+        console.log("TODO 保存当前版本的规划方案指标数据，需要保存贞晓写的规划方案指标组件里的更新数据");
+    };
+
+    /**
+     * 处理步骤切换
+     * 根据阶段获取版本数据 => 再获取 规划方案指标和面积数据
+     */
+    handleStepClick = (newStep) => {
         return () => {
-            console.log("当前选中", step.name);
+            console.log("当前选中", newStep.name);
+            const {step, dataKey, mode} = this.state;
+            if (newStep.code === step.code) return;
+
+            let versionId = undefined;
+
             this.setState({
-                step: step,
+                loading: true,
+                step: newStep,
             });
-            this.loadData(step);
+
+            AreaService.getVersion(newStep, dataKey, mode)
+                .then(versionData => {
+                    versionId = this.getDefaultVersionId(versionData);
+                    this.setState({
+                        versionData,
+                        versionId
+                    });
+
+                    this.loadData(false, newStep, mode, dataKey, versionId);
+                })
+                .catch(error => {
+                    this.setState({
+                        loading: false,
+                    });
+                    console.error("发生错误", error);
+                })
+
         };
     };
 
+    /**
+     * 处理弹窗
+     */
+    handleModalClick = (modalKey) => {
+        return (record) => {
+            this.setState({
+                modalKey,
+                record
+            });
+        };
+    };
+
+    /**
+     * 隐藏弹窗
+     */
+    handleHideModal = (param) => {
+        const {step, mode, dataKey, versionId} = this.state;
+        this.setState({
+            modalKey: "",
+        });
+        if (param == "reload") {
+            this.loadData(false, step, mode, dataKey, versionId);
+        }
+    };
+
+    /**
+     * 处理Tab切换
+     */
+    handleTabChange = (activeTapKey) => {
+        this.setState({activeTapKey});
+    };
+
+    /**
+     * 处理规划方案指标 数据改变事件
+     */
+    handlePlanQuotaDataChange = (postData) => {
+        this.planQuotaUpdateData = postData || [];
+    };
+
+    handleComBlockSearch = (formatKey) => {
+        //TODO 根据关键字 调用接口 筛选数据
+        console.log("TODO 根据关键字 调用接口 筛选数据：", formatKey);
+    };
+
+    handleComBuildingSearch = (formatKey) => {
+        //TODO 根据关键字 调用接口 筛选数据
+        console.log("TODO 根据关键字 调用接口 筛选数据：", formatKey);
+    };
+
+    handleComFormatSearch = (formatKey, buildingKey) => {
+        //TODO 根据关键字 调用接口 筛选数据
+        console.log("TODO 根据关键字 调用接口 筛选数据：", formatKey, buildingKey);
+    };
+
+    /**
+     * 渲染步骤UI
+     */
     renderStepList = () => { //阶段
         let {step, stepData} = this.state;
         let len = stepData.length;
@@ -165,22 +372,18 @@ class Index extends Component {
         });
     };
 
-    handleModalClick = (modalKey, modalParam) => {
-        return () => {
-            this.setState({
-                modalKey,
-                modalParam
-            });
-        };
-    };
-    /*渲染button*/
+    /**
+     * 渲染button
+     */
     renderButtonList = () => {
         const {step} = this.state;
         if (step.guid < 3) {
             return (
                 <div>
                     <div className="areaTopbtn jhBtn-wrap">
-                        <button type="button" className="jh_btn jh_btn22 jh_btn_add">生成新版本</button>
+                        <button type="button" className="jh_btn jh_btn22 jh_btn_add" onClick={this.handleCreateVersion}>
+                            生成新版本
+                        </button>
                         <button type="button" className="jh_btn jh_btn22 jh_btn_save"
                                 onClick={this.handleModalClick("block-format-edit")}>业态维护
                         </button>
@@ -202,38 +405,28 @@ class Index extends Component {
         );
     };
 
-    handleTabChange = (activeTapKey) => {
-        this.setState({activeTapKey});
-    };
-
-    handleComBlockSearch = (formatKey) => {
-        //TODO 根据关键字 调用接口 筛选数据
-        console.log("根据关键词搜索：", formatKey);
-    };
-
-    handleComBuildingSearch = (formatKey) => {
-        //TODO 根据关键字 调用接口 筛选数据
-        console.log("根据关键词搜索：", formatKey);
-    };
-
-    handleComFormatSearch = (formatKey, buildingKey) => {
-        //TODO 根据关键字 调用接口 筛选数据
-        console.log("根据关键词搜索：", formatKey, buildingKey);
-    };
-
+    /**
+     * 渲染Tab
+     */
     renderTabList = () => {
         const {step, areaData, searchKey} = this.state;
         const panelArray = [];
         const planData = areaData["planData"] || [];
 
-        panelArray.push(<TabPane tab="规划方案指标" key="plan-quota"><PlanQuota planData={planData}/></TabPane>);
+        panelArray.push(
+            <TabPane tab="规划方案指标" key="plan-quota">
+                <PlanQuota planData={planData}
+                           onPlanQuotaDataChange={this.handlePlanQuotaDataChange}/>
+            </TabPane>);
 
         if (parseInt(step.guid) < 3) {
             const blockData = areaData["blockData"] || {};
             panelArray.push(
                 <TabPane tab="产品构成--按地块" key="com-block">
                     <ComBlockFilter onSearch={this.handleComBlockSearch} key={new Date().getTime()}/>
-                    <ComBlock dataSource={blockData["areadataInfo"]} headerData={blockData["titleInfo"]}/>
+                    <ComBlock dataSource={blockData["areadataInfo"]}
+                              onBlockFormatClick={this.handleModalClick("block-format-adjust")}
+                              headerData={blockData["titleInfo"]}/>
                 </TabPane>);
         } else {
             panelArray.push(
@@ -254,12 +447,9 @@ class Index extends Component {
         );
     };
 
-    handleHideModal = () => {
-        this.setState({
-            modalKey: "",
-        });
-    };
-    /*渲染步骤的颜色状态*/
+    /**
+     * 渲染步骤的颜色状态
+     */
     renderStepLend = () => {
         return Legend.map((el, ind) => {
             return (
@@ -267,8 +457,13 @@ class Index extends Component {
             );
         });
     };
+
+    /**
+     * 渲染维护或修改弹窗
+     * @returns {*}
+     */
     renderEditOrAdjust = () => {
-        const {modalKey, modalParam, conditionData, step, mode, versionId} = this.state;
+        const {modalKey, record, conditionData, step, mode, versionId, dataKey} = this.state;
         switch (modalKey) {
             case "block-format-edit":
                 return (
@@ -278,7 +473,18 @@ class Index extends Component {
                         step={step}
                         mode={mode}
                         versionId={versionId}
+                        dataKey={dataKey}
                         blockDataSource={conditionData.land}/>
+                );
+            case "block-format-adjust":
+                return (
+                    <BlockFormatAdjust
+                        onHideModal={this.handleHideModal}
+                        record={record}
+                        step={step}
+                        mode={mode}
+                        versionId={versionId}
+                    />
                 );
             case "building-format-edit":
                 return <BuildingFormatEdit/>;
@@ -287,35 +493,8 @@ class Index extends Component {
         }
     };
 
-    // FETCH_SelectVersionData = arg => {  //获取下拉数据
-    //     /**
-    //      * Common/IGetVersionListByBusinessId?ProjectStageId=56EF7587243E4B9EB05029800BFC1F81&step=1&projectLevel=1&dataType=2
-    //      * ProjectStageId  =>项目id或分期版本id
-    //      * step            =>当前阶段
-    //      * projectLevel    =>项目只有一个传1 分期前两个2  三个以后3
-    //      * dataType        =>面积默认值2，价格传3
-    //      */
-    //     let opt = {
-    //         url: "Common/IGetVersionListByBusinessId",
-    //         type: "GET",
-    //         data: {}
-    //     }
-    //     iss.fetch(...opt)
-    //         .then(arg => {
-    //
-    //         })
-    //         .catch(error => {
-    //
-    //         });
-    // }
-
-
-    saveVersionCallback = arg => { //版本切换保存
-
-    };
-
     /**
-     *  返回空页面
+     *  渲染空页面
      */
     renderEmpty = () => {
         const {loading} = this.state;
@@ -329,7 +508,7 @@ class Index extends Component {
     };
 
     render() {
-        const {loading, stepData, versionData} = this.state;
+        const {loading, stepData, versionId, versionData} = this.state;
         if (stepData.length === 0) {
             return this.renderEmpty();
         }
@@ -358,7 +537,9 @@ class Index extends Component {
                         <Col span={24}>
                             {this.renderTabList()}
                             <div>
-                                <SaveVersion versionData={versionData} callback={this.saveVersionCallback}/>
+                                <SaveVersion versionId={versionId} versionData={versionData}
+                                             onSaveVersionData={this.handleSaveVersionData}
+                                             onVersionChange={this.handleVersionChange}/>
                             </div>
                         </Col>
                     </Row>

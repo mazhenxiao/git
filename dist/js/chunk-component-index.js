@@ -1,4 +1,4 @@
-webpackJsonp([19],{
+webpackJsonp([22],{
 
 /***/ 1493:
 /***/ (function(module, exports, __webpack_require__) {
@@ -22,11 +22,11 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 __webpack_require__(58);
 
-var _toolsStateNode = __webpack_require__(1559);
+var _toolsStateNode = __webpack_require__(1582);
 
 var _toolsStateNode2 = _interopRequireDefault(_toolsStateNode);
 
-var _toolsIndexTab = __webpack_require__(1539);
+var _toolsIndexTab = __webpack_require__(1559);
 
 var _toolsIndexTab2 = _interopRequireDefault(_toolsIndexTab);
 
@@ -41,7 +41,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 //标签
-var echarts = __webpack_require__(1560);
+var echarts = __webpack_require__(1583);
 
 var index = function (_React$Component) {
     _inherits(index, _React$Component);
@@ -295,7 +295,7 @@ exports.default = index;
 
 /***/ }),
 
-/***/ 1539:
+/***/ 1559:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -424,7 +424,7 @@ exports.default = IndexTab;
 
 /***/ }),
 
-/***/ 1559:
+/***/ 1582:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -528,7 +528,7 @@ exports.default = ToolsStateNode;
 
 /***/ }),
 
-/***/ 1560:
+/***/ 1583:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

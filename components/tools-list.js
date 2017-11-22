@@ -19,6 +19,7 @@ class ToolsList extends React.Component {
      *routerArr 页面分类下对应的路由
      * */
     EVENT_CLICK(pageClass,routerArr) {
+        
     	let th=this;
     	let pageUrl="";
     	if(!pageClass&&!routerArr){
@@ -27,8 +28,10 @@ class ToolsList extends React.Component {
         if(pageClass=="Home"){/*项目列表*/
         	pageUrl="/Home/Index/#/";
         }else if(pageClass=="AreaInfo"){/*面积管理*/
-        	pageUrl="/AreaInfo/Index/#/"; 
+            pageUrl="/AreaInfo/Index/#/"; 
+            //manage
         }
+        $(window).trigger("treeLoad");
         /*switch(str){
             case "index":iss.hashHistory.push("index");break;
             case "agenty":iss.hashHistory.push("agenty");break;
@@ -146,23 +149,23 @@ class ToolsList extends React.Component {
                     <a href="javascript:void(0);" onClick={this.EVENT_CLICKSETUP.bind(this)}>基础设置</a>
                 </li>
                 <li>
-                    <a id="areaInfo" href="javascript:void(0);" /* onClick={this.EVENT_CLICK.bind(this,"AreaInfo","index")} */>信息填报</a>
+                    <a id="areaInfo" href="javascript:void(0);" >信息填报</a>
                     <ol className="subMenu">
                         <li><a href="javascript:void(0);" onClick={this.EVENT_CLICK.bind(this,"AreaInfo","manage")}>面积管理</a></li>
-                        <li><a href="javascript:void(0);" >价格管理</a></li>
+                        <li><a href="javascript:void(0);" onClick={this.EVENT_CLICK.bind(this,"AreaInfo","priceControl")}>价格管理</a></li>
                         <li><a href="javascript:void(0);" onClick={this.EVENT_CLICK.bind(this,"AreaInfo","supply")}>供货</a></li>
                         <li><a href="javascript:void(0);" onClick={this.EVENT_CLICK.bind(this,"AreaInfo","payment")}>签约与回款</a></li>
                         <li><a href="javascript:void(0);" >重点事项</a></li>
                         <li><a href="javascript:void(0);" onClick={this.EVENT_CLICK.bind(this,"AreaInfo","primarykey")}>关键指标</a></li>
                     </ol>
                 </li>
-                <li>
+                <li> 
                     <a href="#">报表管理</a>
                 </li>
                 
                 <li>
                     <a href="#">楼栋匹配</a>
-                </li> 
+                </li>
             </ul>
           
         </article>

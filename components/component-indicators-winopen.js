@@ -3,7 +3,7 @@ import React from 'react';
 import "../js/iss.js";
 import "babel-polyfill";  //兼容ie
 import "../../Content/css/aBuilt.less";
-
+import {knife} from '../utils';   //工具集
 class Winopen extends React.Component{
     constructor(arg){
         super(arg);
@@ -35,26 +35,26 @@ class Winopen extends React.Component{
                              <tbody>
                                  <tr>
                                      <td><label>{obj.FieldList[0].label}</label></td>
-                                     <td><input type="text" disabled={status=="view"} id={obj.FieldList[0].id+'_'+obj.ID} readOnly={obj.IsAllDevel==0||obj.IsAllDevel==1||obj.IsAllDevel==2&&obj.FieldList[0].edit=="+r"} value={obj.FieldList[0].val==null?"":obj.FieldList[0].val} onChange={th.evInputChange.bind(th,obj.ID,obj.FieldList[0].id)}/></td>
+                                     <td><input type="text" disabled={status=="view"} id={obj.FieldList[0].id+'_'+obj.ID} readOnly={obj.IsAllDevel==0||obj.IsAllDevel==1||obj.IsAllDevel==2&&obj.FieldList[0].edit=="+r"} value={obj.FieldList[0].text==null?"":obj.FieldList[0].text} onChange={th.evInputChange.bind(th,obj.ID,obj.FieldList[0].id)}/></td>
                                      <td><label>{obj.FieldList[1].label}</label></td>
-                                     <td><input type="text" disabled={status=="view"} id={obj.FieldList[1].id+'_'+obj.ID} readOnly={obj.IsAllDevel==0||obj.IsAllDevel==1||obj.IsAllDevel==2&&obj.FieldList[1].edit=="+r"} value={obj.FieldList[1].val==null?"":obj.FieldList[1].val} onChange={th.evInputChange.bind(th,obj.ID,obj.FieldList[1].id)}/></td>
+                                     <td><input type="text" disabled={status=="view"} id={obj.FieldList[1].id+'_'+obj.ID} readOnly={obj.IsAllDevel==0||obj.IsAllDevel==1||obj.IsAllDevel==2&&obj.FieldList[1].edit=="+r"} value={obj.FieldList[1].text==null?"":obj.FieldList[1].text} onChange={th.evInputChange.bind(th,obj.ID,obj.FieldList[1].id)}/></td>
                                      <td colSpan="2"></td>
                                  </tr>
                                  <tr>
                                      <td><label>{obj.FieldList[2].label}（㎡）</label></td>
-                                     <td><input type="text" disabled={status=="view"} id={obj.FieldList[2].id+'_'+obj.ID} readOnly={obj.IsAllDevel==0||obj.IsAllDevel==1||obj.IsAllDevel==2&&obj.FieldList[2].edit=="+r"} value={obj.FieldList[2].val==null?"":obj.FieldList[2].val} onChange={th.evInputChange.bind(th,obj.ID,obj.FieldList[2].id)}/></td>
+                                     <td><input type="text" disabled={status=="view"} id={obj.FieldList[2].id+'_'+obj.ID} readOnly={obj.IsAllDevel==0||obj.IsAllDevel==1||obj.IsAllDevel==2&&obj.FieldList[2].edit=="+r"} value={obj.FieldList[2].text==null?"":obj.FieldList[2].text} onChange={th.evInputChange.bind(th,obj.ID,obj.FieldList[2].id)}/></td>
                                      <td><label><span className="red">*</span>{obj.FieldList[3].label}（㎡）</label></td>
-                                     <td><input type="text" disabled={status=="view"} className="comp-validatebox" data-regExp={obj.FieldList[3].regExp} autoComplete="off" id={obj.FieldList[3].id+'_'+obj.ID} readOnly={obj.IsAllDevel==0||obj.IsAllDevel==1||obj.IsAllDevel==2&&obj.FieldList[3].edit=="+r"} value={obj.FieldList[3].val==null?"":obj.FieldList[3].val} onChange={th.evInputChange.bind(th,obj.ID,obj.FieldList[3].id)}/></td>
+                                     <td><input type="text" disabled={status=="view"} className="comp-validatebox" data-regExp={obj.FieldList[3].regExp} autoComplete="off" id={obj.FieldList[3].id+'_'+obj.ID} readOnly={obj.IsAllDevel==0||obj.IsAllDevel==1||obj.IsAllDevel==2&&obj.FieldList[3].edit=="+r"} value={obj.FieldList[3].text==null?"":obj.FieldList[3].text} onChange={th.evInputChange.bind(th,obj.ID,obj.FieldList[3].id)}/></td>
                                      <td><label><span className="red">*</span>{obj.FieldList[4].label}（㎡）</label></td>
-                                     <td><input type="text" disabled={status=="view"} className="comp-validatebox" data-regExp={obj.FieldList[4].regExp} autoComplete="off" id={obj.FieldList[4].id+'_'+obj.ID} readOnly={obj.IsAllDevel==0||obj.IsAllDevel==1||obj.IsAllDevel==2&&obj.FieldList[4].edit=="+r"} value={obj.FieldList[4].val==null?"":obj.FieldList[4].val} onChange={th.evInputChange.bind(th,obj.ID,obj.FieldList[4].id)}/></td>
+                                     <td><input type="text" disabled={status=="view"} className="comp-validatebox" data-regExp={obj.FieldList[4].regExp} autoComplete="off" id={obj.FieldList[4].id+'_'+obj.ID} readOnly={obj.IsAllDevel==0||obj.IsAllDevel==1||obj.IsAllDevel==2&&obj.FieldList[4].edit=="+r"} value={obj.FieldList[4].text==null?"":obj.FieldList[4].text} onChange={th.evInputChange.bind(th,obj.ID,obj.FieldList[4].id)}/></td>
                                  </tr>
                                  <tr>
                                      <td><label><span className="red">*</span>{obj.FieldList[5].label}（㎡）</label></td>
-                                     <td><input type="text" disabled={status=="view"} className="comp-validatebox" data-regExp={obj.FieldList[5].regExp} autoComplete="off" id={obj.FieldList[5].id+'_'+obj.ID} readOnly={obj.IsAllDevel==0||obj.IsAllDevel==1||obj.IsAllDevel==2&&obj.FieldList[5].edit=="+r"} value={obj.FieldList[5].val==null?"":obj.FieldList[5].val} onChange={th.evInputChange.bind(th,obj.ID,obj.FieldList[5].id)}/></td>
+                                     <td><input type="text" disabled={status=="view"} className="comp-validatebox" data-regExp={obj.FieldList[5].regExp} autoComplete="off" id={obj.FieldList[5].id+'_'+obj.ID} readOnly={obj.IsAllDevel==0||obj.IsAllDevel==1||obj.IsAllDevel==2&&obj.FieldList[5].edit=="+r"} value={obj.FieldList[5].text==null?"":obj.FieldList[5].text} onChange={th.evInputChange.bind(th,obj.ID,obj.FieldList[5].id)}/></td>
                                      <td><label><span className="red">*</span>{obj.FieldList[6].label}（万元）</label></td>
-                                     <td><input type="text" disabled={status=="view"} className="comp-validatebox" data-regExp={obj.FieldList[6].regExp} autoComplete="off" id={obj.FieldList[6].id+'_'+obj.ID} readOnly={obj.IsAllDevel==0||obj.IsAllDevel==1||obj.IsAllDevel==2&&obj.FieldList[6].edit=="+r"} value={obj.FieldList[6].val==null?"":obj.FieldList[6].val} onChange={th.evInputChange.bind(th,obj.ID,obj.FieldList[6].id)}/></td>
+                                     <td><input type="text" disabled={status=="view"} className="comp-validatebox" data-regExp={obj.FieldList[6].regExp} autoComplete="off" id={obj.FieldList[6].id+'_'+obj.ID} readOnly={obj.IsAllDevel==0||obj.IsAllDevel==1||obj.IsAllDevel==2&&obj.FieldList[6].edit=="+r"} value={obj.FieldList[6].text==null?"":obj.FieldList[6].text} onChange={th.evInputChange.bind(th,obj.ID,obj.FieldList[6].id)}/></td>
                                      <td><label>{obj.FieldList[7].label}（元/㎡）</label></td>
-                                     <td><input type="text" disabled={status=="view"} id={obj.FieldList[7].id+'_'+obj.ID}  readOnly={obj.IsAllDevel==0||obj.IsAllDevel==1||obj.IsAllDevel==2&&obj.FieldList[7].edit=="+r"} value={obj.FieldList[7].val==null?"":obj.FieldList[7].val} onChange={th.evInputChange.bind(th,obj.ID,obj.FieldList[7].id)}/></td>
+                                     <td><input type="text" disabled={status=="view"} id={obj.FieldList[7].id+'_'+obj.ID}  readOnly={obj.IsAllDevel==0||obj.IsAllDevel==1||obj.IsAllDevel==2&&obj.FieldList[7].edit=="+r"} value={obj.FieldList[7].val==null?"":parseFloat(obj.FieldList[7].text).toFixed(0)} onChange={th.evInputChange.bind(th,obj.ID,obj.FieldList[7].id)}/></td>
                                  </tr>
                              </tbody>
                         </table>
@@ -90,17 +90,28 @@ class Winopen extends React.Component{
             });
         },600);
     }
+    
     /*input change*/
     evInputChange(listId,fieldId,event){
         let th=this;
         let list=th.state.listArr;
         let newList=[];
         let val=event.target.value;
+        let num = parseFloat(val);
+        if(!Number.isNaN(num)&&num<0){ 
+            return
+        }
         list.forEach((obj,index)=>{
            if(obj.ID==listId){
                 obj.FieldList.forEach((feildObj,fIndex)=>{
+                    let numreg = (/number\((\d+)\)/).exec(feildObj.regExp||"");
+                    let fixed = numreg? numreg[1]:"";
                     if(feildObj.id==fieldId){
-                        feildObj.text=val;
+                        let num = val;
+                        if(!knife.CHECK_InputValue(feildObj,val)){
+                            return;
+                        }
+                        feildObj.text=num;
                         feildObj.val=val;
                     }
                 });
@@ -163,22 +174,28 @@ class Winopen extends React.Component{
         let list=th.state.listArr;
         let newList=[];
         let val=event.target.value;
-        
+        let num = parseFloat(val);
+        if(!Number.isNaN(num)&&num<0){ 
+            return
+        }
     	if(!$("#form_aBuiltLand").form("validate")){
     		$("#errorTip").html("输入的数据有错误,请改正后再切换全部开发");
     		return false;
     	}else{
     		$("#errorTip").html("");
     	}
-        
+   
         list.forEach((obj,index)=>{
             if(obj.ID==listId){
                 obj.IsAllDevel=val;
+                
                 if(val==1){
                 	obj.FieldList.forEach((fObj,fIndex)=>{
+                     
                 		var maxVal=iss.getRegExpkVal(fObj.regExp,"max");
                 		var editS=fObj.edit;
                 		if(editS=="+w"&&maxVal!=""){
+            
                 			fObj.val=maxVal;
                 			fObj.text=maxVal;
                 		}

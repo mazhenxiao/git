@@ -93,6 +93,7 @@ class ToolsTree extends React.Component {
         });
     }
     notIndexChange(){ //非首页跳转
+        return;
            if(iss.getQuert("dataKey")){
                return
               // iss.id=
@@ -259,37 +260,43 @@ class ToolsTree extends React.Component {
     deleteTodo_2(arg){
         var th = this;
         if(iss.id.initdata==0){
-            if(th.state.status==0||th.state.status==-1){
-                iss.Alert({
-                    title: "提示",
-                    width: 300,
-                    height: 90,
-                    content: `<div class="Alert">确认要删除项目吗？</div>`,
-                    ok() {
-                        iss.ajax({  //获取数据
-                            type: "post",
-                            url:"/Project/IDelete",
-                            data:{
-                                projectId:iss.id.id
-                            },
-                            success(res) {
-                                
-                                if(res.errorcode==200){
-                                    iss.popover({ content: "删除成功！",type:2});
-                                    iss.hashHistory.replace("/index");
-                                    $(window).trigger("treeLoad");
-                                }else{
-                                    iss.popover({ content: "删除失败！" });
-                                }
-                            }
-                        })
-                    }
-                });
-            }else if(th.state.status==99){
-                iss.popover({ content: "项目已审批通过无法删除" });                    
+
+            if(iss.id.isoldapprove>0){
+                iss.popover({ content: "该项目已审批过，不能删除！" });
             }else{
-                iss.popover({ content: "项目审批中无法删除" });
+                if(th.state.status==0||th.state.status==-1){
+                    iss.Alert({
+                        title: "提示",
+                        width: 300,
+                        height: 90,
+                        content: `<div class="Alert">确认要删除项目吗？</div>`,
+                        ok() {
+                            iss.ajax({  //获取数据
+                                type: "post",
+                                url:"/Project/IDelete",
+                                data:{
+                                    projectId:iss.id.id
+                                },
+                                success(res) {
+                                    
+                                    if(res.errorcode==200){
+                                        iss.popover({ content: "删除成功！",type:2});
+                                        iss.hashHistory.replace("/index");
+                                        $(window).trigger("treeLoad");
+                                    }else{
+                                        iss.popover({ content: "删除失败！" });
+                                    }
+                                }
+                            })
+                        }
+                    });
+                }else if(th.state.status==99){
+                    iss.popover({ content: "项目已审批通过无法删除" });                    
+                }else{
+                    iss.popover({ content: "项目审批中无法删除" });
+                }
             }
+
         }else if(iss.id.initdata==1){
             iss.popover({ content: "历史项目只允许编辑，不可删除" });  
         }

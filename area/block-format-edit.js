@@ -51,7 +51,7 @@ class BlockFormatEdit extends Component {
         });
         const {step, mode, versionId} = this.props;
         //TODO 使用参数 versionId
-        AreaService.getSearchData(step, mode)
+        AreaService.getSearchData(step, mode, versionId)
             .then(rows => {
                 this.setState({
                         dataSource: [...rows],
@@ -81,7 +81,7 @@ class BlockFormatEdit extends Component {
             width: 200,
             render: (text, record) => {
                 return <WrapperSelect dataSource={this.props.conditionData.land} value={text} showDefault={false}
-                                      onChange={this.handleChangeProperty(record, "land")}/>
+                                      onChange={this.handleChangeProperty(record, "landid")}/>
             },
         },
         {
@@ -90,7 +90,7 @@ class BlockFormatEdit extends Component {
             key: 'ishaveproperty',
             width: 200,
             render: (text, record) => {
-                const matchProperty = AreaConstants.RightsProperty.filter(item => item.id === text)[0];
+                const matchProperty = AreaConstants.RightsProperty.filter(item => item.id == text)[0];
                 if (matchProperty) {
                     return matchProperty.name;
                 }
@@ -103,7 +103,7 @@ class BlockFormatEdit extends Component {
             key: 'isdecoration',
             width: 200,
             render: (text, record) => {
-                const matchProperty = AreaConstants.HardcoverProperty.filter(item => item.id === text)[0];
+                const matchProperty = AreaConstants.HardcoverProperty.filter(item => item.id == text)[0];
                 if (matchProperty) {
                     return matchProperty.name;
                 }
@@ -116,14 +116,33 @@ class BlockFormatEdit extends Component {
             key: 'storeyheight',
             width: 200,
             render: (text, record) => {
-                const matchProperty = AreaConstants.LayerProperty.filter(item => item.id === text)[0];
+                const matchProperty = AreaConstants.LayerProperty.filter(item => item.id == text)[0];
                 if (matchProperty) {
                     return matchProperty.name;
                 }
                 return "";
             },
-        }
+        },
+        {
+            title: '操作',
+            dataIndex: 'id',
+            key: 'id',
+            width: 100,
+            render: (text, record) => {
+                return (<a href="javascript:;" onClick={this.handleDelete(text)}>删除</a>);
+            }
+        },
     ];
+
+    handleDelete = (id) => {
+        return () => {
+            const {dataSource} = this.state;
+            const remain = dataSource.filter(item => item.id !== id);
+            this.setState({
+                dataSource: [...remain]
+            });
+        };
+    };
 
     handleChangeProperty = (record, key) => {
         return (value) => {
@@ -134,33 +153,46 @@ class BlockFormatEdit extends Component {
 
     handleSave = () => {
         const {dataSource} = this.state;
+        const {step, mode, versionId, dataKey} = this.props;
         this.setState({
             loading: true,
         });
-        const paramsValue = dataSource.map(item => {
-            return {
-                id: item.id,
-                landid: item.landid,
-                producttypeid: item.producttypeid,
-                ishaveproperty: item.ishaveproperty,
-                isdecoration: item.isdecoration,
-                storeyheight: item.storeyheight,
-            };
-        });
+        const paramsValue = {
+            step: step.code,
+            projectLevel: mode,
+            versionId,
+            dataKey,
+            formData: dataSource.map(item => {
+                return {
+                    id: item.id,
+                    landid: item.landid,
+                    producttypeid: item.producttypeid,
+                    ishaveproperty: item.ishaveproperty,
+                    isdecoration: item.isdecoration,
+                    storeyheight: item.storeyheight,
+                    levelId: item.levelId,
+                    baseData: item.baseData,
+                };
+            })
+        };
+
         AreaService.saveFormatData(paramsValue)
             .then(result => {
-                if (result === "sucess") {
+                if (result === "success") {
                     console.log("保存成功");
                     //TODO message.info("保存成功");
-                    this.props.onHideModal && this.props.onHideModal();
+                    this.props.onHideModal && this.props.onHideModal("reload");
                 }
                 else {
-
+                    return Promise.reject("保存失败");
                 }
             })
             .catch(error => {
+                this.setState({
+                    loading: false,
+                });
                 console.error("发生错误", error)
-            })
+            });
     };
     handleCancel = () => {
         this.props.onHideModal && this.props.onHideModal();
@@ -179,7 +211,6 @@ class BlockFormatEdit extends Component {
 
     handleModalSelectChange = (key) => {
         return (value) => {
-            console.log("接收到的数据", key, value);
             this.setState({
                 [key]: value,
             });
@@ -197,10 +228,10 @@ class BlockFormatEdit extends Component {
             return;
         }
 
-        if (residence.length == 0
-            && commercial.length == 0
-            && business.length == 0
-            && parkAndSupport.length == 0) {
+        if (residence.length === 0
+            && commercial.length === 0
+            && business.length === 0
+            && parkAndSupport.length === 0) {
             console.error("生成属性至少选择一个！");
             return;
         }
@@ -225,10 +256,15 @@ class BlockFormatEdit extends Component {
                     ishaveproperty: item.ishaveproperty,
                     isdecoration: item.isdecoration,
                     storeyheight: item.storeyheight,
+                    standardfloorheight: item.standardfloorheight,
+                    baseData: item.baseData,
+                    producttypename: item.producttypename,
+                    levelId: item.levelId
                 };
             }),
         };
 
+        //生成业态
         AreaService.createFormatData(paramsValue)
             .then(dataSource => {
                 this.setState({
@@ -255,7 +291,7 @@ class BlockFormatEdit extends Component {
                 width="90%"
                 footer={[
                     <Button key="save" type="primary" size="large" onClick={this.handleSave}>
-                        确认
+                        保存
                     </Button>,
                     <Button key="cancel" type="primary" size="large" onClick={this.handleCancel}>
                         取消

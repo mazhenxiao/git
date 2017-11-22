@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Table} from 'antd';
+import {Button, Table, Input} from 'antd';
 import {shallowCompare} from '../utils/index';
 
 /**
@@ -31,6 +31,8 @@ export default class WrapperGroupTable extends Component {
         rowKey: React.PropTypes.string,//主键
         defaultHeight: React.PropTypes.number,//表格自定义高度
         columnRender: React.PropTypes.object,//自定义render
+        editable: React.PropTypes.bool,//单元格是否可编辑
+        onDataChange: React.PropTypes.func,//文本框数据修改
     };
 
     static defaultProps = {
@@ -39,6 +41,7 @@ export default class WrapperGroupTable extends Component {
         rowKey: "id",
         defaultHeight: 400,
         columnRender: null,
+        editable: false,
     };
 
     // state = {
@@ -55,8 +58,18 @@ export default class WrapperGroupTable extends Component {
     //     });
     // };
 
+    handleInputChange = (record, key) => {
+        return (e) => {
+            // const oldValue = record[key];
+            let value = e.target.value;
+            record[key] = value;
+            this.forceUpdate();
+            this.props.onDataChange && this.props.onDataChange(record.KEY, key, value);
+        };
+    };
+
     getColumns = (headerData) => {
-        const {columnRender} = this.props;
+        const {columnRender, editable} = this.props;
         let columns = [];
         columns.scrollX = 0;
 
@@ -74,7 +87,17 @@ export default class WrapperGroupTable extends Component {
 
             //默认固定第一列
             if (index === 0) {
-                column.fixed = "left";
+                // column.fixed = "left";
+            } else {
+                if (editable) {
+                    column.render = (text, record) => {
+                        if (item.edit !== "+w") {
+                            return text;
+                        }
+
+                        return <Input onChange={this.handleInputChange(record, item.field)} value={text}/>;
+                    };
+                }
             }
             if (item.children && Array.isArray(item.children) && item.children.length > 0) {
                 this.getChildColumns(columns, column, item);
@@ -87,10 +110,10 @@ export default class WrapperGroupTable extends Component {
                 }
                 columns.scrollX += column.width;
 
-                //fixed
-                if (item.fixed) {
-                    column.fixed = item.fixed;
-                }
+                // //fixed
+                // if (item.fixed) {
+                //     column.fixed = item.fixed;
+                // }
             }
             columns.push(column);
         });

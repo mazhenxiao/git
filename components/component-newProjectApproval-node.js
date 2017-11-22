@@ -187,8 +187,9 @@ class ApprovalControlNode extends React.Component {
                     iss.popover({content:"提交成功！",type:2});
                     sessionStorage.removeItem("currentApprovalText");//清楚临时历史数据存储，解决路由切换不能记录用户输入内容问题
                     sessionStorage.removeItem("currentApprovalList");//清楚临时历史数据存储，解决路由切换不能记录用户选择内容问题
-                    iss.hashHistory.push({pathname:"agenty"});
                     $(window).trigger("treeLoad");
+                    iss.hashHistory.push({pathname:"agenty"});
+                   
                 } else {
                     iss.popover({content:rt.Message});
                 }

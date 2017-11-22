@@ -1,4 +1,4 @@
-webpackJsonp([31],{
+webpackJsonp([34],{
 
 /***/ 1490:
 /***/ (function(module, exports, __webpack_require__) {
@@ -80,8 +80,8 @@ var rootRout = {
   childRoutes: [{
     path: "/peripheral",
     getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(21).then((function (require) {
-        var peripheral = __webpack_require__(1520); //============================首页
+      __webpack_require__.e/* require.ensure */(24).then((function (require) {
+        var peripheral = __webpack_require__(1523); //============================首页
         callback(null, peripheral.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }

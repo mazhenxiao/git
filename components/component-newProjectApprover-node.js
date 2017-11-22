@@ -227,7 +227,8 @@ class ApprovalControlNode2 extends React.Component {
                     iss.popover({content:"通过成功！",type:2});
 					iss.hashHistory.push({"pathname":"/agenty"});
 					/*审批通过一条数据,触发一次我的里面的数量查询*/
-					$(document).triggerHandler("reloadMyCount");
+                    $(document).triggerHandler("reloadMyCount");
+                   
                 }else {
 					iss.popover({content:rt.Message});
                 }
@@ -258,11 +259,13 @@ class ApprovalControlNode2 extends React.Component {
                 var rt = result.d;
                 if (rt.Success) {
                     iss.popover({content:"操作成功！",type:2});
+                    $(window).trigger("treeLoad");//刷新左侧树
 					iss.hashHistory.push({"pathname":"/agenty"});
 					
 					$(document).triggerHandler("reloadMyCount");
                 }else {
                     iss.popover({content:rt.Message});
+                    
                 }
             }
         });

@@ -1,6 +1,6 @@
-webpackJsonp([21],{
+webpackJsonp([24],{
 
-/***/ 1520:
+/***/ 1523:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32,7 +32,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 //兼容ie
-__webpack_require__(1608);
+__webpack_require__(1625);
 
 var ICPeripheral = function (_React$Component) {
     _inherits(ICPeripheral, _React$Component);
@@ -365,13 +365,13 @@ exports.default = ICPeripheral;
 
 /***/ }),
 
-/***/ 1608:
+/***/ 1625:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1609);
+var content = __webpack_require__(1626);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -397,7 +397,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 1609:
+/***/ 1626:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(642)(undefined);

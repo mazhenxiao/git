@@ -1,4 +1,4 @@
-webpackJsonp([30],{
+webpackJsonp([33],{
 
 /***/ 1488:
 /***/ (function(module, exports, __webpack_require__) {
@@ -166,53 +166,140 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //公共类
 _iss2.default.use({ Router: _reactRouter.Router, Route: _reactRouter.Route, hashHistory: _reactRouter.hashHistory });
 /* 路由 */
+/*     {
+      path: "/index",
+      getComponent: function (next, callback) {
+        require.ensure([], function (require) {
+          var app = require('../area');//============================首页
+          callback(null, app.default);
+        }, "area-index");
+      }
+    }, */
 //兼容ie
 var rootRout = {
   path: "/",
-  childRoutes: [
-  /*     {
-        path: "/index",
-        getComponent: function (next, callback) {
-          require.ensure([], function (require) {
-            var app = require('../area');//============================首页
-            callback(null, app.default);
-          }, "area-index");
-        }
-      }, */
-  {
+  childRoutes: [{ //面积管理
     path: "/manage",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(0).then((function (require) {
-        var app = __webpack_require__(1519); /*面积管理*/
+        var app = __webpack_require__(1509);
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
-  }, {
+  }, { //签约回款*/
     path: "/payment",
     getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(34).then((function (require) {
-        var app = __webpack_require__(1613); /*签约回款*/
+      __webpack_require__.e/* require.ensure */(3).then((function (require) {
+        var app = __webpack_require__(1510);
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
-  }, {
+  }, { /*关键指标*/
     path: "/primarykey",
     getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(35).then((function (require) {
-        var app = __webpack_require__(1615); /*关键指标*/
+      __webpack_require__.e/* require.ensure */(1).then((function (require) {
+        var app = __webpack_require__(1511);
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
 
-  }, {
+  }, { //*供货*/
     path: "/supply",
     getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(36).then((function (require) {
-        var app = __webpack_require__(1616); /*供货*/
+      __webpack_require__.e/* require.ensure */(2).then((function (require) {
+        var app = __webpack_require__(1512);
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
 
+  }, { //价格管理 
+    path: "/priceControl",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(21).then((function (require) {
+        var app = __webpack_require__(1492); //============================价格管理
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-投决会
+    path: "/component-priceControl-Investment",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(15).then((function (require) {
+        var app = __webpack_require__(1513); //============================价格管理-投决会
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-产品定位会
+    path: "/component-priceControl-Productlocat",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(12).then((function (require) {
+        var app = __webpack_require__(1514); //============================价格管理-产品定位会
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-项目定位会
+    path: "/component-priceControl-Projectlocat",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(11).then((function (require) {
+        var app = __webpack_require__(1515); //============================价格管理-项目定位会
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-启动会
+    path: "/component-priceControl-Startup",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(10).then((function (require) {
+        var app = __webpack_require__(1516); //============================价格管理-项目定位会
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-工规证
+    path: "/component-priceControl-Certificate",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(19).then((function (require) {
+        var app = __webpack_require__(1517); //============================价格管理-工规证
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-决策书
+    path: "/component-priceControl-Decision",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(17).then((function (require) {
+        var app = __webpack_require__(1518); //============================价格管理-决策书
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-预售证
+    path: "/component-priceControl-Presell",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(13).then((function (require) {
+        var app = __webpack_require__(1519); //============================价格管理-预售证
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-签约
+    path: "/component-priceControl-Contract",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(18).then((function (require) {
+        var app = __webpack_require__(1520); //============================价格管理-签约
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-交付
+    path: "/component-priceControl-Deliver",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(16).then((function (require) {
+        var app = __webpack_require__(1521); //============================价格管理-交付
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-表格页
+    path: "/component-priceControl-Management",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(14).then((function (require) {
+        var app = __webpack_require__(1522); //============================价格管理-表格页
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
   }]
 };
 _reactDom2.default.render(_react2.default.createElement(_reactRouter.Router, { history: _reactRouter.hashHistory, routes: rootRout }), document.querySelector("#JH-Router"));
@@ -276,6 +363,7 @@ var ToolsList = function (_React$Component) {
     _createClass(ToolsList, [{
         key: 'EVENT_CLICK',
         value: function EVENT_CLICK(pageClass, routerArr) {
+
             var th = this;
             var pageUrl = "";
             if (!pageClass && !routerArr) {
@@ -287,7 +375,9 @@ var ToolsList = function (_React$Component) {
             } else if (pageClass == "AreaInfo") {
                 /*面积管理*/
                 pageUrl = "/AreaInfo/Index/#/";
+                //manage
             }
+            $(window).trigger("treeLoad");
             /*switch(str){
                 case "index":iss.hashHistory.push("index");break;
                 case "agenty":iss.hashHistory.push("agenty");break;
@@ -512,7 +602,7 @@ var ToolsList = function (_React$Component) {
                         null,
                         _react2.default.createElement(
                             'a',
-                            { id: 'areaInfo', href: 'javascript:void(0);' /* onClick={this.EVENT_CLICK.bind(this,"AreaInfo","index")} */ },
+                            { id: 'areaInfo', href: 'javascript:void(0);' },
                             '\u4FE1\u606F\u586B\u62A5'
                         ),
                         _react2.default.createElement(
@@ -532,7 +622,7 @@ var ToolsList = function (_React$Component) {
                                 null,
                                 _react2.default.createElement(
                                     'a',
-                                    { href: 'javascript:void(0);' },
+                                    { href: 'javascript:void(0);', onClick: this.EVENT_CLICK.bind(this, "AreaInfo", "priceControl") },
                                     '\u4EF7\u683C\u7BA1\u7406'
                                 )
                             ),
@@ -752,6 +842,7 @@ var ToolsTree = function (_React$Component) {
         key: 'notIndexChange',
         value: function notIndexChange() {
             //非首页跳转
+            return;
             if (_iss2.default.getQuert("dataKey")) {
                 return;
                 // iss.id=
@@ -920,36 +1011,41 @@ var ToolsTree = function (_React$Component) {
         value: function deleteTodo_2(arg) {
             var th = this;
             if (_iss2.default.id.initdata == 0) {
-                if (th.state.status == 0 || th.state.status == -1) {
-                    _iss2.default.Alert({
-                        title: "提示",
-                        width: 300,
-                        height: 90,
-                        content: '<div class="Alert">\u786E\u8BA4\u8981\u5220\u9664\u9879\u76EE\u5417\uFF1F</div>',
-                        ok: function ok() {
-                            _iss2.default.ajax({ //获取数据
-                                type: "post",
-                                url: "/Project/IDelete",
-                                data: {
-                                    projectId: _iss2.default.id.id
-                                },
-                                success: function success(res) {
 
-                                    if (res.errorcode == 200) {
-                                        _iss2.default.popover({ content: "删除成功！", type: 2 });
-                                        _iss2.default.hashHistory.replace("/index");
-                                        $(window).trigger("treeLoad");
-                                    } else {
-                                        _iss2.default.popover({ content: "删除失败！" });
-                                    }
-                                }
-                            });
-                        }
-                    });
-                } else if (th.state.status == 99) {
-                    _iss2.default.popover({ content: "项目已审批通过无法删除" });
+                if (_iss2.default.id.isoldapprove > 0) {
+                    _iss2.default.popover({ content: "该项目已审批过，不能删除！" });
                 } else {
-                    _iss2.default.popover({ content: "项目审批中无法删除" });
+                    if (th.state.status == 0 || th.state.status == -1) {
+                        _iss2.default.Alert({
+                            title: "提示",
+                            width: 300,
+                            height: 90,
+                            content: '<div class="Alert">\u786E\u8BA4\u8981\u5220\u9664\u9879\u76EE\u5417\uFF1F</div>',
+                            ok: function ok() {
+                                _iss2.default.ajax({ //获取数据
+                                    type: "post",
+                                    url: "/Project/IDelete",
+                                    data: {
+                                        projectId: _iss2.default.id.id
+                                    },
+                                    success: function success(res) {
+
+                                        if (res.errorcode == 200) {
+                                            _iss2.default.popover({ content: "删除成功！", type: 2 });
+                                            _iss2.default.hashHistory.replace("/index");
+                                            $(window).trigger("treeLoad");
+                                        } else {
+                                            _iss2.default.popover({ content: "删除失败！" });
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    } else if (th.state.status == 99) {
+                        _iss2.default.popover({ content: "项目已审批通过无法删除" });
+                    } else {
+                        _iss2.default.popover({ content: "项目审批中无法删除" });
+                    }
                 }
             } else if (_iss2.default.id.initdata == 1) {
                 _iss2.default.popover({ content: "历史项目只允许编辑，不可删除" });
@@ -1063,7 +1159,7 @@ var $tree = function () {
         _classCallCheck(this, $tree);
 
         this.state = {
-            url: "/Home/GetTreeInfo",
+            url: "/Home/GetTreeInfo?Time=" + new Date().getTime(),
             treeDate: []
         };
         this.getAjax();
@@ -1142,7 +1238,9 @@ var $tree = function () {
             pa.attr("id", id);
             pa.mCustomScrollbar({
                 autoDraggerLength: true,
-                scrollButtons: { enable: true }
+                scrollButtons: { enable: true },
+                scrollInertia: 0,
+                mouseWheelPixels: 20
             });
         }
     }]);
