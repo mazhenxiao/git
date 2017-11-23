@@ -1,6 +1,6 @@
 webpackJsonp([21],{
 
-/***/ 1492:
+/***/ 707:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12,23 +12,23 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(10);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(12);
+var _reactDom = __webpack_require__(33);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-__webpack_require__(52);
+__webpack_require__(43);
 
-__webpack_require__(58);
+__webpack_require__(42);
 
-var _toolsProcessBar = __webpack_require__(1527);
+var _toolsProcessBar = __webpack_require__(760);
 
 var _toolsProcessBar2 = _interopRequireDefault(_toolsProcessBar);
 
-var _toolsExchangeButton = __webpack_require__(1528);
+var _toolsExchangeButton = __webpack_require__(761);
 
 var _toolsExchangeButton2 = _interopRequireDefault(_toolsExchangeButton);
 
@@ -557,13 +557,13 @@ exports.default = PriceControl;
 
 /***/ }),
 
-/***/ 1524:
+/***/ 740:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1525);
+var content = __webpack_require__(748);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -571,7 +571,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(643)(content, options);
+var update = __webpack_require__(108)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -589,10 +589,10 @@ if(false) {
 
 /***/ }),
 
-/***/ 1525:
+/***/ 748:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(642)(undefined);
+exports = module.exports = __webpack_require__(107)(undefined);
 // imports
 
 
@@ -604,7 +604,7 @@ exports.push([module.i, ".processBar .processBar-header li {\n  display: inline-
 
 /***/ }),
 
-/***/ 1527:
+/***/ 760:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -616,13 +616,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(10);
 
 var _react2 = _interopRequireDefault(_react);
 
-__webpack_require__(52);
+__webpack_require__(43);
 
-__webpack_require__(58);
+__webpack_require__(42);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -633,7 +633,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 //兼容ie
-__webpack_require__(1524);
+__webpack_require__(740);
 /*
 *调用组件附上的属性值
 * data [] 存放九种步骤
@@ -737,7 +737,7 @@ exports.default = ProcessBar;
 
 /***/ }),
 
-/***/ 1528:
+/***/ 761:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -749,13 +749,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(10);
 
 var _react2 = _interopRequireDefault(_react);
 
-__webpack_require__(52);
+__webpack_require__(43);
 
-__webpack_require__(58);
+__webpack_require__(42);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -766,7 +766,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 //兼容ie
-__webpack_require__(1524);
+__webpack_require__(740);
 
 var ExchangeButton = function (_React$Component) {
     _inherits(ExchangeButton, _React$Component);

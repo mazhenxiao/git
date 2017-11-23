@@ -148,7 +148,7 @@ class ToolsList extends React.Component {
                 <li>
                     <a href="javascript:void(0);" onClick={this.EVENT_CLICKSETUP.bind(this)}>基础设置</a>
                 </li>
-                <li>
+                <li className="hide">
                     <a id="areaInfo" href="javascript:void(0);" >信息填报</a>
                     <ol className="subMenu">
                         <li><a href="javascript:void(0);" onClick={this.EVENT_CLICK.bind(this,"AreaInfo","manage")}>面积管理</a></li>
@@ -159,13 +159,10 @@ class ToolsList extends React.Component {
                         <li><a href="javascript:void(0);" onClick={this.EVENT_CLICK.bind(this,"AreaInfo","primarykey")}>关键指标</a></li>
                     </ol>
                 </li>
-                <li> 
+                <li className="hide"> 
                     <a href="#">报表管理</a>
                 </li>
                 
-                <li>
-                    <a href="#">楼栋匹配</a>
-                </li>
             </ul>
           
         </article>

@@ -6,7 +6,7 @@ import { AreaService } from '../services';
 import { shallowCompare, knife } from '../utils';
 import TableBar from "./table";//表格
 //import EsayuiTable from "./EsayuiTable";//esayui表格
-require("../css/antd.min.css");
+
 require("../css/button.less");
 require("./css/supply.less");
 const TabPane = Tabs.TabPane;
@@ -26,7 +26,7 @@ class Index extends Component {
     }
     componentWillMount() { }
     componentDidMount() {
-    
+
     }
     /**
      * 编辑供货
@@ -45,10 +45,10 @@ class Index extends Component {
             })
 
         }
-        return <div className="RT mgB10">
+        return <div className="RT">
 
             <button className="jh_btn jh_btn22 jh_btn_repertory">库存</button>
-            <button className="jh_btn jh_btn22 jh_btn_edit" onClick={this.EVENT_CLICK_Edit}>编辑供货</button>
+
             <label>版本：<Select defaultValue={this.state.versionData.length ? this.state.versionData[0]["id"] : ""} className="ipt120">{Options()}</Select></label>
         </div>
     }
@@ -61,17 +61,32 @@ class Index extends Component {
             <article>
                 <Tabs defaultActiveKey="1">
                     <TabPane tab="供货" key="1" tabBarExtraContent={this.GET_Compent}>
-                        <header><Row>
-                            <Col span={12}>
-                                <span>计划版（面积：平方米，货值：万元）</span>
-                            </Col>
-                            <Col span={12}>
-                                {this.GET_TitleEditBtn()}
-                            </Col>
-                        </Row></header>
-                        {/* <EsayuiTable id="EsayuiTable" dataSource={this.state.dataSource} columns={this.state.columns} /> */}
+                        <article>
+                            <header className="HeaderBar"><Row>
+                                <Col span={12}>
+                                    <span>计划版（面积：平方米，货值：万元）</span>
+                                </Col>
+                                <Col span={12}>
+                                    {this.GET_TitleEditBtn()}
+                                </Col>
+                            </Row></header>
+                            {/* <EsayuiTable id="EsayuiTable" dataSource={this.state.dataSource} columns={this.state.columns} /> */}
 
-                        <TableBar dataSource={this.state.dataSource} columns={this.state.columns} year={this.state.currentYear} />
+                            <TableBar dataSource={this.state.dataSource} columns={this.state.columns} year={this.state.currentYear} />
+                        </article>
+                        <article>
+                            <header className="HeaderBar"><Row>
+                                <Col span={12}>
+                                    <span>动态调整版（面积：平方米，货值：万元）</span>
+                                </Col>
+                                <Col span={12}>
+                                    <div className="RT">
+                                    <button className="jh_btn jh_btn22 jh_btn_edit" onClick={this.EVENT_CLICK_Edit}>编辑供货</button>
+                                    </div>
+                                </Col>
+                            </Row></header>
+                            <TableBar dataSource={this.state.dataSource} columns={this.state.columns} year={this.state.currentYear} />
+                        </article>
                     </TabPane>
                 </Tabs>
             </article>

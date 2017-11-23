@@ -92,7 +92,6 @@ class GroupIframe extends React.Component{
                     el.delete = "del";
                 }
             }
-            
             if(el.groupnumber > da){
                 el.groupnumber = el.groupnumber - 1;
 

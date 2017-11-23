@@ -4,7 +4,6 @@ import iss from "../../Content/js/iss.js";//公共类
 import {shallowCompare} from "../../Content/utils/shallowCompare";//公共类
 import { AreaConstants } from '../constants'; 
 import "babel-polyfill";  //兼容ie
-require("../../Content/css/antd.min.css");
 const { AreaManageStep, Legend, SelectVertionData } = AreaConstants;
 class SaveVersion extends Component {
     state = {

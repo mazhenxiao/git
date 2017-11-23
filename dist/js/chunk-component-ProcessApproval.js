@@ -1,6 +1,6 @@
 webpackJsonp([9],{
 
-/***/ 1505:
+/***/ 1024:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12,417 +12,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(10);
 
 var _react2 = _interopRequireDefault(_react);
 
-__webpack_require__(52);
+__webpack_require__(43);
 
-__webpack_require__(58);
+__webpack_require__(42);
 
-var _componentProcessApprovalTab = __webpack_require__(1544);
-
-var _componentProcessApprovalTab2 = _interopRequireDefault(_componentProcessApprovalTab);
-
-var _componentNewProjectApprovalNode = __webpack_require__(1597);
-
-var _componentNewProjectApprovalNode2 = _interopRequireDefault(_componentNewProjectApprovalNode);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*审批信息*/
-
-/**
- * 提交人    
- * 
- */
-//兼容ie
-//导航信息
-
-
-//审批信息
-__webpack_require__(1573);
-
-var ProcessApproval = function (_React$Component) {
-    _inherits(ProcessApproval, _React$Component);
-
-    function ProcessApproval(arg) {
-        _classCallCheck(this, ProcessApproval);
-
-        var _this = _possibleConstructorReturn(this, (ProcessApproval.__proto__ || Object.getPrototypeOf(ProcessApproval)).call(this, arg));
-
-        _this.state = {
-            remarkTxt: _this.props.location.query.remarkTxt || sessionStorage.getItem("currentApprovalText") || "", //备注内容
-            textarea2: "", //审批人意见
-            type: "readonly", //edit自己readonly审批人
-            allSearchArg: _this.props.location.query, /*地址栏所有参数*/
-            guid: _this.props.location.query.dataKey //页面传入表单guid
-        };
-        _this.AppState = { //临时存储
-            text: "",
-            approval: []
-        };
-
-        _this.currentApproval = {
-            list: [], //切换记录
-            comment: "" //textarea
-            //暂存流程数据
-
-        };return _this;
-    }
-
-    _createClass(ProcessApproval, [{
-        key: "EVENT_CHANGE_TEXTAREA",
-        value: function EVENT_CHANGE_TEXTAREA(ev) {
-            var th = this;
-            var txt = ev.target.value;
-            var allSearchArg = th.state.allSearchArg;
-
-            if (txt.length > 1000) {
-                txt = txt.slice(0, 1000);
-            }
-
-            allSearchArg["remarkTxt"] = txt;
-            th.setState({
-                remarkTxt: txt,
-                allSearchArg: allSearchArg
-            });
-            sessionStorage.setItem("currentApprovalText", txt);
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var th = this;
-            return _react2.default.createElement(
-                "section",
-                { className: "ProcessApproval" },
-                _react2.default.createElement(_componentProcessApprovalTab2.default, { allSearchArg: th.state.allSearchArg, current: "ProcessApproval" }),
-                _react2.default.createElement(
-                    "h3",
-                    { className: "boxGroupTit" },
-                    _react2.default.createElement(
-                        "p",
-                        null,
-                        _react2.default.createElement(
-                            "span",
-                            null,
-                            "\u5BA1\u6279\u6D41\u7A0B"
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    "article",
-                    null,
-                    _react2.default.createElement(
-                        "table",
-                        { className: "table PATextarea", width: "100%" },
-                        _react2.default.createElement(
-                            "tbody",
-                            null,
-                            _react2.default.createElement(
-                                "tr",
-                                null,
-                                _react2.default.createElement(
-                                    "th",
-                                    null,
-                                    "\u5907\u6CE8"
-                                ),
-                                _react2.default.createElement(
-                                    "td",
-                                    null,
-                                    _react2.default.createElement("textarea", { value: this.state.remarkTxt, onChange: this.EVENT_CHANGE_TEXTAREA.bind(this), placeholder: "\u8BF7\u8F93\u5165\u5907\u6CE8\u5185\u5BB9" })
-                                )
-                            )
-                        )
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "mgT10" },
-                        _react2.default.createElement(_componentNewProjectApprovalNode2.default, { AppState: this.AppState, guid: this.state.guid, data: this.state.remarkTxt, allSearchArg: this.state.allSearchArg })
-                    )
-                )
-            );
-        }
-    }]);
-
-    return ProcessApproval;
-}(_react2.default.Component);
-
-exports.default = ProcessApproval;
-
-/***/ }),
-
-/***/ 1544:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-__webpack_require__(52);
-
-__webpack_require__(58);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*审批信息*/
-
-/**
- * 首页导航条
- * index  identity  supply  所需
- */
-
-
-//兼容ie
-
-var ProcessApprovalTab = function (_React$Component) {
-    _inherits(ProcessApprovalTab, _React$Component);
-
-    function ProcessApprovalTab(arg) {
-        _classCallCheck(this, ProcessApprovalTab);
-
-        var _this = _possibleConstructorReturn(this, (ProcessApprovalTab.__proto__ || Object.getPrototypeOf(ProcessApprovalTab)).call(this, arg));
-
-        _this.state = {
-            TapList: [],
-            allSearchArg: _this.props.allSearchArg /*地址栏的参数*/
-        };
-
-        return _this;
-    }
-
-    _createClass(ProcessApprovalTab, [{
-        key: "getQueryTab",
-        value: function getQueryTab() {
-            //页面显示连接设置
-            var th = this;
-            var url = th.props.allSearchArg["current"];
-            var list = [{ id: "" + url, url: "/" + url }, //审批
-            { id: "newProjectApproval", url: "/newProjectApproval" }, //项目
-            { id: "newProjectStage", url: "/newProjectStage" //分期
-            }],
-                id = th.state.allSearchArg['e'];
-            switch (id) {
-                case iss.getEVal("newProjectStatus"):
-                    this.setState({ // 项目审批
-                        TapList: [list[0], list[1]]
-                    });break;
-                case iss.getEVal("intallmentStatus"):
-                    this.setState({ // 分期审批
-                        TapList: [list[0], list[2]]
-                    });break;
-            }
-        }
-    }, {
-        key: "setTapList",
-        value: function setTapList() {
-            var _this2 = this;
-
-            //设置导航条
-
-            return this.state.TapList.map(function (el, id) {
-                var str = "";
-                switch (el.id) {
-                    case "ProcessApproval":
-                    case "ProcessApprover":
-                        str = "流程审批";break;
-                    case "newProjectApproval":
-                        str = "项目信息";break;
-                    case "newProjectStage":
-                        str = "分期信息";break;
-                }
-                return _react2.default.createElement(
-                    "li",
-                    { className: _this2.props.current == el.id ? "active" : "", key: id, onClick: _this2.EVENT_CLICK_LINK.bind(_this2, el.url, el.id) },
-                    str
-                );
-            });
-        }
-    }, {
-        key: "EVENT_CLICK_LINK",
-        value: function EVENT_CLICK_LINK(url, id, ev) {
-            var th = this;
-            var allSearchArg = th.state.allSearchArg;
-            var keyArr = [];
-            for (var key in allSearchArg) {
-                keyArr.push(key + "=" + allSearchArg[key]);
-            }
-            iss.hashHistory.push({
-                pathname: url,
-                search: "?" + keyArr.join("&")
-            });
-        }
-    }, {
-        key: "componentWillMount",
-        value: function componentWillMount() {
-            this.getQueryTab();
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var th = this;
-            return _react2.default.createElement(
-                "section",
-                null,
-                _react2.default.createElement(
-                    "header",
-                    { className: "JH-HeadTab" },
-                    _react2.default.createElement(
-                        "ul",
-                        { className: "JH-HeadList" },
-                        this.setTapList()
-                    )
-                )
-            );
-        }
-    }]);
-
-    return ProcessApprovalTab;
-}(_react2.default.Component);
-
-exports.default = ProcessApprovalTab;
-
-/***/ }),
-
-/***/ 1570:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(1571);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(643)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/less-loader/dist/cjs.js!./newProjectApproval.less", function() {
-			var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/less-loader/dist/cjs.js!./newProjectApproval.less");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 1571:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(642)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "h1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-size: inherit;\n  font-weight: lighter;\n}\ntextarea,\ntextarea:hover {\n  outline: none;\n}\n.boxGroupDetail {\n  padding: 0 0px;\n  font-size: 1rem;\n}\n.boxGroupDetail .textareaText {\n  width: 100%;\n  height: 80px;\n  padding: 10px;\n  resize: none;\n  border: 1px solid #dddddd;\n}\n.boxGroupDetail .boxGroupTitBig {\n  height: 40px;\n  line-height: 40px;\n  background: #0b4082;\n  color: #ffffff ;\n  padding: 0 20px 0 40px;\n  background-image: url(" + __webpack_require__(1572) + ");\n  background-repeat: no-repeat;\n  background-position: 15px;\n}\n.boxGroupDetail .formTable2 tr td {\n  width: 202px;\n}\n.boxGroupDetail .formTable2 tr td:nth-of-type(1) {\n  background: #f5f5f5;\n  width: 160px;\n}\n.boxGroupDetail .formTable2 tr td:nth-of-type(3) {\n  background: #f5f5f5;\n  width: 160px;\n}\n.boxGroupDetail .formTable2 tr td:nth-of-type(5) {\n  background: #f5f5f5;\n  width: 160px;\n}\n.boxGroupDetail .formTable1 tr td {\n  width: 202px;\n}\n.boxGroupDetail .formTable1 tr td:nth-of-type(1) {\n  background: #f5f5f5;\n  width: 160px;\n}\n.boxGroupDetail .formTable1 tr td:nth-of-type(3) {\n  background: #f5f5f5;\n  width: 160px;\n}\n.boxGroupDetail .formTable1 tr td:nth-of-type(5) {\n  background: #f5f5f5;\n  width: 160px;\n}\n.boxGroupDetail .formTable3 tr:nth-of-type(1) th {\n  background: #f5f5f5;\n  text-align: center;\n}\n.boxGroupDetail .formTable3 tr td:nth-of-type(1) {\n  background: #f5f5f5;\n  text-align: right;\n}\n.boxGroupDetail .formTable3 tr td .inputTextBox {\n  width: 100%;\n}\n.boxGroupDetail .formTableLabel {\n  width: 100%;\n  text-align: right;\n}\n.boxGroupDetail table > tbody > tr > td,\n.boxGroupDetail .table > tbody > tr > th,\n.boxGroupDetail .table > tfoot > tr > td,\n.boxGroupDetail .table > tfoot > tr > th,\n.boxGroupDetail .table > thead > tr > td,\n.boxGroupDetail .table > thead > tr > th {\n  padding: 2px !important;\n  border: 1px solid #dddddd;\n}\n.boxGroupDetail .tableProject {\n  margin-top: 20px;\n}\n.boxGroupDetail .btnBox {\n  text-align: center;\n  height: 40px;\n  line-height: 40px;\n}\n.boxGroupDetail .btnBox a {\n  display: inline-block;\n  padding: 0 12px;\n  height: 26px;\n  line-height: 26px;\n  background: #0b4082;\n  color: #ffffff ;\n  margin: 0 10px;\n}\n.boxGroupDetail .btnBox a:hover {\n  background: #f1a118;\n}\n.boxGroupDetail .approvalProcess tr th {\n  text-align: center;\n  background: #f5f5f5;\n}\n.boxGroupDetail .approvalProcess tr td:nth-of-type(1) {\n  width: 150px;\n}\n.boxGroupDetail .approvalProcess tr td:nth-of-type(3) {\n  width: 150px;\n  text-align: center;\n}\n.boxGroupDetail .approvalProcess tr td:nth-of-type(4) {\n  width: 150px;\n  text-align: center;\n}\n.boxGroupDetail .approvalProcess tr td:nth-of-type(5) {\n  width: 150px;\n  text-align: center;\n}\n.ApplyFlow li {\n  display: inline-block;\n  margin: 0 3px;\n  cursor: pointer;\n}\n.ApplyFlow li::after {\n  display: inline-block;\n  content: \"->\";\n  margin-left: 3px;\n}\n.ApplyFlow li:last-child::after {\n  display: none;\n}\n.ApplyFlow li label {\n  font-weight: normal;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 1572:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAuUlEQVQ4T+2TXQ3CQBCE53MADnAADkBCJVQCEooDJFQCEiqhOKiEOhiyTSFtc3AlvLLJPd3Otz83h34MpnrbzRe8HiheANtnSUdJ1wzkDvRRDDgNANutpDhdRryRVEg6SLpNAQPNdhW8JQS42C6BesyJUasU4JTqAGhsH4D2HaAfR1izw52kMtnBGvXHEf4Akk+43Mu4xL2k7cyJQLgrG7bD6h0wWP5p5VpSUMMPuYjKr2Kz35hTpu4fyuOCEY3r4pUAAAAASUVORK5CYII="
-
-/***/ }),
-
-/***/ 1573:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(1574);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(643)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/less-loader/dist/cjs.js!./processApproval.less", function() {
-			var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/less-loader/dist/cjs.js!./processApproval.less");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 1574:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(642)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "textarea:-moz-placeholder {\n  color: #999;\n}\ntextarea::-webkit-input-placeholder {\n  color: #999;\n}\ntextarea:-ms-input-placeholder {\n  color: #999;\n}\n.ProcessApproval .PATextarea th,\n.ProcessApproval .PATextarea td {\n  border: #ddd solid 1px;\n  padding: 10px;\n}\n.ProcessApproval .PATextarea th {\n  width: 150px;\n  text-align: left;\n  vertical-align: middle;\n  font-size: 14px;\n  font-weight: normal;\n  background: #f5f5f5;\n}\n.ProcessApproval .PATextarea td textarea {\n  width: 100%;\n  resize: none;\n  height: 80px;\n  border: #ddd solid 1px;\n  padding: 3px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 1597:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-__webpack_require__(52);
-
-__webpack_require__(58);
-
-__webpack_require__(1570);
+__webpack_require__(980);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -953,6 +551,408 @@ var ApprovalControlNode = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = ApprovalControlNode;
+
+/***/ }),
+
+/***/ 720:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(10);
+
+var _react2 = _interopRequireDefault(_react);
+
+__webpack_require__(43);
+
+__webpack_require__(42);
+
+var _componentProcessApprovalTab = __webpack_require__(863);
+
+var _componentProcessApprovalTab2 = _interopRequireDefault(_componentProcessApprovalTab);
+
+var _componentNewProjectApprovalNode = __webpack_require__(1024);
+
+var _componentNewProjectApprovalNode2 = _interopRequireDefault(_componentNewProjectApprovalNode);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*审批信息*/
+
+/**
+ * 提交人    
+ * 
+ */
+//兼容ie
+//导航信息
+
+
+//审批信息
+__webpack_require__(983);
+
+var ProcessApproval = function (_React$Component) {
+    _inherits(ProcessApproval, _React$Component);
+
+    function ProcessApproval(arg) {
+        _classCallCheck(this, ProcessApproval);
+
+        var _this = _possibleConstructorReturn(this, (ProcessApproval.__proto__ || Object.getPrototypeOf(ProcessApproval)).call(this, arg));
+
+        _this.state = {
+            remarkTxt: _this.props.location.query.remarkTxt || sessionStorage.getItem("currentApprovalText") || "", //备注内容
+            textarea2: "", //审批人意见
+            type: "readonly", //edit自己readonly审批人
+            allSearchArg: _this.props.location.query, /*地址栏所有参数*/
+            guid: _this.props.location.query.dataKey //页面传入表单guid
+        };
+        _this.AppState = { //临时存储
+            text: "",
+            approval: []
+        };
+
+        _this.currentApproval = {
+            list: [], //切换记录
+            comment: "" //textarea
+            //暂存流程数据
+
+        };return _this;
+    }
+
+    _createClass(ProcessApproval, [{
+        key: "EVENT_CHANGE_TEXTAREA",
+        value: function EVENT_CHANGE_TEXTAREA(ev) {
+            var th = this;
+            var txt = ev.target.value;
+            var allSearchArg = th.state.allSearchArg;
+
+            if (txt.length > 1000) {
+                txt = txt.slice(0, 1000);
+            }
+
+            allSearchArg["remarkTxt"] = txt;
+            th.setState({
+                remarkTxt: txt,
+                allSearchArg: allSearchArg
+            });
+            sessionStorage.setItem("currentApprovalText", txt);
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var th = this;
+            return _react2.default.createElement(
+                "section",
+                { className: "ProcessApproval" },
+                _react2.default.createElement(_componentProcessApprovalTab2.default, { allSearchArg: th.state.allSearchArg, current: "ProcessApproval" }),
+                _react2.default.createElement(
+                    "h3",
+                    { className: "boxGroupTit" },
+                    _react2.default.createElement(
+                        "p",
+                        null,
+                        _react2.default.createElement(
+                            "span",
+                            null,
+                            "\u5BA1\u6279\u6D41\u7A0B"
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    "article",
+                    null,
+                    _react2.default.createElement(
+                        "table",
+                        { className: "table PATextarea", width: "100%" },
+                        _react2.default.createElement(
+                            "tbody",
+                            null,
+                            _react2.default.createElement(
+                                "tr",
+                                null,
+                                _react2.default.createElement(
+                                    "th",
+                                    null,
+                                    "\u5907\u6CE8"
+                                ),
+                                _react2.default.createElement(
+                                    "td",
+                                    null,
+                                    _react2.default.createElement("textarea", { value: this.state.remarkTxt, onChange: this.EVENT_CHANGE_TEXTAREA.bind(this), placeholder: "\u8BF7\u8F93\u5165\u5907\u6CE8\u5185\u5BB9" })
+                                )
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "mgT10" },
+                        _react2.default.createElement(_componentNewProjectApprovalNode2.default, { AppState: this.AppState, guid: this.state.guid, data: this.state.remarkTxt, allSearchArg: this.state.allSearchArg })
+                    )
+                )
+            );
+        }
+    }]);
+
+    return ProcessApproval;
+}(_react2.default.Component);
+
+exports.default = ProcessApproval;
+
+/***/ }),
+
+/***/ 863:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(10);
+
+var _react2 = _interopRequireDefault(_react);
+
+__webpack_require__(43);
+
+__webpack_require__(42);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*审批信息*/
+
+/**
+ * 首页导航条
+ * index  identity  supply  所需
+ */
+
+
+//兼容ie
+
+var ProcessApprovalTab = function (_React$Component) {
+    _inherits(ProcessApprovalTab, _React$Component);
+
+    function ProcessApprovalTab(arg) {
+        _classCallCheck(this, ProcessApprovalTab);
+
+        var _this = _possibleConstructorReturn(this, (ProcessApprovalTab.__proto__ || Object.getPrototypeOf(ProcessApprovalTab)).call(this, arg));
+
+        _this.state = {
+            TapList: [],
+            allSearchArg: _this.props.allSearchArg /*地址栏的参数*/
+        };
+
+        return _this;
+    }
+
+    _createClass(ProcessApprovalTab, [{
+        key: "getQueryTab",
+        value: function getQueryTab() {
+            //页面显示连接设置
+            var th = this;
+            var url = th.props.allSearchArg["current"];
+            var list = [{ id: "" + url, url: "/" + url }, //审批
+            { id: "newProjectApproval", url: "/newProjectApproval" }, //项目
+            { id: "newProjectStage", url: "/newProjectStage" //分期
+            }],
+                id = th.state.allSearchArg['e'];
+            switch (id) {
+                case iss.getEVal("newProjectStatus"):
+                    this.setState({ // 项目审批
+                        TapList: [list[0], list[1]]
+                    });break;
+                case iss.getEVal("intallmentStatus"):
+                    this.setState({ // 分期审批
+                        TapList: [list[0], list[2]]
+                    });break;
+            }
+        }
+    }, {
+        key: "setTapList",
+        value: function setTapList() {
+            var _this2 = this;
+
+            //设置导航条
+
+            return this.state.TapList.map(function (el, id) {
+                var str = "";
+                switch (el.id) {
+                    case "ProcessApproval":
+                    case "ProcessApprover":
+                        str = "流程审批";break;
+                    case "newProjectApproval":
+                        str = "项目信息";break;
+                    case "newProjectStage":
+                        str = "分期信息";break;
+                }
+                return _react2.default.createElement(
+                    "li",
+                    { className: _this2.props.current == el.id ? "active" : "", key: id, onClick: _this2.EVENT_CLICK_LINK.bind(_this2, el.url, el.id) },
+                    str
+                );
+            });
+        }
+    }, {
+        key: "EVENT_CLICK_LINK",
+        value: function EVENT_CLICK_LINK(url, id, ev) {
+            var th = this;
+            var allSearchArg = th.state.allSearchArg;
+            var keyArr = [];
+            for (var key in allSearchArg) {
+                keyArr.push(key + "=" + allSearchArg[key]);
+            }
+            iss.hashHistory.push({
+                pathname: url,
+                search: "?" + keyArr.join("&")
+            });
+        }
+    }, {
+        key: "componentWillMount",
+        value: function componentWillMount() {
+            this.getQueryTab();
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var th = this;
+            return _react2.default.createElement(
+                "section",
+                null,
+                _react2.default.createElement(
+                    "header",
+                    { className: "JH-HeadTab" },
+                    _react2.default.createElement(
+                        "ul",
+                        { className: "JH-HeadList" },
+                        this.setTapList()
+                    )
+                )
+            );
+        }
+    }]);
+
+    return ProcessApprovalTab;
+}(_react2.default.Component);
+
+exports.default = ProcessApprovalTab;
+
+/***/ }),
+
+/***/ 980:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(981);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(108)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/less-loader/dist/cjs.js!./newProjectApproval.less", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/less-loader/dist/cjs.js!./newProjectApproval.less");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 981:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(107)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "h1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-size: inherit;\n  font-weight: lighter;\n}\ntextarea,\ntextarea:hover {\n  outline: none;\n}\n.boxGroupDetail {\n  padding: 0 0px;\n  font-size: 1rem;\n}\n.boxGroupDetail .textareaText {\n  width: 100%;\n  height: 80px;\n  padding: 10px;\n  resize: none;\n  border: 1px solid #dddddd;\n}\n.boxGroupDetail .boxGroupTitBig {\n  height: 40px;\n  line-height: 40px;\n  background: #0b4082;\n  color: #ffffff ;\n  padding: 0 20px 0 40px;\n  background-image: url(" + __webpack_require__(982) + ");\n  background-repeat: no-repeat;\n  background-position: 15px;\n}\n.boxGroupDetail .formTable2 tr td {\n  width: 202px;\n}\n.boxGroupDetail .formTable2 tr td:nth-of-type(1) {\n  background: #f5f5f5;\n  width: 160px;\n}\n.boxGroupDetail .formTable2 tr td:nth-of-type(3) {\n  background: #f5f5f5;\n  width: 160px;\n}\n.boxGroupDetail .formTable2 tr td:nth-of-type(5) {\n  background: #f5f5f5;\n  width: 160px;\n}\n.boxGroupDetail .formTable1 tr td {\n  width: 202px;\n}\n.boxGroupDetail .formTable1 tr td:nth-of-type(1) {\n  background: #f5f5f5;\n  width: 160px;\n}\n.boxGroupDetail .formTable1 tr td:nth-of-type(3) {\n  background: #f5f5f5;\n  width: 160px;\n}\n.boxGroupDetail .formTable1 tr td:nth-of-type(5) {\n  background: #f5f5f5;\n  width: 160px;\n}\n.boxGroupDetail .formTable3 tr:nth-of-type(1) th {\n  background: #f5f5f5;\n  text-align: center;\n}\n.boxGroupDetail .formTable3 tr td:nth-of-type(1) {\n  background: #f5f5f5;\n  text-align: right;\n}\n.boxGroupDetail .formTable3 tr td .inputTextBox {\n  width: 100%;\n}\n.boxGroupDetail .formTableLabel {\n  width: 100%;\n  text-align: right;\n}\n.boxGroupDetail table > tbody > tr > td,\n.boxGroupDetail .table > tbody > tr > th,\n.boxGroupDetail .table > tfoot > tr > td,\n.boxGroupDetail .table > tfoot > tr > th,\n.boxGroupDetail .table > thead > tr > td,\n.boxGroupDetail .table > thead > tr > th {\n  padding: 2px !important;\n  border: 1px solid #dddddd;\n}\n.boxGroupDetail .tableProject {\n  margin-top: 20px;\n}\n.boxGroupDetail .btnBox {\n  text-align: center;\n  height: 40px;\n  line-height: 40px;\n}\n.boxGroupDetail .btnBox a {\n  display: inline-block;\n  padding: 0 12px;\n  height: 26px;\n  line-height: 26px;\n  background: #0b4082;\n  color: #ffffff ;\n  margin: 0 10px;\n}\n.boxGroupDetail .btnBox a:hover {\n  background: #f1a118;\n}\n.boxGroupDetail .approvalProcess tr th {\n  text-align: center;\n  background: #f5f5f5;\n}\n.boxGroupDetail .approvalProcess tr td:nth-of-type(1) {\n  width: 150px;\n}\n.boxGroupDetail .approvalProcess tr td:nth-of-type(3) {\n  width: 150px;\n  text-align: center;\n}\n.boxGroupDetail .approvalProcess tr td:nth-of-type(4) {\n  width: 150px;\n  text-align: center;\n}\n.boxGroupDetail .approvalProcess tr td:nth-of-type(5) {\n  width: 150px;\n  text-align: center;\n}\n.ApplyFlow li {\n  display: inline-block;\n  margin: 0 3px;\n  cursor: pointer;\n}\n.ApplyFlow li::after {\n  display: inline-block;\n  content: \"->\";\n  margin-left: 3px;\n}\n.ApplyFlow li:last-child::after {\n  display: none;\n}\n.ApplyFlow li label {\n  font-weight: normal;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 982:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAuUlEQVQ4T+2TXQ3CQBCE53MADnAADkBCJVQCEooDJFQCEiqhOKiEOhiyTSFtc3AlvLLJPd3Otz83h34MpnrbzRe8HiheANtnSUdJ1wzkDvRRDDgNANutpDhdRryRVEg6SLpNAQPNdhW8JQS42C6BesyJUasU4JTqAGhsH4D2HaAfR1izw52kMtnBGvXHEf4Akk+43Mu4xL2k7cyJQLgrG7bD6h0wWP5p5VpSUMMPuYjKr2Kz35hTpu4fyuOCEY3r4pUAAAAASUVORK5CYII="
+
+/***/ }),
+
+/***/ 983:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(984);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(108)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/less-loader/dist/cjs.js!./processApproval.less", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/less-loader/dist/cjs.js!./processApproval.less");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 984:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(107)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "textarea:-moz-placeholder {\n  color: #999;\n}\ntextarea::-webkit-input-placeholder {\n  color: #999;\n}\ntextarea:-ms-input-placeholder {\n  color: #999;\n}\n.ProcessApproval .PATextarea th,\n.ProcessApproval .PATextarea td {\n  border: #ddd solid 1px;\n  padding: 10px;\n}\n.ProcessApproval .PATextarea th {\n  width: 150px;\n  text-align: left;\n  vertical-align: middle;\n  font-size: 14px;\n  font-weight: normal;\n  background: #f5f5f5;\n}\n.ProcessApproval .PATextarea td textarea {\n  width: 100%;\n  resize: none;\n  height: 80px;\n  border: #ddd solid 1px;\n  padding: 3px;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 

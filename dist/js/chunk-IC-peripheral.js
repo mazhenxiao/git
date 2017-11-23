@@ -1,6 +1,53 @@
 webpackJsonp([24],{
 
-/***/ 1523:
+/***/ 1052:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(1053);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(108)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/less-loader/dist/cjs.js!./IC_peripheral.less", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/less-loader/dist/cjs.js!./IC_peripheral.less");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 1053:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(107)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".peripheral {\n  position: relative;\n  top: 0;\n  left: 0;\n  color: #5b5b5b;\n  padding: 10px;\n}\n.peripheral .peripheralList ul {\n  height: 40px;\n  position: relative;\n  top: 0;\n  left: 0;\n  z-index: 11;\n}\n.peripheral .peripheralList ul li {\n  position: relative;\n  color: #fff;\n  display: inline-block;\n  height: 40px;\n  cursor: pointer;\n  line-height: 40px;\n  border-left: none;\n  padding-left: 25px;\n  background: #337ab7;\n  border-bottom-color: transparent;\n}\n.peripheral .peripheralList ul li.active {\n  height: 40px;\n  background: skyblue;\n  font-size: 14px;\n}\n.peripheral .peripheralList ul li.active:after {\n  border-color: transparent transparent transparent skyblue;\n}\n.peripheral .peripheralList ul li:before {\n  content: '';\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 0;\n  height: 0;\n  border: 20px solid #fff;\n  border-color: transparent transparent transparent #fff ;\n}\n.peripheral .peripheralList ul li:after {\n  content: '';\n  position: absolute;\n  right: -40px;\n  top: 0;\n  width: 0;\n  height: 0;\n  border: 20px solid #337ab7;\n  border-color: transparent transparent transparent #337ab7;\n  z-index: 9;\n}\n.peripheral .peripheralList .peripheralBox {\n  position: relative;\n  top: 0;\n  left: 0;\n  z-index: 5;\n  border: #ccc solid 1px;\n  padding: 10px;\n  min-height: 300px;\n  background: #fdfdfd;\n}\n.peripheral .peripheralList .peripheralBox table tr td {\n  color: #5b5b5b;\n  padding: 5px 4.8px;\n  position: relative;\n  border: #ccc solid 1px;\n}\n.peripheral .peripheralList .peripheralBox table tr td:nth-child(1),\n.peripheral .peripheralList .peripheralBox table tr td:nth-child(2) {\n  border-right: none;\n}\n.peripheral .peripheralList .peripheralBox table tr td textarea {\n  width: 100%;\n  outline: none;\n  border: none;\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 44px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 738:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12,13 +59,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(10);
 
 var _react2 = _interopRequireDefault(_react);
 
-__webpack_require__(52);
+__webpack_require__(43);
 
-__webpack_require__(58);
+__webpack_require__(42);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32,7 +79,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 //兼容ie
-__webpack_require__(1625);
+__webpack_require__(1052);
 
 var ICPeripheral = function (_React$Component) {
     _inherits(ICPeripheral, _React$Component);
@@ -362,53 +409,6 @@ var ICPeripheral = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = ICPeripheral;
-
-/***/ }),
-
-/***/ 1625:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(1626);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(643)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/less-loader/dist/cjs.js!./IC_peripheral.less", function() {
-			var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/less-loader/dist/cjs.js!./IC_peripheral.less");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 1626:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(642)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, ".peripheral {\n  position: relative;\n  top: 0;\n  left: 0;\n  color: #5b5b5b;\n  padding: 10px;\n}\n.peripheral .peripheralList ul {\n  height: 40px;\n  position: relative;\n  top: 0;\n  left: 0;\n  z-index: 11;\n}\n.peripheral .peripheralList ul li {\n  position: relative;\n  color: #fff;\n  display: inline-block;\n  height: 40px;\n  cursor: pointer;\n  line-height: 40px;\n  border-left: none;\n  padding-left: 25px;\n  background: #337ab7;\n  border-bottom-color: transparent;\n}\n.peripheral .peripheralList ul li.active {\n  height: 40px;\n  background: skyblue;\n  font-size: 14px;\n}\n.peripheral .peripheralList ul li.active:after {\n  border-color: transparent transparent transparent skyblue;\n}\n.peripheral .peripheralList ul li:before {\n  content: '';\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 0;\n  height: 0;\n  border: 20px solid #fff;\n  border-color: transparent transparent transparent #fff ;\n}\n.peripheral .peripheralList ul li:after {\n  content: '';\n  position: absolute;\n  right: -40px;\n  top: 0;\n  width: 0;\n  height: 0;\n  border: 20px solid #337ab7;\n  border-color: transparent transparent transparent #337ab7;\n  z-index: 9;\n}\n.peripheral .peripheralList .peripheralBox {\n  position: relative;\n  top: 0;\n  left: 0;\n  z-index: 5;\n  border: #ccc solid 1px;\n  padding: 10px;\n  min-height: 300px;\n  background: #fdfdfd;\n}\n.peripheral .peripheralList .peripheralBox table tr td {\n  color: #5b5b5b;\n  padding: 5px 4.8px;\n  position: relative;\n  border: #ccc solid 1px;\n}\n.peripheral .peripheralList .peripheralBox table tr td:nth-child(1),\n.peripheral .peripheralList .peripheralBox table tr td:nth-child(2) {\n  border-right: none;\n}\n.peripheral .peripheralList .peripheralBox table tr td textarea {\n  width: 100%;\n  outline: none;\n  border: none;\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 44px;\n}\n", ""]);
-
-// exports
-
 
 /***/ })
 

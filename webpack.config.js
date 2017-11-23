@@ -6,7 +6,7 @@ var DedupePlugin = require("webpack/lib/optimize/DedupePlugin"); //多文件
 // var ImageminPlugin = require('imagemin-webpack-plugin').default;//图片压缩
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 // console.log(path.join(__dirname,"/source/"));
-const extractLESS = new ExtractTextPlugin('./Content/dist/css/[name].min.css');
+//const extractLESS = new ExtractTextPlugin('./Content/dist/css/[name].min.css');
 
 var config = {
     entry: { 
@@ -30,8 +30,11 @@ var config = {
             },
             {
                 test: /\.less$/,
-                exclude: /node_modules/,
                 loader:"style-loader!css-loader!less-loader"
+            },
+            {
+                test: /\.scss$/,
+                loader: "style-loader!css-loader!sass-loader"
             },
             {
                 test: /\.(png|jpg)$/,
@@ -49,28 +52,31 @@ var config = {
         ]
     },
      plugins: [
-      
+        
         new CommonsChunkPlugin({
-            name: "chunk"
+            name: "chunk",
+            minChunks:2
         }),
-        extractLESS,
-        /*  new compress({
+  /*         new compress({
             output: {
                 comments: false,  // remove all comments
               },
               compress: {
                 warnings: false
               }
-        }), */
+        }),  */
         new DedupePlugin({
             'process.env': {NODE_ENV: '"production"'}
         }),
-        // new ImageminPlugin({
-        //     disable: process.env.NODE_ENV !== 'production', // Disable during development 
-        //     pngquant: {
-        //       quality: '95-100'
-        //     }
-        //   })
+       /*  new ImageminPlugin({
+            disable: process.env.NODE_ENV !== 'production', // Disable during development 
+            pngquant: {
+              quality: '95-100'
+            }
+          }) */ 
+        /*   new ExtractTextPlugin('[name].bundle.css', {
+            allChunks: true
+          }) */
     ],
     resolve:{   
        // modules:[path.resolve(__dirname,"/source/"),"node_modules"],

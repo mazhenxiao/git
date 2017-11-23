@@ -169,7 +169,7 @@ class StagingInformation extends React.Component {
             okVal:"保存",
             cancel:"取消",
             ok(da){
-                //console.log(th.plateInfo.state.dataList)
+                console.log(th.plateInfo.state.dataList)
                 var stageversionid = th.state.STAGEVERSIONID,
                     newPushPlate = [],
                     buildingPushPlateMapping = [],
@@ -183,7 +183,15 @@ class StagingInformation extends React.Component {
                             el.pushPlateId = null;
                         }
                     }
-                    if(el.pushPlateId != null && el.pushPlateNumber != 0){
+                    if(el.pushPlateId != null && el.pushPlateNumber !=0){
+                        newPushPlateNumber.forEach((arg,ind)=>{
+                            if(arg.key==el.pushPlateId){
+                                newPushPlateNumber.splice(ind,1);
+                                //arg["key"]=el.pushPlateId;
+                               // arg["value"]=el.pushPlateNumber;
+                            }
+                        });
+                      
                         var nGn = {
                             "key":el.pushPlateId,
                             "value":el.pushPlateNumber
@@ -202,7 +210,15 @@ class StagingInformation extends React.Component {
                     
                     if(valueNumber.indexOf(el.pushPlateNumber) == -1){
                         valueNumber.push(el.pushPlateNumber)
+                        //console.log(valueNumber)
                         if(el.current == "new" && el.pushPlateNumber != 0){
+                            var newG = {
+                                "key": el.pushPlateId,
+                                "value": el.pushPlateNumber
+                            }
+                            newPushPlate.push(newG)
+                        }
+                        if(el.buildingId && el.pushPlateId && el.pushPlateNumber !=0){
                             var newG = {
                                 "key": el.pushPlateId,
                                 "value": el.pushPlateNumber
@@ -218,6 +234,7 @@ class StagingInformation extends React.Component {
                     "deletePushPlate":deletePushPlate,
                     "newPushPlateNumber":newPushPlateNumber
                 }
+                console.log(json)
                 iss.ajax({
                     url: "/Stage/ISavePushPlateMapping",
                     data:json,
@@ -274,18 +291,21 @@ class StagingInformation extends React.Component {
                     }
                     
                     
-                    if(el.current == "new"){
+                    if(el.current == "new" && el.groupnumber != 0){
                         var newG = {
                             "key": el.groupId,
                             "value": el.groupnumber
                         }
                         newGroup.push(newG)
                     }
-                    var oldG = {
-                        "key": el.buildingId,
-                        "value": el.groupId
+                    if(el.buildingId != null && el.groupId != null){
+                        var oldG = {
+                            "key": el.buildingId,
+                            "value": el.groupId
+                        }
+                        buildingGroupMapping.push(oldG)
                     }
-                    buildingGroupMapping.push(oldG)
+                    
                     if(valueNumber.indexOf(el.groupnumber) == -1){
                         valueNumber.push(el.groupnumber)
                     }

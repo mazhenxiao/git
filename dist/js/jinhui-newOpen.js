@@ -1,26 +1,26 @@
-webpackJsonp([34],{
+webpackJsonp([32],{
 
-/***/ 1490:
+/***/ 705:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(10);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(12);
+var _reactDom = __webpack_require__(33);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-__webpack_require__(58);
+__webpack_require__(42);
 
-var _iss = __webpack_require__(52);
+var _iss = __webpack_require__(43);
 
 var _iss2 = _interopRequireDefault(_iss);
 
-var _router = __webpack_require__(1491);
+var _router = __webpack_require__(706);
 
 var _router2 = _interopRequireDefault(_router);
 
@@ -44,7 +44,7 @@ new Openmain();
 
 /***/ }),
 
-/***/ 1491:
+/***/ 706:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54,19 +54,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(10);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(12);
+var _reactDom = __webpack_require__(33);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouter = __webpack_require__(305);
+var _reactRouter = __webpack_require__(197);
 
-__webpack_require__(58);
+__webpack_require__(42);
 
-var _iss = __webpack_require__(52);
+var _iss = __webpack_require__(43);
 
 var _iss2 = _interopRequireDefault(_iss);
 
@@ -81,7 +81,7 @@ var rootRout = {
     path: "/peripheral",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(24).then((function (require) {
-        var peripheral = __webpack_require__(1523); //============================首页
+        var peripheral = __webpack_require__(738); //============================首页
         callback(null, peripheral.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -92,4 +92,4 @@ exports.default = rootRout;
 
 /***/ })
 
-},[1490]);
+},[705]);

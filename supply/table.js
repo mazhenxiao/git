@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Table } from 'antd';
 import { AreaService } from '../services';
 import { shallowCompare, knife } from '../utils';
-require("../css/antd.min.css");
+
 class TableBar extends Component{
     state = {
         loading: false,

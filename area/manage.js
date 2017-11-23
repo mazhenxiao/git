@@ -15,7 +15,6 @@ import BuildingAreaAdjust from './building-area-adjust';
 import BuildingFormatEdit from './building-format-edit';
 import FormatAreaAdjust from './format-area-adjust';
 import iss from "../../Content/js/iss.js";//公共类
-require("../../Content/css/antd.min.css");
 require("../../Content/css/tools-processBar.less");
 require("../../Content/css/button.less");
 require("../../Content/area/areaCss/areaManage.less");

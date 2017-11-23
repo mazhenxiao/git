@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Spin, Tabs, Row, Col, Button, Select, Table } from 'antd';
 import { AreaService } from '../services';
 import { shallowCompare, knife } from '../utils';
-require("../css/antd.min.css");
+
 class EsayuiTable extends Component{
     state={
 

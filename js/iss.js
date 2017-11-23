@@ -51,10 +51,14 @@ class $iss {
         };
         let _URL = url;
         if (params) {
-            let ParamsStr = new URLSearchParams();
+            let ParamsStr =""; /* new URLSearchParams();
             for(var li in params["data"]){
                 ParamsStr.append(li,params["data"][li]);
+            } */
+            for(var li in params["data"]){
+                ParamsStr+=`${li}=${params["data"][li]}&`;
             }
+            ParamsStr=ParamsStr.replace(/\&$/ig,"");
            // let _data = JSON.stringify(params["data"] || {});
            // let str = _data.replace(/[{}]/ig, "").replace(/:/ig, "=").replace(/\,/ig, "&").replace(/\"/ig, "");
             if (requestInfo.method.toLocaleLowerCase() == "post") {

@@ -8,7 +8,6 @@ import "babel-polyfill";  //兼容ie
 import {shallowCompare,knife} from '../utils';
 import iss from "../js/iss.js";//公共类
 import { AreaConstants } from '../constants'; 
-require("../css/antd.min.css");
 require("../css/tools-dynamicTable.less");//专用css
 import DynamicTable from "../components/tools-dynamicTable.js";
 class PlanQuota extends Component {

@@ -20,7 +20,6 @@ import FormatAreaAdjust from './format-area-adjust';
 import SaveVersion from "./com-save-version";
 import {AreaService} from '../services';
 import "babel-polyfill";  //兼容ie
-require("../../Content/css/antd.min.css");
 require("../../Content/css/tools-processBar.less");
 require("../../Content/css/button.less");
 require("../../Content/area/areaCss/areaManage.less");
