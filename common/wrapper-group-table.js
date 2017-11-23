@@ -8,12 +8,6 @@ import {shallowCompare} from '../utils/index';
  */
 const defaultWidth = 105;
 
-// /**
-//  * 默认筛选级别
-//  * @type {string}
-//  */
-// const DEFAULT_FILTER_LEVEL = "DEFAULT_FILTER_LEVEL";
-
 /**
  * 分组表格
  * @param headerData 表头数据
@@ -31,8 +25,9 @@ export default class WrapperGroupTable extends Component {
         rowKey: React.PropTypes.string,//主键
         defaultHeight: React.PropTypes.number,//表格自定义高度
         columnRender: React.PropTypes.object,//自定义render
-        editable: React.PropTypes.bool,//单元格是否可编辑
         onDataChange: React.PropTypes.func,//文本框数据修改
+        editAble: React.PropTypes.bool,//单元格是否可编辑
+        fixedAble: React.PropTypes.bool,//固定列是否可用
     };
 
     static defaultProps = {
@@ -41,7 +36,8 @@ export default class WrapperGroupTable extends Component {
         rowKey: "id",
         defaultHeight: 400,
         columnRender: null,
-        editable: false,
+        editAble: false,
+        fixedAble: false,
     };
 
     // state = {
@@ -69,7 +65,7 @@ export default class WrapperGroupTable extends Component {
     };
 
     getColumns = (headerData) => {
-        const {columnRender, editable} = this.props;
+        const {columnRender, editAble, fixedAble} = this.props;
         let columns = [];
         columns.scrollX = 0;
 
@@ -80,24 +76,24 @@ export default class WrapperGroupTable extends Component {
                 key: item.field,
             };
 
+            //默认固定第一列
+            if (fixedAble && index === 0) {
+                column.fixed = "left";
+            }
+
             //render
             if (columnRender && columnRender[item.field]) {
                 column.render = columnRender[item.field];
             }
 
-            //默认固定第一列
-            if (index === 0) {
-                // column.fixed = "left";
-            } else {
-                if (editable) {
-                    column.render = (text, record) => {
-                        if (item.edit !== "+w") {
-                            return text;
-                        }
+            if (editAble) {
+                column.render = (text, record) => {
+                    if (item.edit !== "+w") {
+                        return text;
+                    }
 
-                        return <Input onChange={this.handleInputChange(record, item.field)} value={text}/>;
-                    };
-                }
+                    return <Input onChange={this.handleInputChange(record, item.field)} value={text}/>;
+                };
             }
             if (item.children && Array.isArray(item.children) && item.children.length > 0) {
                 this.getChildColumns(columns, column, item);
@@ -131,6 +127,14 @@ export default class WrapperGroupTable extends Component {
                 width: defaultWidth,
             };
 
+            childColumn.render = (text, record) => {
+                if (childItem.edit !== "+w") {
+                    return text;
+                }
+
+                return <Input onChange={this.handleInputChange(record, childItem.field)} value={text}/>;
+            };
+
             if (childItem.width && childItem.width > 0) {
                 childColumn.width = childItem.width;
             }
@@ -144,7 +148,10 @@ export default class WrapperGroupTable extends Component {
         // filterInfo = filterInfo || {};
 
         const {headerData, dataSource, rowKey, defaultHeight} = this.props;
-        const tableColumns = this.getColumns(headerData);
+        let tableColumns = [];
+        if (dataSource && dataSource.length > 0) {
+            tableColumns = this.getColumns(headerData);
+        }
 
         // const filters = [
         //     {text: '1#', value: '1#'},

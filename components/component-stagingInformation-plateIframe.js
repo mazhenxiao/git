@@ -99,7 +99,7 @@ class PlateIframe extends React.Component{
             
             if(el.pushPlateNumber > da){
                 el.pushPlateNumber = el.pushPlateNumber - 1;
-
+                el.newPush = "newPush"
             }
         })
         th.setState({
@@ -158,17 +158,25 @@ class PlateIframe extends React.Component{
                     idN = el.pushPlateId
                 }
             })
+            //console.log(th._nData)
             if(domType){
+                //console.log(brr)
                 brr.forEach((el,ind) =>{
                     if(el.buildingName == text){
                         el.pushPlateName = "推盘",
                         el.pushPlateNumber = n,
-                        el.pushPlateId = idN
+                        el.pushPlateId = idN,
+                        el.delete = ""
+                    }
+                    if(el.pushPlateNumber == n && el.buildingId == null){
+                        brr.splice(ind,1);
                     }
                 })
+               // console.log(brr)
                 brr.forEach((el,ind) =>{
                     newBr.push(el.pushPlateNumber)
                 })
+                //console.log(brr)
                 if(newBr.indexOf(0) == -1){
                     var BrObj = {
                         "pushPlateId": null,
@@ -215,7 +223,7 @@ class PlateIframe extends React.Component{
         if(th.state.dataList.length != 0){ 
             return th.state.dataList.map((el, ind) => {
                 let id = el.pushPlateNumber; 
-            if(el.delete == null || el.Mdel == "Mdel"){
+            if(el.delete == null|| el.delete == "" || el.Mdel == "Mdel"){
                 if(id == th.state.index && null!=el.buildingName && id != 0){
                     
                     return <li key={ind} className='toggle-checkbox'>

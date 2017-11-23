@@ -3,42 +3,41 @@
  */
 
 import React, {Component} from 'react';
-import {Button, Table, Row} from 'antd';
 import {shallowCompare} from '../utils/index';
 import {WrapperGroupTable} from '../common';
+import ComBuildingFilter from './com-building-filter';
 
 class ComBuilding extends Component {
 
     static propTypes = {
         headerData: React.PropTypes.array,
         dataSource: React.PropTypes.array,
+        onBuildingClick: React.PropTypes.func,
     };
 
     static defaultProps = {
         headerData: [],
-        dataSource: []
+        dataSource: [],
+        onBuildingClick: () => {
+        },
     };
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return shallowCompare(this, nextProps, nextState);
+    // }
 
-    handleBuildingClick = (text, record) => {
+    handleClick = (text, record) => {
         return () => {
-            console.log("parent record", record);
-        };
-    };
-    handleFormatClick = (text, record) => {
-        return () => {
-            console.log("child record", record);
+            //楼栋 Building
+            //业态 ProductType
+            record.descType = "Building";//ProductType
+            this.props.onBuildingClick && this.props.onBuildingClick(record);
         };
     };
 
     columnRender = {
-        name: (text, record) => {
-            if (record["level"] === 1)
-                return <a onClick={this.handleBuildingClick(text, record)}>{text}</a>;
-            return <a onClick={this.handleFormatClick(text, record)}>{text}</a>;
+        PRODUCTNAME: (text, record) => {
+            return <a onClick={this.handleClick(text, record)}>{text}</a>;
         }
     };
 
@@ -46,11 +45,13 @@ class ComBuilding extends Component {
         const {headerData, dataSource} = this.props;
         return (
             <div>
+                <ComBuildingFilter/>
                 <WrapperGroupTable
                     headerData={headerData}
                     dataSource={dataSource}
-                    rowKey="key"
+                    rowKey="KEY"
                     columnRender={this.columnRender}
+                    fixedAble={true}
                 />
             </div>
         );

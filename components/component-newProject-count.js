@@ -159,24 +159,24 @@ class NewProjectCount extends React.Component {
         }, () => {
             th.BIND_CHANGE_DATA(th.state)
         })
-        th.time = setTimeout(arg => {
-            iss.ajax({
-                type: "post",
-                url: "/Project/IProjectCode",
-                data: {
-                    cityId: th.state.PARENTID,
-                    projectId:th.state.ID,
-                    caseName: th.state.CASENAME,
-                },
-                success(res) {
-                    th.setState({
-                        "PROJECTCODE": res.rows,
-                    }, arg => {
-                        th.BIND_CHANGE_DATA(th.state);
-                    });
-                }
-            });
-        }, 1000);
+        // th.time = setTimeout(arg => {
+        //     iss.ajax({
+        //         type: "post",
+        //         url: "/Project/IProjectCode",
+        //         data: {
+        //             cityId: th.state.PARENTID,
+        //             projectId:th.state.ID,
+        //             caseName: th.state.CASENAME,
+        //         },
+        //         success(res) {
+        //             th.setState({
+        //                 "PROJECTCODE": res.rows,
+        //             }, arg => {
+        //                 th.BIND_CHANGE_DATA(th.state);
+        //             });
+        //         }
+        //     });
+        // }, 1000);
     }
     handleInputTextChange(e) {
         var th = this;

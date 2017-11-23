@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Table, Row, Col} from 'antd';
-import {shallowCompare} from '../utils/index';
+import {Button, Row, Col} from 'antd';
 import {WrapperInput} from '../common';
 
 

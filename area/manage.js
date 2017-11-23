@@ -14,10 +14,10 @@ import BlockFormatAdjust from './block-format-adjust';
 import BuildingAreaAdjust from './building-area-adjust';
 import BuildingFormatEdit from './building-format-edit';
 import FormatAreaAdjust from './format-area-adjust';
-import iss from "../../Content/js/iss.js";//公共类
-require("../../Content/css/tools-processBar.less");
-require("../../Content/css/button.less");
-require("../../Content/area/areaCss/areaManage.less");
+import iss from "../js/iss.js";//公共类
+require("../css/tools-processBar.less");
+require("../css/button.less");
+require("../area/areaCss/areaManage.less");
 
 const TabPane = Tabs.TabPane;
 const {AreaManageStep,Legend} = AreaConstants;

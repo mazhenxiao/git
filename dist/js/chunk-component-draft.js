@@ -1,6 +1,6 @@
 webpackJsonp([25],{
 
-/***/ 709:
+/***/ 701:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20,11 +20,11 @@ __webpack_require__(43);
 
 __webpack_require__(42);
 
-var _toolsAgentyTab = __webpack_require__(861);
+var _toolsAgentyTab = __webpack_require__(836);
 
 var _toolsAgentyTab2 = _interopRequireDefault(_toolsAgentyTab);
 
-var _toolsPage = __webpack_require__(862);
+var _toolsPage = __webpack_require__(837);
 
 var _toolsPage2 = _interopRequireDefault(_toolsPage);
 
@@ -215,7 +215,7 @@ exports.default = Draft;
 
 /***/ }),
 
-/***/ 861:
+/***/ 836:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -344,7 +344,7 @@ exports.default = ToolsTtab;
 
 /***/ }),
 
-/***/ 862:
+/***/ 837:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

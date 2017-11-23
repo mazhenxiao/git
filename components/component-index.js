@@ -4,17 +4,19 @@ import ReactDOM from 'react-dom';
 import "babel-polyfill";  //兼容ie
 import ToolsStateNode from "../components/tools-stateNode.js";
 import IndexTab from "../components/tools-index-tab.js";//标签
-var echarts = require("echarts");
-
 class index extends React.Component {
-    constructor(arg) {
-        super(arg);
-    }
+    echarts=null;
     componentWillMount() {
-
+        var th = this;
+        require.ensure([], function (require) {  //异步加载js
+            th.echarts = require('../source/echarts.min.js');//============================首页
+            th.bind_echars();
+         }, "component-echarts");
     }
     componentDidMount() {
-        this.bind_echars();
+        
+       
+       // this.bind_echars();
         this.bind_table();
     }
     addTodo(text) {
@@ -74,7 +76,7 @@ class index extends React.Component {
             })
     }
     bind_echars(){ //绑定图标
-        var myChart = echarts.init(document.getElementById('main'));
+        var myChart = this.echarts.init(document.getElementById('main'));
         
                 // 指定图表的配置项和数据
                 var option = {

@@ -1,6 +1,6 @@
 webpackJsonp([33],{
 
-/***/ 315:
+/***/ 314:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26,15 +26,15 @@ var _iss = __webpack_require__(43);
 
 var _iss2 = _interopRequireDefault(_iss);
 
-var _router = __webpack_require__(676);
+var _router = __webpack_require__(668);
 
 var _router2 = _interopRequireDefault(_router);
 
-var _toolsList = __webpack_require__(305);
+var _toolsList = __webpack_require__(302);
 
 var _toolsList2 = _interopRequireDefault(_toolsList);
 
-var _toolsLeftTree = __webpack_require__(306);
+var _toolsLeftTree = __webpack_require__(303);
 
 var _toolsLeftTree2 = _interopRequireDefault(_toolsLeftTree);
 
@@ -135,7 +135,7 @@ new main();
 
 /***/ }),
 
-/***/ 676:
+/***/ 668:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -153,7 +153,7 @@ var _reactDom = __webpack_require__(33);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouter = __webpack_require__(197);
+var _reactRouter = __webpack_require__(195);
 
 __webpack_require__(42);
 
@@ -173,7 +173,7 @@ var rootRout = {
     path: "/index",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(22).then((function (require) {
-        var app = __webpack_require__(708); //============================首页
+        var app = __webpack_require__(700); //============================首页
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -181,7 +181,7 @@ var rootRout = {
     path: "/draft",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(25).then((function (require) {
-        var app = __webpack_require__(709); //============================我的草稿
+        var app = __webpack_require__(701); //============================我的草稿
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -189,7 +189,7 @@ var rootRout = {
     path: "/apply",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(27).then((function (require) {
-        var app = __webpack_require__(710); //============================我的申请
+        var app = __webpack_require__(702); //============================我的申请
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -197,7 +197,7 @@ var rootRout = {
     path: "/approalHistory",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(26).then((function (require) {
-        var app = __webpack_require__(711); //============================我的历史
+        var app = __webpack_require__(703); //============================我的历史
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -205,7 +205,7 @@ var rootRout = {
     path: "/identity",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(23).then((function (require) {
-        var app = __webpack_require__(712); //============================项目身份
+        var app = __webpack_require__(704); //============================项目身份
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -213,7 +213,7 @@ var rootRout = {
     path: "/supply",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(29).then((function (require) {
-        var app = __webpack_require__(713); //============================生日祝福
+        var app = __webpack_require__(705); //============================生日祝福
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -221,7 +221,7 @@ var rootRout = {
     path: "/projectList",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(31).then((function (require) {
-        var app = __webpack_require__(714); //============================生日祝福
+        var app = __webpack_require__(706); //============================生日祝福
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -230,7 +230,7 @@ var rootRout = {
     path: "/agenty",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(28).then((function (require) {
-        var app = __webpack_require__(715); //============================生日祝福
+        var app = __webpack_require__(707); //============================生日祝福
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -239,7 +239,7 @@ var rootRout = {
     path: "/todo",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(30).then((function (require) {
-        var app = __webpack_require__(716); //============================生日祝福
+        var app = __webpack_require__(708); //============================生日祝福
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -247,7 +247,7 @@ var rootRout = {
     path: "/intallment",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(4).then((function (require) {
-        var app = __webpack_require__(717); //============================分期
+        var app = __webpack_require__(709); //============================分期
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -255,7 +255,7 @@ var rootRout = {
     path: "/newProject",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(6).then((function (require) {
-        var app = __webpack_require__(718); //============================分期
+        var app = __webpack_require__(710); //============================分期
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -263,7 +263,7 @@ var rootRout = {
     path: "/areaManagement",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(20).then((function (require) {
-        var app = __webpack_require__(719); //============================价格管理-交付
+        var app = __webpack_require__(711); //============================价格管理-交付
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -272,7 +272,7 @@ var rootRout = {
     path: "/ProcessApproval",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(9).then((function (require) {
-        var app = __webpack_require__(720); //============================价格管理-交付
+        var app = __webpack_require__(712); //============================价格管理-交付
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -280,7 +280,7 @@ var rootRout = {
     path: "/ProcessApprover",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(8).then((function (require) {
-        var app = __webpack_require__(721); //============================价格管理-交付
+        var app = __webpack_require__(713); //============================价格管理-交付
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -288,7 +288,7 @@ var rootRout = {
     path: "/newProjectApproval",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(7).then((function (require) {
-        var app = __webpack_require__(722); //============================价格管理-交付
+        var app = __webpack_require__(714); //============================价格管理-交付
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -297,7 +297,7 @@ var rootRout = {
     path: "/newProjectStage",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(5).then((function (require) {
-        var app = __webpack_require__(723); //============================价格管理-交付
+        var app = __webpack_require__(715); //============================价格管理-交付
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -308,4 +308,4 @@ exports.default = rootRout;
 
 /***/ })
 
-},[315]);
+},[314]);

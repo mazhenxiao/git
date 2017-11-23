@@ -6,8 +6,8 @@
     "stage-0"
   ],
   "plugins": [["import", {
-    "libraryName": "antd",  
-    "style": true   // or 'css'
+    "libraryName": "antd",
+    "css": true // or 'css'
   }]]
   
 }

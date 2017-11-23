@@ -1,6 +1,6 @@
 webpackJsonp([14,21],{
 
-/***/ 707:
+/***/ 699:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24,11 +24,11 @@ __webpack_require__(43);
 
 __webpack_require__(42);
 
-var _toolsProcessBar = __webpack_require__(760);
+var _toolsProcessBar = __webpack_require__(750);
 
 var _toolsProcessBar2 = _interopRequireDefault(_toolsProcessBar);
 
-var _toolsExchangeButton = __webpack_require__(761);
+var _toolsExchangeButton = __webpack_require__(751);
 
 var _toolsExchangeButton2 = _interopRequireDefault(_toolsExchangeButton);
 
@@ -557,7 +557,7 @@ exports.default = PriceControl;
 
 /***/ }),
 
-/***/ 737:
+/***/ 729:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -575,7 +575,7 @@ var _react2 = _interopRequireDefault(_react);
 
 __webpack_require__(42);
 
-var _componentPriceControl = __webpack_require__(707);
+var _componentPriceControl = __webpack_require__(699);
 
 var _componentPriceControl2 = _interopRequireDefault(_componentPriceControl);
 
@@ -867,13 +867,13 @@ exports.default = PriceManagement;
 
 /***/ }),
 
-/***/ 740:
+/***/ 732:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(748);
+var content = __webpack_require__(740);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -881,7 +881,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(108)(content, options);
+var update = __webpack_require__(305)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -899,10 +899,10 @@ if(false) {
 
 /***/ }),
 
-/***/ 748:
+/***/ 740:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(107)(undefined);
+exports = module.exports = __webpack_require__(304)(undefined);
 // imports
 
 
@@ -914,7 +914,7 @@ exports.push([module.i, ".processBar .processBar-header li {\n  display: inline-
 
 /***/ }),
 
-/***/ 760:
+/***/ 750:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -943,7 +943,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 //兼容ie
-__webpack_require__(740);
+__webpack_require__(732);
 /*
 *调用组件附上的属性值
 * data [] 存放九种步骤
@@ -1047,7 +1047,7 @@ exports.default = ProcessBar;
 
 /***/ }),
 
-/***/ 761:
+/***/ 751:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1076,7 +1076,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 //兼容ie
-__webpack_require__(740);
+__webpack_require__(732);
 
 var ExchangeButton = function (_React$Component) {
     _inherits(ExchangeButton, _React$Component);

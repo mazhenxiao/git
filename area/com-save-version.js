@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Spin, Tabs, Row, Col, Button, Select} from 'antd';
 import iss from "../../Content/js/iss";//公共类
-import {AreaConstants} from '../../Content/constants';
-import {WrapperSelect} from '../../Content/common';
+import {AreaConstants} from '../constants';
+import {WrapperSelect} from '../common';
 import "babel-polyfill";  //兼容ie
 require("./areaCss/com-SaveVersion.less");
 const {AreaManageStep, Legend, SelectVertionData} = AreaConstants;

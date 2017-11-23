@@ -13,17 +13,19 @@ const labelStyle = {
     paddingRight: "5px",
 };
 
-class WrapperInput extends React.Component {
+class WrapperInput extends Component {
 
     static propTypes = {
         labelText: React.PropTypes.string.isRequired,
         labelSpan: React.PropTypes.number,
         inputSpan: React.PropTypes.number,
+        showRequired: React.PropTypes.bool,//显示必填 *
     };
 
     static defaultProps = {
         labelSpan: 12,
         inputSpan: 12,
+        showRequired: false,
     };
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -32,11 +34,12 @@ class WrapperInput extends React.Component {
 
     render() {
 
-        const {labelText, labelSpan, inputSpan, ...inputProps} = this.props;
+        const {labelText, labelSpan, inputSpan, showRequired, ...inputProps} = this.props;
 
         return (
             <Row style={rowStyle}>
                 <Col span={labelSpan} style={labelStyle}>
+                    {showRequired ? <span style={{color: "red"}}>*</span> : null}
                     {labelText}
                 </Col>
                 <Col span={inputSpan}>

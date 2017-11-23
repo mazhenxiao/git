@@ -3,13 +3,11 @@
  */
 
 import React, {Component} from 'react';
-import {Modal, Spin, Table, Row, Col, Button, Select} from 'antd';
+import {Modal, Spin, Table, Row, Col, Button} from 'antd';
 import {shallowCompare} from '../utils';
-import {WrapperSelect, WrapperInput, WrapperModalSelect} from '../common';
+import {WrapperSelect, WrapperModalSelect} from '../common';
 import {AreaConstants} from '../constants';
 import {AreaService} from '../services';
-
-const {Option, OptGroup} = Select;
 
 class BlockFormatEdit extends Component {
 
@@ -300,7 +298,7 @@ class BlockFormatEdit extends Component {
                 <Spin size="large" spinning={loading}>
                     <Row gutter={16}>
                         <Col span={6}>
-                            <WrapperSelect labelText="所属地块：" dataSource={conditionData.land}
+                            <WrapperSelect labelText="所属地块:" dataSource={conditionData.land}
                                            showRequired={!land}
                                            onChange={this.handleSelectChange("land")}/>
                         </Col>
@@ -309,20 +307,20 @@ class BlockFormatEdit extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col span={6}>
-                            <WrapperModalSelect labelText="住宅：" multiple={false} dataSource={conditionData.residence}
+                        <Col span={5}>
+                            <WrapperModalSelect labelText="住宅:" multiple={false} dataSource={conditionData.residence}
                                                 onSelectChange={this.handleModalSelectChange("residence")}/>
                         </Col>
-                        <Col span={6}>
-                            <WrapperModalSelect labelText="商办：" multiple={false} dataSource={conditionData.commercial}
+                        <Col span={5}>
+                            <WrapperModalSelect labelText="商办:" multiple={false} dataSource={conditionData.commercial}
                                                 onSelectChange={this.handleModalSelectChange("commercial")}/>
                         </Col>
-                        <Col span={6}>
-                            <WrapperModalSelect labelText="商业：" dataSource={conditionData.business}
+                        <Col span={5}>
+                            <WrapperModalSelect labelText="商业:" dataSource={conditionData.business}
                                                 onSelectChange={this.handleModalSelectChange("business")}/>
                         </Col>
-                        <Col span={6}>
-                            <WrapperModalSelect labelText="车位及配套：" dataSource={conditionData.parkAndSupport}
+                        <Col span={8}>
+                            <WrapperModalSelect labelText="车位及配套:" dataSource={conditionData.parkAndSupport}
                                                 onSelectChange={this.handleModalSelectChange("parkAndSupport")}/>
                         </Col>
                     </Row>

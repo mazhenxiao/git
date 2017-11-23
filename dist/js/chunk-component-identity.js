@@ -1,53 +1,6 @@
 webpackJsonp([23],{
 
-/***/ 1011:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(1012);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(108)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/less-loader/dist/cjs.js!./identity.less", function() {
-			var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/less-loader/dist/cjs.js!./identity.less");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 1012:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(107)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "/*identity.less*/\n.index-identity {\n  margin: 0;\n  padding: 0;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 712:
+/***/ 704:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65,7 +18,7 @@ var _react2 = _interopRequireDefault(_react);
 
 __webpack_require__(42);
 
-var _toolsIndexTab = __webpack_require__(965);
+var _toolsIndexTab = __webpack_require__(922);
 
 var _toolsIndexTab2 = _interopRequireDefault(_toolsIndexTab);
 
@@ -80,7 +33,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 //标签
-__webpack_require__(1011);
+__webpack_require__(966);
 
 var identity = function (_React$Component) {
     _inherits(identity, _React$Component);
@@ -663,7 +616,7 @@ exports.default = identity;
 
 /***/ }),
 
-/***/ 965:
+/***/ 922:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -789,6 +742,53 @@ var IndexTab = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = IndexTab;
+
+/***/ }),
+
+/***/ 966:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(967);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(305)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/less-loader/dist/cjs.js!./identity.less", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/less-loader/dist/cjs.js!./identity.less");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 967:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(304)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "/*identity.less*/\n.index-identity {\n  margin: 0;\n  padding: 0;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 

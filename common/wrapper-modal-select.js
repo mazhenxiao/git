@@ -95,6 +95,7 @@ class WrapperModalSelect extends Component {
                 const newSelectedValue = selectingValue;
                 const newFilterData = filterData;
                 const validFilterData = this.getValidConditionData(newSelectedValue, newFilterData);
+
                 //触发回调函数
                 this.props.onSelectChange && this.props.onSelectChange(validFilterData);
 
@@ -104,17 +105,29 @@ class WrapperModalSelect extends Component {
                 });
             }
         } else {
-            this.setState({
-                visible: true,
+            const newState = {
+                selectedValue: [],
                 addingValue: value,
                 propertyData: {},
-            });
+                visible: false,
+            };
+            if (value) {
+                newState.visible = true;
+            }else{
+                //触发回调函数
+                this.props.onSelectChange && this.props.onSelectChange([]);
+            }
+            this.setState(newState);
         }
     };
 
     renderGroupOption = () => {
-        const {dataSource} = this.props;
+        const {dataSource, showDefault} = this.props;
         const optArray = [];
+        let defaultOption = <Option key="-1" value="">请选择</Option>;
+        if (showDefault) {
+            optArray.push(defaultOption);
+        }
         dataSource && dataSource.forEach(item => {
             optArray.push(
                 <OptGroup key={item.id} label={item.name}>
@@ -218,19 +231,8 @@ class WrapperModalSelect extends Component {
     render() {
 
         const {
-            labelText, labelSpan, InputSpan, dataSource, showDefault,
-            multiple
+            labelText, labelSpan, InputSpan, multiple
         } = this.props;
-
-        let options = [];
-        let defaultOption = <Option key="1" value="">请选择</Option>;
-        if (showDefault) options.push(defaultOption);
-
-        if (Array.isArray(dataSource) && dataSource.length > 0) {
-            dataSource.forEach((item, index) => {
-                options.push(<Option key={item.id} value={item.id}>{item.name}</Option>);
-            });
-        }
 
         let {selectedValue, addingValue} = this.state;
         if (!multiple) {

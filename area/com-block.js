@@ -3,9 +3,9 @@
  */
 
 import React, {Component} from 'react';
-import {Button, Table, Row} from 'antd';
 import {shallowCompare} from '../utils/index';
 import {WrapperGroupTable} from '../common';
+import ComBlockFilter from './com-block-filter';
 
 
 class ComBlock extends Component {
@@ -13,45 +13,75 @@ class ComBlock extends Component {
     static propTypes = {
         headerData: React.PropTypes.array,
         dataSource: React.PropTypes.array,
+        onBlockFormatClick: React.PropTypes.func,
     };
 
     static defaultProps = {
         headerData: [],
-        dataSource: []
+        dataSource: [],
+        onBlockFormatClick: () => {
+        },
     };
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
+    state = {
+        formatKey: "",
+    };
+
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return shallowCompare(this, nextProps, nextState);
+    // }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            formatKey: ""
+        });
     }
 
-    handleBuildingClick = (text, record) => {
+    handleClick = (text, record) => {
         return () => {
-            console.log("parent record", record);
-        };
-    };
-    handleFormatClick = (text, record) => {
-        return () => {
-            console.log("child record", record);
+            this.props.onBlockFormatClick && this.props.onBlockFormatClick(record);
         };
     };
 
     columnRender = {
-        name: (text, record) => {
-            if (record["level"] === 1)
-                return <a onClick={this.handleBuildingClick(text, record)}>{text}</a>;
-            return <a onClick={this.handleFormatClick(text, record)}>{text}</a>;
+        PRODUCTNAME: (text, record) => {
+            if (record["LevelId"] === 1)
+                return text;
+            return <a onClick={this.handleClick(text, record)}>{text}</a>;
         }
     };
 
+    /**
+     * 处理本地搜索
+     */
+    handleLocalSearch = (formatKey) => {
+        this.setState({
+            formatKey
+        });
+    };
+
     render() {
+
         const {headerData, dataSource} = this.props;
+        const {formatKey} = this.state;
+
+        let filterDataSource = [...dataSource];
+        if (formatKey) {
+            filterDataSource = dataSource.filter(item => {
+                return item["PRODUCTNAME"].indexOf(formatKey) > -1;
+            });
+        }
+
         return (
             <div>
+                <ComBlockFilter onSearch={this.handleLocalSearch}/>
                 <WrapperGroupTable
+                    key="com-block-group-table"
                     headerData={headerData}
-                    dataSource={dataSource}
-                    rowKey="key"
+                    dataSource={filterDataSource}
+                    rowKey="KEY"
                     columnRender={this.columnRender}
+                    fixedAble={true}
                 />
             </div>
         );

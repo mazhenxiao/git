@@ -3,54 +3,45 @@
  */
 
 import React, {Component} from 'react';
-import {Button, Table, Row} from 'antd';
 import {shallowCompare} from '../utils/index';
 import {WrapperGroupTable} from '../common';
+import ComFormatFilter from './com-format-filter';
 
 class ComFormat extends Component {
 
     static propTypes = {
         headerData: React.PropTypes.array,
         dataSource: React.PropTypes.array,
+        onFormatClick: React.PropTypes.func,
     };
 
     static defaultProps = {
         headerData: [],
-        dataSource: []
+        dataSource: [],
+        onFormatClick: () => {
+        },
     };
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return shallowCompare(this, nextProps, nextState);
+    // }
 
-    handleBuildingClick = (text, record) => {
+    handleClick = (text, record) => {
         return () => {
-            console.log("parent record", record);
+            this.props.onFormatClick && this.props.onFormatClick(record);
         };
-    };
-    handleFormatClick = (text, record) => {
-        return () => {
-            console.log("child record", record);
-        };
-    };
-
-    columnRender = {
-        name: (text, record) => {
-            if (record["level"] === 1)
-                return <a onClick={this.handleBuildingClick(text, record)}>{text}</a>;
-            return <a onClick={this.handleFormatClick(text, record)}>{text}</a>;
-        }
     };
 
     render() {
         const {headerData, dataSource} = this.props;
         return (
             <div>
+                <ComFormatFilter/>
                 <WrapperGroupTable
                     headerData={headerData}
                     dataSource={dataSource}
-                    rowKey="key"
-                    columnRender={this.columnRender}
+                    rowKey="KEY"
+                    fixedAble={true}
                 />
             </div>
         );

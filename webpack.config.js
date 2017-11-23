@@ -80,9 +80,9 @@ var config = {
     ],
     resolve:{   
        // modules:[path.resolve(__dirname,"/source/"),"node_modules"],
-        alias:{
+        /* alias:{
             echarts:path.join(__dirname,"/source/echarts.min.js")
-        }
+        } */
     }, 
 }
 module.exports = config;

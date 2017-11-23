@@ -1,12 +1,12 @@
 webpackJsonp([24],{
 
-/***/ 1052:
+/***/ 1006:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1053);
+var content = __webpack_require__(1007);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -14,7 +14,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(108)(content, options);
+var update = __webpack_require__(305)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -32,10 +32,10 @@ if(false) {
 
 /***/ }),
 
-/***/ 1053:
+/***/ 1007:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(107)(undefined);
+exports = module.exports = __webpack_require__(304)(undefined);
 // imports
 
 
@@ -47,7 +47,7 @@ exports.push([module.i, ".peripheral {\n  position: relative;\n  top: 0;\n  left
 
 /***/ }),
 
-/***/ 738:
+/***/ 730:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79,7 +79,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 //兼容ie
-__webpack_require__(1052);
+__webpack_require__(1006);
 
 var ICPeripheral = function (_React$Component) {
     _inherits(ICPeripheral, _React$Component);

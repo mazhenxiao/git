@@ -1,6 +1,6 @@
 webpackJsonp([32],{
 
-/***/ 705:
+/***/ 697:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20,7 +20,7 @@ var _iss = __webpack_require__(43);
 
 var _iss2 = _interopRequireDefault(_iss);
 
-var _router = __webpack_require__(706);
+var _router = __webpack_require__(698);
 
 var _router2 = _interopRequireDefault(_router);
 
@@ -44,7 +44,7 @@ new Openmain();
 
 /***/ }),
 
-/***/ 706:
+/***/ 698:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62,7 +62,7 @@ var _reactDom = __webpack_require__(33);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouter = __webpack_require__(197);
+var _reactRouter = __webpack_require__(195);
 
 __webpack_require__(42);
 
@@ -81,7 +81,7 @@ var rootRout = {
     path: "/peripheral",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(24).then((function (require) {
-        var peripheral = __webpack_require__(738); //============================首页
+        var peripheral = __webpack_require__(730); //============================首页
         callback(null, peripheral.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -92,4 +92,4 @@ exports.default = rootRout;
 
 /***/ })
 
-},[705]);
+},[697]);
