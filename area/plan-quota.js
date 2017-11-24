@@ -91,7 +91,7 @@ class PlanQuota extends Component {
               }
         ) */
             this.setState({
-                "DynamicData":nextProps.planData
+                "DynamicData":nextProps.planData||[],
                });
     }
      shouldComponentUpdate(nextProps, nextState){

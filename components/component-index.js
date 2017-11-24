@@ -1,7 +1,7 @@
 /* 项目概览 首页 */
+import "babel-polyfill";  //兼容ie
 import React from 'react';
 import ReactDOM from 'react-dom';
-import "babel-polyfill";  //兼容ie
 import ToolsStateNode from "../components/tools-stateNode.js";
 import IndexTab from "../components/tools-index-tab.js";//标签
 class index extends React.Component {

@@ -181,11 +181,11 @@ class NewProject extends React.Component {
                     th.setState({
                         CountData: a["rows"]
                     }, arg => {
-                        setTimeout(arg => {
+                       
 
                             th.BIND_COUNT_GETMAP();//创建地块button
                             
-                        }, 2000);
+                        
                     });
                 }
             }

@@ -1,8 +1,8 @@
 /*项目身份证  */
-import React from 'react';
 import "babel-polyfill";  //兼容ie
+import React from 'react';
 import IndexTab from "../components/tools-index-tab.js";//标签
-require("../../Content/css/identity.less");
+require("../css/identity.less");
 
 class identity extends React.Component {
     constructor(arg) {

@@ -60,14 +60,17 @@ class Index extends Component {
     componentWillReceiveProps(nextProps) {
         const {dataKey, mode} = this.state;
         const {location} = nextProps;
-        if (dataKey != location.query.dataKey.trim()
-            || mode != location.query.isProOrStage.trim()) {
-            //设置新的dataKey和mode
+        //切换路由之后，重新获取数据
+        const nextDataKey = location.query.dataKey.trim();
+        const nextMode = location.query.dataKey.trim();
+        if (dataKey != nextDataKey
+            || mode != nextMode) {
             this.setState({
-                    dataKey: location.query.dataKey.trim(),
-                    mode: location.query.isProOrStage.trim(),
+                    dataKey: nextDataKey,
+                    mode: nextMode,
                 }
             );
+            this.loadStep(nextDataKey, nextMode);
         }
     }
 
@@ -78,8 +81,11 @@ class Index extends Component {
     /**
      * 加载步骤
      */
-    loadStep = () => {
-        const {dataKey, mode} = this.state;
+    loadStep = (dataKey, mode) => {
+        if (!dataKey) {
+            dataKey = this.state.dataKey;
+            mode = this.state.mode;
+        }
         //临时存储当前的step
         let step = undefined;
         let versionId = undefined;

@@ -65,10 +65,11 @@ class DynamicTable extends React.Component {
         })
     }
     setEventDate(el, ev) {
-
+        
         let th = this;
         let de = new Date().Format("yyyy-MM-dd");
         let event = ev.target;
+        el.edit=el.edit||" +w";//默认值伪可写
         iss.calendar(de, arg => {
             el.val = arg;
 
@@ -88,7 +89,7 @@ class DynamicTable extends React.Component {
 
     EVENT_CHANGE_INPUT(da, ev) { //input修改
         var th = this;
-
+        da.edit=da.edit||" +w";//默认值伪可写
         if (th.Bind_checked(da, ev.target.value)) {
 
             th.props.CallBack(da, ev)
@@ -169,6 +170,7 @@ class DynamicTable extends React.Component {
         let typeBox = el => {
             let numreg = (/number\((\d+)\)/).exec(el.regExp||"");
             let fixed = numreg? numreg[1]:"";
+            el.edit=el.edit||" +w";//默认值伪可写
            // fixed=2;
             if (this.state.readOnly) {
                 if (el.type == "select") {
@@ -210,7 +212,7 @@ class DynamicTable extends React.Component {
         }
 
         return da.map((el, ind) => {
-
+            el.edit=el.edit||" +w";//默认值伪可写
             if (el.exec) {
                 let reg = /\{.*?\}/ig;
                 let arr = el.exec.match(reg);
@@ -236,7 +238,7 @@ class DynamicTable extends React.Component {
                 }
             }
             let classNames = el["colspan"] ? `col-sm-${el["colspan"]} col-md-${el["colspan"]} col-lg-${el["colspan"]}` : "col-sm-4 col-md-4 col-lg-4"
-
+              
             return <li key={ind} className={classNames}>
                 <label className={(el.edit.indexOf("+m") >= 0 && !el.val) ? "require" : ""}>{el.label}</label>
                 {

@@ -57,14 +57,14 @@ var config = {
             name: "chunk",
             minChunks:2
         }),
-  /*         new compress({
+      /*      new compress({
             output: {
-                comments: false,  // remove all comments
+                comments: false,   // remove all comments
               },
               compress: {
                 warnings: false
               }
-        }),  */
+        }), */  
         new DedupePlugin({
             'process.env': {NODE_ENV: '"production"'}
         }),
