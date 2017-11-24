@@ -47,7 +47,7 @@ class ToolsTree extends React.Component {
             sessionStorage.setItem("treeId",JSON.stringify(arg));
             
             let id,current;
-            if(pathClass=="Home"){
+            if(pathClass=="Home"){  //项目管理
             	switch(arg["level_id"]){
 	                case "1": //集团汇总
 	                case "2":iss.hashHistory.replace({pathname:"index",state:arg});break;//总部
@@ -55,12 +55,12 @@ class ToolsTree extends React.Component {
 	                case "4":iss.hashHistory.replace({pathname:"index",state:arg,query:{status:"show"}});id="intallment";current="newProject";break;//分公司
 	                case "5":"";iss.hashHistory.replace({pathname:"index",state:arg,query:{status:"show"}});current="intallment";id="intallmentDetail";break;//分区;
 	            }
-            }else if(pathClass=="AreaInfo"){
+            }else if(pathClass=="AreaInfo"){ //  面积管理
            	    
             	switch(arg["level_id"]){
 	                case "1":
 	                case "2":
-	                case "3":
+	                case "3": //首页
 	                	iss.hashHistory.push({
 	                		pathname:"index",
 	                		state:arg
@@ -68,14 +68,14 @@ class ToolsTree extends React.Component {
 	                	break;
 	                case "4":/*项目*/
 	                	iss.hashHistory.push({
-	                		pathname:"manage",
+	                		pathname:"index",
 	                		state:arg,
 	                		search:"?isProOrStage="+1+"&dataKey="+iss.id.id
 	                	});
 	                	break;
 	                case "5":/*分期*/
 	                	iss.hashHistory.push({
-	                		pathname:"manage",
+	                		pathname:"index",
 	                		state:arg,
 	                		search:"?isProOrStage="+2+"&dataKey="+iss.id.id
 	                	});

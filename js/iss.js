@@ -11,7 +11,7 @@ class $iss {
         this.mapEUrl = "";/*标记总图地址*/
     }
     url(arg) {
-        return "http://192.168.10.164:8000/" + (arg || "")
+        return "http://192.168.10.164:8000" + (arg || "")
     }
     pagination() {
         $.extend($.fn.pagination.defaults, {
@@ -68,7 +68,7 @@ class $iss {
             }
 
         }
-
+      //  _URL = _URL.indexOf("http://")>-1? _URL:this.url(_URL); 
         return fetch(_URL, requestInfo)
             .then(res => {
 
@@ -127,6 +127,7 @@ class $iss {
 
 
         $.extend(arg, $o);
+     //   arg.url=arg.url.indexOf("http://")>-1? arg.url:this.url(arg.url);
         $.ajax(arg).done((da) => {
 
             var _da = da;
@@ -155,7 +156,7 @@ class $iss {
             if (e.status == 0 || e.status == 401 || e.status == 403) {
                 iss.popover({ content: "登录超时，请重新登录！" });
                 setTimeout(function () {
-                    top.window.location.href = "/account/Login";
+                   // top.window.location.href = "/account/Login";
                 }, 2000);
             } else {
                 opt["error"] && opt.error(e, textStatus);

@@ -126,53 +126,65 @@ class NewProject extends React.Component {
     }
     BIIND_FIST_LAND() {  //获取已有地块
         //if (iss.id == "") { return }
+    
         let th = this;
         let id = th.state.projectId;//"A91BB3051A0848319B45D3D527AC4103" //this.props.location.state.id;
-        iss.ajax({
-            url: "/Project/INewLand",  //初次请求创建空地块使用
-            data: { projectId: id },
-            success(d) {
-                if (d["rows"]) {
-                    th.state.states = true;
-                    th.setState({
-                        newDynamicData: JSON.stringify(d["rows"])
-                    });
+        let INewLand = new Promise((resolve,reject)=>{
+            iss.ajax({
+                url: "/Project/INewLand",  //初次请求创建空地块使用
+                data: { projectId: id },
+                success(d) {
+                    resolve("INewLand");
+                    if (d["rows"]) {
+                        th.state.states = true;
+                        th.setState({
+                            newDynamicData: JSON.stringify(d["rows"])
+                        });
+                    }
+                },
+                error(e) {
+                    reject(e);
                 }
-            },
-            error(e) {
-
-            }
+            });
         });
-        iss.ajax({  //获取已有地块
-            url: "/Project/IProjectLandsInfo",
-            data: { projectId: id },
-            success(d) {
-                if (d.rows) {
-                    
-                    var da = {};
-                   th.BIND_CHECKINewLand(d.rows).forEach((el, ind) => {
-                        if (ind == 0) { //初次加载地块
-
-                            th.setState({
-                                pid:el["LandId"],
-                                propsDATA: el["FieldList"]
-                            });
-                           // THIS.BIND_CreatExternal("search",el["LandId"]);//外设条件显示设置
-                        }
-                        da[el.LandId] = el;
-                    });
-                    
-                    th.setState({
-                        DynamicData: da
-                    }, arg => {
-                        th.BIND_LAND_BTN();
-                    });
-                    
+        let IProjectLandsInfo = new Promise((resolve,reject)=>{
+            iss.ajax({  //获取已有地块
+                url: "/Project/IProjectLandsInfo",
+                data: { projectId: id },
+                success(d) {
+                    resolve("IProjectLandsInfo");
+                    if (d.rows) {
+                        
+                        var da = {};
+                       th.BIND_CHECKINewLand(d.rows).forEach((el, ind) => {
+                            if (ind == 0) { //初次加载地块
+    
+                                th.setState({
+                                    pid:el["LandId"],
+                                    propsDATA: el["FieldList"]
+                                });
+                               // THIS.BIND_CreatExternal("search",el["LandId"]);//外设条件显示设置
+                            }
+                            da[el.LandId] = el;
+                        });
+                        
+                        th.setState({
+                            DynamicData: da
+                        }, arg => {
+                            th.BIND_LAND_BTN();
+                        });
+                        
+                    }
+                },
+                error() { 
+                    reject();
                 }
-            },
-            error() { }
+            })
         })
+       
+     
         //Project/ILandsStatistics  土地动态统计
+    let ILandsStatistics = new Promise((resolve,reject)=>{
         iss.ajax({
             url: "/Project/ILandsStatistics",
             success(a) {
@@ -181,15 +193,26 @@ class NewProject extends React.Component {
                     th.setState({
                         CountData: a["rows"]
                     }, arg => {
-                       
-
-                            th.BIND_COUNT_GETMAP();//创建地块button
-                            
-                        
+                          resolve("ILandsStatistics")
                     });
                 }
-            }
+            },
+            error(e){reject(e)}
         })
+    });
+    Promise.all([INewLand,IProjectLandsInfo,ILandsStatistics])
+            .then(arg=>{
+                //console.log("all");
+                th.BIND_COUNT_GETMAP();//创建地块button
+            })
+            .catch(error=>{
+                iss.message({
+                    type:"error",
+                    title:"错误",
+                    content:error
+                })
+            })
+        
     }
 
     EVENT_CLICK_NEWLAND() { //新增地块

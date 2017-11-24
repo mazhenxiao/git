@@ -19,7 +19,7 @@ var rootRout = {
   childRoutes: [
 
     {  //面积管理
-      path: "/manage",
+      path: "/index",
       getComponent: function (next, callback) {
         require.ensure([], function (require) {
           var app = require('../area/index.js');

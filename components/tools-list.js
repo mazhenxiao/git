@@ -151,7 +151,7 @@ class ToolsList extends React.Component {
                 <li className="hide">
                     <a id="areaInfo" href="javascript:void(0);" >信息填报</a>
                     <ol className="subMenu">
-                        <li><a href="javascript:void(0);" onClick={this.EVENT_CLICK.bind(this,"AreaInfo","manage")}>面积管理</a></li>
+                        <li><a href="javascript:void(0);" onClick={this.EVENT_CLICK.bind(this,"AreaInfo","index")}>面积管理</a></li>
                         <li><a href="javascript:void(0);" onClick={this.EVENT_CLICK.bind(this,"AreaInfo","priceControl")}>价格管理</a></li>
                         <li><a href="javascript:void(0);" onClick={this.EVENT_CLICK.bind(this,"AreaInfo","supply")}>供货</a></li>
                         <li><a href="javascript:void(0);" onClick={this.EVENT_CLICK.bind(this,"AreaInfo","payment")}>签约与回款</a></li>

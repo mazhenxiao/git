@@ -13,7 +13,7 @@ import DynamicTable from "../components/tools-dynamicTable.js";
 class PlanQuota extends Component {
     state={
         pid:1,//项目id或当前版本id
-        DynamicData:[]//获取
+        DynamicData:this.props.planData || [],//获取
     }
     staticData={
         number:0

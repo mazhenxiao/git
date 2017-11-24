@@ -24,12 +24,11 @@ class Intallment extends React.Component {
             ID_guid:ID_guid,
             landCode:"",/*地块编码*/
             projectCode:"",/*项目编码*/
-            maxCode:"",/*最大编码*/
-            pCodeAndLXCode:""/*分期编码*/
+            //maxCode:"",/*最大编码*/
+            //pCodeAndLXCode:""/*分期编码*/
         }
         
-        iss.hashHistory.listen((local,next)=>{
-        });
+     
     }    
     componentWillMount(){
         let th=this;
@@ -71,7 +70,7 @@ class Intallment extends React.Component {
         	projectId:projectId
         });
         $(document).triggerHandler("landFirstLoad",[projectId]);
-		th.getPjcodeAMCode(projectId,stageCode);
+		//th.getPjcodeAMCode(projectId,stageCode);
 	}
     
     
@@ -82,16 +81,21 @@ class Intallment extends React.Component {
         },()=>{
          
         });
-          
+        
     }
     /*分期占用土地==数据*/
     evLandList(landArr){
-        
+      
         var th=this;
         var equityTxt="";
         var landFirstCode="";
         var landArrLen=landArr.length-1;
+        let areaMax=0,areaNumber="";
+        if(landArr.length==0){
+            areaNumber="";
+        }
         landArr.forEach((obj,index)=>{
+            
             if(landArrLen==index){
                 equityTxt=equityTxt+obj.Name+"："+(obj.EQUITYRATIO||0)+"%";
             }else{
@@ -101,31 +105,36 @@ class Intallment extends React.Component {
             if(index==0){
                 landFirstCode=obj["FieldList"][1]['val'];
             }
-
-     /*        obj["FieldList"].forEach((el,ind)=>{ //数据计算
-                let reg = /\{.*?\}/ig;
-                let str = el.exec;
-                if(str){
-                    str.match(reg).forEach((_e,_i)=>{
-                        obj["FieldList"].forEach((__e,__i)=>{
-                            if(_e.replace(/[{}]/ig,"")==__e.id){
-                                str=str.replace("{"+__e.id+"}",__e.val);
-                            }
-                        })
-                    })
-                    el.val=eval(str); 
-                    el.text=eval(str);    
-                }
-                         
-            }) */
+            if(parseFloat(obj["FieldList"][2]['val'])>areaMax){
+                areaMax=parseFloat(obj["FieldList"][2]['val']);
+                areaNumber=obj["FieldList"][1]["val"];
+                
+            }
+            
         });
-        
         th.setState({
+            landCode:areaNumber,//获取地块编码
             landList:landArr,
-            equityRatio:equityTxt,
-            landCode:landFirstCode,
-	        pCodeAndLXCode:th.state.projectCode+"-"+landFirstCode+"-"+th.state.maxCode
+            equityRatio:equityTxt, 
         });
+        if(th.state.status!="add"){
+            let statedb = this.state.StagingInformationDATA;
+            let arrs = statedb.STAGECODE.split("-")
+                arrs.splice(3,1,areaNumber);
+                statedb.STAGECODE=arrs.join("-");
+               // debugger
+            th.setState({
+                StagingInformationDATA:statedb,
+                STAGECODE:statedb.STAGECODE,
+                //landCode:landFirstCode,
+                //pCodeAndLXCode:th.state.projectCode+"-"+areaNumber+"-"+th.state.maxCode
+            });
+        }else{
+            let statedb = this.state.StagingInformationDATA;
+            th.setState({
+                STAGECODE:statedb.STAGECODE,
+            });
+        }
         
         /*只有新增，才会生成code*/
         /*if(landFirstCode!=""){
@@ -146,6 +155,7 @@ class Intallment extends React.Component {
         maxCode=maxCode?maxCode:"";
         
         var SumbitType;
+        let landCode;
         var dta=th.state.StagingInformationDATA;
         
         var versionId=th.state.versionId;/*版本id*/
@@ -153,6 +163,8 @@ class Intallment extends React.Component {
         var areaId=dta.AREAID;/*区域id*/
         var areaName=dta.AREANAME;/*区域名字*/
         var final_versionId=versionId;/*最后发起审批 需要传递的id*/
+
+       
         
         var intallmentStatus=iss.getEVal("intallmentStatus");
         dta.LandList=th.state.landList;
@@ -162,13 +174,14 @@ class Intallment extends React.Component {
         }
         if(status=="edit"){
             SumbitType="Edit";
-
+            //dta.STAGECODE=th.state.pCodeAndLXCode;
         }else if(status=="add"){
             SumbitType="Add";
+            landCode=th.state.landCode;//有地块编码显示地块编码，多个选择最大地块编码，为空
             dta.STAGEVERSIONID=versionId;  //版本id
             dta.STAGEID=this.state.STAGEID_guid; //分期id
             dta.ID=this.state.ID_guid; //表单id
-            dta.STAGECODE=th.state.pCodeAndLXCode;
+            //dta.STAGECODE=th.state.pCodeAndLXCode;
             dta.SEQNUM=Number(maxCode.replace("Q",""))*10;
             
         }else if(status=="upgrade"){
@@ -185,6 +198,7 @@ class Intallment extends React.Component {
             data:{
                 data:JSON.stringify(dta),
                 SumbitType:SumbitType,
+                landCode:landCode,
                 EditType:"Submit", 
             },
             success:function (data) {
@@ -202,10 +216,12 @@ class Intallment extends React.Component {
         let th=this;
         let status=th.state.status;
         var SumbitType;
+        let landCode;
         var dta=th.state.StagingInformationDATA;
         var maxCode=th.state.maxCode;
         var versionId=th.state.versionId;
         var projectId=th.state.projectId;
+        
         maxCode=maxCode?maxCode:"";
         dta.LandList=th.state.landList;
         
@@ -213,10 +229,11 @@ class Intallment extends React.Component {
             SumbitType="Edit";
         }else if(status=="add"){ //新增时
             SumbitType="Add";
+            landCode=th.state.landCode;//有地块编码显示地块编码，多个选择最大地块编码，为空
             dta.STAGEVERSIONID=versionId; //版本id直接生成
             dta.STAGEID=this.state.STAGEID_guid;  //分期id
             dta.ID=this.state.ID_guid; //表单id
-            dta.STAGECODE=th.state.pCodeAndLXCode;//分期编码
+            //dta.STAGECODE=th.state.pCodeAndLXCode;//分期编码
             dta.SEQNUM=Number(maxCode.replace("Q",""))*10;
         }else if(status=="upgrade"){  //升级版本是
             SumbitType="Upgrade";
@@ -234,6 +251,7 @@ class Intallment extends React.Component {
                 data:{
                     data:JSON.stringify(dta),
                     SumbitType:SumbitType,
+                    landCode:landCode,
                     EditType:"Save"
                 },
                 success:function (data) {
@@ -274,39 +292,39 @@ class Intallment extends React.Component {
      *@param code 分期编码
      */
     
-    getPjcodeAMCode(id,code){
-        var th=this;
-        var status=th.state.status;
-        let landCode=th.state.landCode;
-        let ISINITDATA=th.state.StagingInformationDATA.ISINITDATA;
+    // getPjcodeAMCode(id,code){
+    //     var th=this;
+    //     var status=th.state.status;
+    //     let landCode=th.state.landCode;
+    //     let ISINITDATA=th.state.StagingInformationDATA.ISINITDATA;
         
-        iss.ajax({
-            type:"post",
-            url:"/Stage/IGetStageCodeInfo",   
-            data:{
-                projectid:id
-            },
-            success(res){
-                let result=res.rows;
-                let projectcode=result.projectcode||"";
-                let maxCode=result.MaxCode+"Q";
+    //     iss.ajax({
+    //         type:"post",
+    //         url:"/Stage/IGetStageCodeInfo",   
+    //         data:{
+    //             projectid:id
+    //         },
+    //         success(res){
+    //             let result=res.rows;
+    //             let projectcode=result.projectcode||"";
+    //             let maxCode=result.MaxCode+"Q";
+    //             debugger
+    //             if(code){
+	// 	        	maxCode=code.slice(-3);
+	// 	        	landCode=code.slice(0,-4).replace(projectcode+"-","");
+	// 	        }
+    //             th.setState({
+    //                 projectCode:projectcode,
+    //                 maxCode:maxCode,
+    //                 pCodeAndLXCode:projectcode+"-"+landCode+"-"+maxCode
+    //             });
                 
-                if(code){
-		        	maxCode=code.slice(-3);
-		        	landCode=code.slice(0,-4).replace(projectcode+"-","");
-		        }
-                th.setState({
-                    projectCode:projectcode,
-                    maxCode:maxCode,
-                    pCodeAndLXCode:projectcode+"-"+landCode+"-"+maxCode
-                });
-                
-            },
-            error(e){   
+    //         },
+    //         error(e){   
  
-            }
-        });
-    }
+    //         }
+    //     });
+    // }
     render() {
         var th=this;
         return <article>
@@ -323,7 +341,7 @@ class Intallment extends React.Component {
 			</h3>
         </div> 
         
-        <StagingInformation location={th.props.location} versionId={th.state.versionId} versionOldId={th.state.versionOldId} projectId={th.state.projectId}  status={th.state.status} pCodeAndLXCode={th.state.pCodeAndLXCode} equityTxt={th.state.equityRatio} save={th.EVENT_CLICK_SAVE.bind(th)} baseCallBack={th.getBasicInforTodo.bind(th)} StagingInformationDATA={th.BIND_StagingInformationDATA.bind(th)} />
+        <StagingInformation STAGECODE={this.state.STAGECODE} location={th.props.location} versionId={th.state.versionId} landCode={th.state.landCode} versionOldId={th.state.versionOldId} projectId={th.state.projectId}  status={th.state.status}  equityTxt={th.state.equityRatio} save={th.EVENT_CLICK_SAVE.bind(th)} baseCallBack={th.getBasicInforTodo.bind(th)} StagingInformationDATA={th.BIND_StagingInformationDATA.bind(th)} />
         <div>
             <h3 className="boxGroupTit">
                 <p>

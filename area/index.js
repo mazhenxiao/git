@@ -15,6 +15,7 @@ import BlockFormatAdjust from './block-format-adjust';
 import BuildingFormatEdit from './building-format-edit';
 import SaveVersion from "./com-save-version";
 import {AreaService} from '../services';
+
 require("../css/tools-processBar.less");
 require("../css/button.less");
 require("../area/areaCss/areaManage.less");
@@ -75,6 +76,7 @@ class Index extends Component {
     }
 
     componentDidMount() {
+        console.log("dataKey,mode", this.props);
         this.loadStep();
     }
 
@@ -126,6 +128,7 @@ class Index extends Component {
      *  加载数据
      */
     loadData = (isInit, step, mode, dataKey, versionId) => {
+        console.log("loadData,dataKey,mode", this.props);
         this.setState({
             loading: true,
         });

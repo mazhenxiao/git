@@ -1,1 +1,310 @@
-webpackJsonp([34],{695:function(n,t,e){"use strict";function o(n){return n&&n.__esModule?n:{default:n}}function a(n,t){if(!(n instanceof t))throw new TypeError("Cannot call a class as a function")}var u=function(){function n(n,t){for(var e=0;e<t.length;e++){var o=t[e];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(n,o.key,o)}}return function(t,e,o){return e&&n(t.prototype,e),o&&n(t,o),t}}(),l=e(10),c=(o(l),e(33));o(c);e(42);var i=e(43),r=o(i),f=e(696),s=(o(f),e(302)),h=(o(s),e(303));o(h);new(function(){function n(){a(this,n);!r.default.userInfo&&this.getUser(),this.TransHeight(),this.bindScroll(),this.bingBar(),window.onresize=this.TransHeight}return u(n,[{key:"getUser",value:function(){r.default.ajax({url:"/Account/IGetUserInfo",success:function(n){r.default.userInfo=n,sessionStorage.setItem("userInfo",JSON.stringify(n))}})}},{key:"TransHeight",value:function(){var n=document.querySelector(".JH-Nav"),t=document.querySelector(".JH-Content"),e=t.offsetHeight,o=n.offsetHeight,a=Math.max(document.body.clientHeight,document.documentElement.clientHeight)-60,u=Math.max(e,o,a,640);n.style.minHeight=u+"px",t.style.minHeight=u-10+"px"}},{key:"bindScroll",value:function(){var n=$(".JH-Nav"),t=$(window);$(".icon-bar");window.onscroll=function(e){var o=t.scrollTop();t.scrollLeft(),$(".icon-bar");if(o>=60){if(n.hasClass("active"))return!1;n.addClass("fixed")}else n.removeClass("fixed")}}},{key:"bingBar",value:function(){var n=$(".JH-RightBox"),t=$(".icon-bar");t.bind("click.bar",function(e){var o=$(e.currentTarget),a=$(o.attr("target"));if(a.hasClass("fixed"))return!1;a.hasClass("active")?(a.removeClass("active"),n.removeClass("active")):(a.addClass("active"),n.addClass("active")),t.trigger("EVENT_TOGGLEBAR")})}}]),n}())},696:function(n,t,e){"use strict";function o(n){return n&&n.__esModule?n:{default:n}}Object.defineProperty(t,"__esModule",{value:!0});var a=e(10),u=o(a),l=e(33),c=o(l),i=e(195);e(42),o(e(43)).default.use({Router:i.Router,Route:i.Route,hashHistory:i.hashHistory});var r={path:"/",childRoutes:[{path:"/manage",getComponent:function(n,t){e.e(0).then(function(n){var o=e(716);t(null,o.default)}.bind(null,e)).catch(e.oe)}},{path:"/payment",getComponent:function(n,t){e.e(3).then(function(n){var o=e(717);t(null,o.default)}.bind(null,e)).catch(e.oe)}},{path:"/primarykey",getComponent:function(n,t){e.e(2).then(function(n){var o=e(718);t(null,o.default)}.bind(null,e)).catch(e.oe)}},{path:"/supply",getComponent:function(n,t){e.e(1).then(function(n){var o=e(719);t(null,o.default)}.bind(null,e)).catch(e.oe)}},{path:"/priceControl",getComponent:function(n,t){e.e(21).then(function(n){var o=e(699);t(null,o.default)}.bind(null,e)).catch(e.oe)}},{path:"/component-priceControl-Investment",getComponent:function(n,t){e.e(15).then(function(n){var o=e(720);t(null,o.default)}.bind(null,e)).catch(e.oe)}},{path:"/component-priceControl-Productlocat",getComponent:function(n,t){e.e(12).then(function(n){var o=e(721);t(null,o.default)}.bind(null,e)).catch(e.oe)}},{path:"/component-priceControl-Projectlocat",getComponent:function(n,t){e.e(11).then(function(n){var o=e(722);t(null,o.default)}.bind(null,e)).catch(e.oe)}},{path:"/component-priceControl-Startup",getComponent:function(n,t){e.e(10).then(function(n){var o=e(723);t(null,o.default)}.bind(null,e)).catch(e.oe)}},{path:"/component-priceControl-Certificate",getComponent:function(n,t){e.e(19).then(function(n){var o=e(724);t(null,o.default)}.bind(null,e)).catch(e.oe)}},{path:"/component-priceControl-Decision",getComponent:function(n,t){e.e(17).then(function(n){var o=e(725);t(null,o.default)}.bind(null,e)).catch(e.oe)}},{path:"/component-priceControl-Presell",getComponent:function(n,t){e.e(13).then(function(n){var o=e(726);t(null,o.default)}.bind(null,e)).catch(e.oe)}},{path:"/component-priceControl-Contract",getComponent:function(n,t){e.e(18).then(function(n){var o=e(727);t(null,o.default)}.bind(null,e)).catch(e.oe)}},{path:"/component-priceControl-Deliver",getComponent:function(n,t){e.e(16).then(function(n){var o=e(728);t(null,o.default)}.bind(null,e)).catch(e.oe)}},{path:"/component-priceControl-Management",getComponent:function(n,t){e.e(14).then(function(n){var o=e(729);t(null,o.default)}.bind(null,e)).catch(e.oe)}}]};c.default.render(u.default.createElement(i.Router,{history:i.hashHistory,routes:r}),document.querySelector("#JH-Router")),t.default=r}},[695]);
+webpackJsonp([34],{
+
+/***/ 695:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); //兼容ie
+//公共类
+//路由
+//头部
+
+
+var _react = __webpack_require__(10);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(33);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+__webpack_require__(42);
+
+var _iss = __webpack_require__(43);
+
+var _iss2 = _interopRequireDefault(_iss);
+
+var _routerArea = __webpack_require__(696);
+
+var _routerArea2 = _interopRequireDefault(_routerArea);
+
+var _toolsList = __webpack_require__(302);
+
+var _toolsList2 = _interopRequireDefault(_toolsList);
+
+var _toolsLeftTree = __webpack_require__(303);
+
+var _toolsLeftTree2 = _interopRequireDefault(_toolsLeftTree);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+//左侧树形
+/* 公共页面js */
+var AreaMa = function () {
+  function AreaMa() {
+    _classCallCheck(this, AreaMa);
+
+    var th = this;
+    !_iss2.default.userInfo && this.getUser(); //如果用户从没登陆过则ajax获取用户信息
+    this.TransHeight();
+    this.bindScroll();
+    this.bingBar();
+    //document.addEventListener("fullscreenchange",th.TransHeight,false);
+    // document.addEventListener("mozfullscreenchange",th.TransHeight,false);
+    // document.addEventListener("msfullscreenchange",th.TransHeight,false);
+    window.onresize = this.TransHeight;
+  }
+
+  _createClass(AreaMa, [{
+    key: 'getUser',
+    value: function getUser() {
+      //获取登陆信息
+
+      _iss2.default.ajax({
+        url: "/Account/IGetUserInfo",
+        success: function success(da) {
+          _iss2.default.userInfo = da; //获取数据
+          sessionStorage.setItem("userInfo", JSON.stringify(da)); //存入session
+        }
+      });
+    }
+  }, {
+    key: 'TransHeight',
+    value: function TransHeight() {
+      var JH_Nav = document.querySelector(".JH-Nav"),
+          JH_Content = document.querySelector(".JH-Content"),
+          h = 640;
+      var rh = JH_Content.offsetHeight,
+          lh = JH_Nav.offsetHeight,
+          $wh = Math.max(document.body.clientHeight, document.documentElement.clientHeight) - 60;
+      var $h = Math.max(rh, lh, $wh, 640);
+      JH_Nav.style.minHeight = $h + "px";
+      JH_Content.style.minHeight = $h - 10 + "px";
+    }
+  }, {
+    key: 'bindScroll',
+    value: function bindScroll() {
+      var JHNav = $(".JH-Nav"),
+          win = $(window),
+          bs = $(".icon-bar");
+      window.onscroll = function (ev) {
+        var top = win.scrollTop(),
+            left = win.scrollLeft(),
+            icons = $(".icon-bar");
+
+        if (top >= 60) {
+          /*如果左侧树，处于隐藏状态，则不固定*/
+          if (JHNav.hasClass("active")) return false;
+          JHNav.addClass("fixed");
+        } else {
+          JHNav.removeClass("fixed");
+        }
+      };
+    }
+  }, {
+    key: 'bingBar',
+    value: function bingBar() {
+      var cont = $(".JH-RightBox"),
+          icons = $(".icon-bar");
+      icons.bind("click.bar", function (e) {
+        var el = $(e.currentTarget),
+            pa = $(el.attr("target"));
+        if (pa.hasClass("fixed")) return false;
+
+        if (pa.hasClass("active")) {
+          pa.removeClass("active");
+          cont.removeClass("active");
+        } else {
+          pa.addClass("active");
+          cont.addClass("active");
+        }
+
+        icons.trigger("EVENT_TOGGLEBAR");
+      });
+    }
+  }]);
+
+  return AreaMa;
+}();
+
+new AreaMa();
+
+/***/ }),
+
+/***/ 696:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(10);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(33);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _reactRouter = __webpack_require__(195);
+
+__webpack_require__(42);
+
+var _iss = __webpack_require__(43);
+
+var _iss2 = _interopRequireDefault(_iss);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//公共类
+_iss2.default.use({ Router: _reactRouter.Router, Route: _reactRouter.Route, hashHistory: _reactRouter.hashHistory });
+/* 路由 */
+/*     {
+      path: "/index",
+      getComponent: function (next, callback) {
+        require.ensure([], function (require) {
+          var app = require('../area');//============================首页
+          callback(null, app.default);
+        }, "area-index");
+      }
+    }, */
+//兼容ie
+var rootRout = {
+  path: "/",
+  childRoutes: [{ //面积管理
+    path: "/index",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(0).then((function (require) {
+        var app = __webpack_require__(716);
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //签约回款*/
+    path: "/payment",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(3).then((function (require) {
+        var app = __webpack_require__(717);
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { /*关键指标*/
+    path: "/primarykey",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(2).then((function (require) {
+        var app = __webpack_require__(718);
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+
+  }, { //*供货*/
+    path: "/supply",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(1).then((function (require) {
+        var app = __webpack_require__(719);
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+
+  }, { //价格管理 
+    path: "/priceControl",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(21).then((function (require) {
+        var app = __webpack_require__(699); //============================价格管理
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-投决会
+    path: "/component-priceControl-Investment",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(15).then((function (require) {
+        var app = __webpack_require__(720); //============================价格管理-投决会
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-产品定位会
+    path: "/component-priceControl-Productlocat",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(12).then((function (require) {
+        var app = __webpack_require__(721); //============================价格管理-产品定位会
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-项目定位会
+    path: "/component-priceControl-Projectlocat",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(11).then((function (require) {
+        var app = __webpack_require__(722); //============================价格管理-项目定位会
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-启动会
+    path: "/component-priceControl-Startup",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(10).then((function (require) {
+        var app = __webpack_require__(723); //============================价格管理-项目定位会
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-工规证
+    path: "/component-priceControl-Certificate",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(19).then((function (require) {
+        var app = __webpack_require__(724); //============================价格管理-工规证
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-决策书
+    path: "/component-priceControl-Decision",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(17).then((function (require) {
+        var app = __webpack_require__(725); //============================价格管理-决策书
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-预售证
+    path: "/component-priceControl-Presell",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(13).then((function (require) {
+        var app = __webpack_require__(726); //============================价格管理-预售证
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-签约
+    path: "/component-priceControl-Contract",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(18).then((function (require) {
+        var app = __webpack_require__(727); //============================价格管理-签约
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-交付
+    path: "/component-priceControl-Deliver",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(16).then((function (require) {
+        var app = __webpack_require__(728); //============================价格管理-交付
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }, { //价格管理-表格页
+    path: "/component-priceControl-Management",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(14).then((function (require) {
+        var app = __webpack_require__(729); //============================价格管理-表格页
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+  }]
+};
+_reactDom2.default.render(_react2.default.createElement(_reactRouter.Router, { history: _reactRouter.hashHistory, routes: rootRout }), document.querySelector("#JH-Router"));
+exports.default = rootRout;
+
+/***/ })
+
+},[695]);
