@@ -1,12 +1,12 @@
-webpackJsonp([23],{
+webpackJsonp([13],{
 
-/***/ 1006:
+/***/ 1000:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1007);
+var content = __webpack_require__(1001);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -32,7 +32,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 1007:
+/***/ 1001:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(304)(undefined);
@@ -47,7 +47,7 @@ exports.push([module.i, ".peripheral {\n  position: relative;\n  top: 0;\n  left
 
 /***/ }),
 
-/***/ 730:
+/***/ 721:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65,7 +65,7 @@ var _react2 = _interopRequireDefault(_react);
 
 __webpack_require__(43);
 
-__webpack_require__(42);
+__webpack_require__(44);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -79,7 +79,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 //兼容ie
-__webpack_require__(1006);
+__webpack_require__(1000);
 
 var ICPeripheral = function (_React$Component) {
     _inherits(ICPeripheral, _React$Component);

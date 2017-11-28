@@ -49,9 +49,9 @@ class ProcessBar extends React.Component{
    	
    	let nineStage=th.props.data;
    	let activeGuid=th.props.activeGuid;
-   	if(!nineStage){
-   		alert("去对属性设置data去,存放步骤的数组,卡哇一一");
-   	}
+   	// if(!nineStage){
+   	// 	alert("去对属性设置data去,存放步骤的数组,卡哇一一");
+   	// }
     let len = nineStage.length;
     
     return nineStage.map((el,ind)=>{

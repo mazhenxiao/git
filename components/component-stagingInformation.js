@@ -41,12 +41,10 @@ class StagingInformation extends React.Component {
 	        "PROJECTID":this.props.projectId,/*项目id*/
           "STAGEVERSIONID":this.props.versionId,/*版本id*/
           "STAGEVERSIONIDOLD":this.props.versionOldId, //老版本id
-          "landCode":this.props.landCode,
 	        "CITYID":"",/*城市id*/
 	        "CITYNAME":"",/*城市name*/
 	        "AREAID":"",/*区域id*/
-            "AREANAME":"",/*区域name*/
-            
+	        "AREANAME":"",/*区域name*/
         }  
 
         this.tiem="";
@@ -84,7 +82,6 @@ class StagingInformation extends React.Component {
                var baseformInfo=res.rows.BaseFormInfo;
                /*获取到基本信息后，返回*/
                 th.props.baseCallBack(baseformInfo);
-                
                 th.setState({
                 	  "SEQNUM":baseformInfo.SEQNUM,/*分期排序字段*/
                     "CASENAME":baseformInfo.CASENAME||"",
@@ -96,7 +93,7 @@ class StagingInformation extends React.Component {
                     "STAGECREATEDATE":baseformInfo.STAGECREATEDATE,
                     "STAGEUPDATEDATE":baseformInfo.STAGEUPDATEDATE,
                     "STARTDATE":baseformInfo.STARTDATE,
-                    "STAGECODE":baseformInfo.STAGECODE||"", //分期编码
+                    "STAGECODE":baseformInfo.STAGECODE||"",
                     "STATUS":baseformInfo.STATUS,
                     "ISELFPRODUCTTYPE":baseformInfo.ISELFPRODUCTTYPE,
                     "TRADERMODE":baseformInfo.TRADERMODE,
@@ -139,13 +136,6 @@ class StagingInformation extends React.Component {
             }
         });
     }
-    componentWillReceiveProps(nextProps, nextState) { 
-        //debugger
-        this.setState({
-            STAGECODE:nextProps.STAGECODE
-        })
-    }
-   
     componentDidMount() {  
             let th=this;
             let id=th.state.STAGEVERSIONID;
@@ -160,13 +150,9 @@ class StagingInformation extends React.Component {
                 });
                 
             }
-           
         //  toolsTab.bindTab(this.props);//绑定头部标签
         
     }
-    // componentDidUpdate(){
-    //     debugger;
-    // }
     //推盘划分
     BIND_OPENPlateIframe(){
         var th=this,data = this.plateInfo;
@@ -177,13 +163,13 @@ class StagingInformation extends React.Component {
         }
         iss.Alert({
             title:"推盘划分",
-            width:500,
-            height:250,
+            width:600,
+            height:300,
             content:`<div id="PlateIframeBox"></div>`,
             okVal:"保存",
             cancel:"取消",
             ok(da){
-                console.log(th.plateInfo.state.dataList)
+                //console.log(th.plateInfo.state.dataList)
                 var stageversionid = th.state.STAGEVERSIONID,
                     newPushPlate = [],
                     buildingPushPlateMapping = [],
@@ -250,7 +236,7 @@ class StagingInformation extends React.Component {
                         })
                     },
                     error() {
-                        //console.log('失败')
+                        console.log('失败')
                     }
                 })
             },
@@ -269,8 +255,8 @@ class StagingInformation extends React.Component {
         }
         iss.Alert({
             title:"组团划分",
-            width:500,
-            height:250,
+            width:600,
+            height:300,
             content:`<div id="GroupIframeBox"></div>`,
             okVal:"保存",
             cancel:"取消",
@@ -333,7 +319,7 @@ class StagingInformation extends React.Component {
                         })
                     },
                     error() {
-                        //console.log('失败')
+                        console.log('失败')
                     }
                 })
             },
@@ -698,7 +684,7 @@ class StagingInformation extends React.Component {
     }
     xmViewError(event){
         // this.attr("src","../img/xmViewError.png")
-        $(event.target).attr("src","../img/xmViewError.png");
+        $(event.target).attr("src","../../Content/img/xmViewError.png");
     }
     BIND_EditStage(){
         let th = this;

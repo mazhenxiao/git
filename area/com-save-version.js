@@ -51,6 +51,7 @@ class SaveVersion extends Component {
             <div className="areaVeSel">
                 <WrapperSelect dataSource={versionData} labelText="当前版本" showDefault={false}
                                style={{width: "100px"}}
+                               value={versionId}
                                onChange={this.handleChange}/>
             </div>
             <span className="areaStatus">状态 {currentVersion ? currentVersion["statusName"] : ""}</span>

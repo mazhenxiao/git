@@ -8,6 +8,7 @@ import {shallowCompare} from '../utils';
 import {WrapperSelect, WrapperInput, WrapperModalSelect} from '../common';
 import {AreaConstants} from '../constants';
 import {AreaService} from '../services';
+import iss from '../js/iss';
 
 class BuildingFormatEdit extends Component {
 
@@ -64,6 +65,7 @@ class BuildingFormatEdit extends Component {
                     loading: false,
                 });
                 console.error("发生错误", error);
+                iss.error(error);
             })
     };
 
@@ -73,6 +75,11 @@ class BuildingFormatEdit extends Component {
             dataIndex: 'producttypename',
             key: 'producttypename',
             width: 200,
+            render: (text, record) => {
+                if (record["levelId"] === "1")
+                    return <span className="format-tree-parent">{text}</span>;
+                return <span className="format-tree-child">123</span>;
+            }
         },
         {
             title: '标准层层高(m)',
@@ -156,15 +163,33 @@ class BuildingFormatEdit extends Component {
             key: 'id',
             width: 100,
             render: (text, record) => {
-                return (<a href="javascript:;" onClick={this.handleDelete(text)}>删除</a>);
+                return (<a href="javascript:;" onClick={this.handleDelete(text, record)}>删除</a>);
             }
         },
     ];
 
-    handleDelete = (id) => {
+    /**
+     * 删除操作
+     * @param id
+     * @returns {function()}
+     */
+    handleDelete = (id, record) => {
         return () => {
             const {dataSource} = this.state;
-            const remain = dataSource.filter(item => item.id !== id);
+            let remain = [];
+            if (record["levelId"] == "1") {
+                //点击的一级楼栋删除，则删除楼栋与楼栋下的业态
+                remain = dataSource.filter(item => item.id !== id || item.parentid != id);
+            } else {
+                //点击的二级业态删除，则删除业态，如果删除之后，该楼栋没有其他的业态，则楼栋也删除
+                let parentId = record["parentid"];
+                let other = dataSource.filter(item => item.parentid == parentId && item.id != id);
+                if (other.length === 0) {
+                    remain = dataSource.filter(item => item.id !== parentId || item.parentid != parentId);
+                } else {
+                    remain = dataSource.filter(item => item.parentid != parentId);
+                }
+            }
             this.setState({
                 dataSource: [...remain]
             });
@@ -230,7 +255,8 @@ class BuildingFormatEdit extends Component {
                 this.setState({
                     loading: false,
                 });
-                console.error("发生错误", error)
+                console.error("发生错误", error);
+                iss.error(error);
             });
     };
     handleCancel = () => {
@@ -277,15 +303,15 @@ class BuildingFormatEdit extends Component {
             = this.state;
         //TODO 校验
         if (!land) {
-            console.error("所属地块必填！");
+            iss.error("请选择所属地块！");
             return;
         }
         if (!buildingNo) {
-            console.error("楼栋号必填！");
+            iss.error("楼栋号必填！");
             return;
         }
         if (!standardHeight) {
-            console.error("标准层层必填！");
+            iss.error("标准层层必填！");
             return;
         }
 
@@ -293,7 +319,7 @@ class BuildingFormatEdit extends Component {
             && commercial.length === 0
             && business.length === 0
             && parkAndSupport.length === 0) {
-            console.error("生成属性至少选择一个！");
+            iss.error("住宅/商办/商业/车位及配套 至少选择一个！");
             return;
         }
 
@@ -342,6 +368,7 @@ class BuildingFormatEdit extends Component {
             })
             .catch(err => {
                 console.error("发生错误", err);
+                iss.error(error);
             })
 
     };
@@ -366,7 +393,7 @@ class BuildingFormatEdit extends Component {
                     </Button>,
                 ]}>
                 <Spin size="large" spinning={loading}>
-                    <Row gutter={16}>
+                    <Row gutter={16} className="building-format-warn">
                         <span>(说明：楼栋可输入连续号【~】连接号【、，】分段楼号。如：1#~10#[指1#至10#]；1#、10#[指1#和10#]）</span>
                     </Row>
                     <Row gutter={16}>

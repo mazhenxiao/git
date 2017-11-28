@@ -146,6 +146,14 @@ class $knife {
         }
     }
     /**
+     * 第二种计算工具，用于表格计算
+     * @param {*对象} Obj 
+     * @param {*数组} List 
+     */
+    setTableExec(Obj,List){
+
+    }
+    /**
      * 数据有效性检测
      * @param {*} da   当前数据
      * {"pid":"","id":"","label":"","text":"","val":"","type":"input","unit":"万元","edit":"+w","exec":null,"regExp":"{\r\n  \"type\": \"number(2)\",\r\n  \"max\": \"1000\",\r\n  \"min\": \"0\"\r\n}","colspan":0,"data":null,"valuetype":"number","valueId":null,"test":null}

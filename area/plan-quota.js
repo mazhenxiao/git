@@ -146,9 +146,8 @@ class PlanQuota extends Component {
 
        this.props["onPlanQuotaDataChange"]&&this.props.onPlanQuotaDataChange(this.postData);
       
-       
-      // let validates = knife.valid(list);  //数据校验
-       //console.log(validates);
+       //let validates = knife.valid(list);  //数据校验
+      // console.log(validates);
     }
     EVENT_ClickSave=arg=>{
        //  let detaileData = this.postData.filter(arg=>{ if(arg["val"]){ delete arg["parent"];delete arg["child"];return arg} }); //数据
@@ -162,25 +161,12 @@ class PlanQuota extends Component {
                 }
              }),
              versionId="e2f23b9a-31e4-821d-25cf-22c46927e1b8",//分期或版本id
-             step="2",//阶段
+             step="Vote",//阶段
              url="/AreaInfo/ISaveAreaPlanInfo";
             // console.log((detaileData));
              //return;
             // debugger
-             iss.fetch({
-               url:url,
-               data:{
-                versionId,
-                step,
-                detaileData:JSON.stringify(_data_)
-               }
-             })
-             .then(arg=>{
-              console.log("then",arg)
-             })
-             .catch(error=>{
-                console.log("error",error)
-             })
+           
                
 
     }
@@ -188,7 +174,7 @@ class PlanQuota extends Component {
       
         return (
             <article>
-                 <button onClick={this.EVENT_ClickSave}>保存</button>
+                
                  <DynamicTable pid={this.state.pid} DynamicData={this.state.DynamicData} CallBack={this.BIND_CALLBACK} />
             </article>
         );

@@ -1,4 +1,4 @@
-webpackJsonp([32],{
+webpackJsonp([23],{
 
 /***/ 697:
 /***/ (function(module, exports, __webpack_require__) {
@@ -14,7 +14,7 @@ var _reactDom = __webpack_require__(33);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-__webpack_require__(42);
+__webpack_require__(44);
 
 var _iss = __webpack_require__(43);
 
@@ -64,7 +64,7 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactRouter = __webpack_require__(195);
 
-__webpack_require__(42);
+__webpack_require__(44);
 
 var _iss = __webpack_require__(43);
 
@@ -80,8 +80,8 @@ var rootRout = {
   childRoutes: [{
     path: "/peripheral",
     getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(23).then((function (require) {
-        var peripheral = __webpack_require__(730); //============================首页
+      __webpack_require__.e/* require.ensure */(13).then((function (require) {
+        var peripheral = __webpack_require__(721); //============================首页
         callback(null, peripheral.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }

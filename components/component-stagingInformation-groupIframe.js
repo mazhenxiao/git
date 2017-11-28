@@ -192,8 +192,14 @@ class GroupIframe extends React.Component{
                     newBr.push(el.groupnumber)
                 })
                 if(newBr.indexOf(n) == -1){
+                    var kongId = "";
+                    th._nData.forEach((el,ind) => {
+                        if(n==el.groupnumber){
+                            kongId = el.groupId
+                        }
+                    })
                     var BrObj = {
-                        "groupId": th._nData[n],
+                        "groupId": kongId,
                         "groupName": "组团",
                         "groupnumber": n,
                         "buildingId": null,
@@ -201,6 +207,7 @@ class GroupIframe extends React.Component{
                     }
                     brr.push(BrObj)
                 }
+                
                 th.setState({
                     dataList:brr
                 })

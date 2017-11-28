@@ -1,6 +1,6 @@
-webpackJsonp([20],{
+webpackJsonp([11],{
 
-/***/ 711:
+/***/ 710:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22,9 +22,9 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 __webpack_require__(43);
 
-__webpack_require__(42);
+__webpack_require__(44);
 
-var _toolsProcessBar = __webpack_require__(750);
+var _toolsProcessBar = __webpack_require__(940);
 
 var _toolsProcessBar2 = _interopRequireDefault(_toolsProcessBar);
 
@@ -37,7 +37,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 //兼容ie
-__webpack_require__(976);
+__webpack_require__(966);
 /**
  * 
  */
@@ -74,8 +74,8 @@ var AreaManagement = function (_React$Component) {
     }, {
         key: 'BIND_URL1',
         value: function BIND_URL1() {
-            __webpack_require__.e/* require.ensure */(36).then((function (require) {
-                var AreaManagementTabel = __webpack_require__(978).default;
+            __webpack_require__.e/* require.ensure */(27).then((function (require) {
+                var AreaManagementTabel = __webpack_require__(968).default;
                 _reactDom2.default.render(_react2.default.createElement(AreaManagementTabel, null), document.querySelector("#areaManagement"));
             }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
         }
@@ -102,13 +102,13 @@ exports.default = AreaManagement;
 
 /***/ }),
 
-/***/ 732:
+/***/ 805:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(740);
+var content = __webpack_require__(824);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -134,7 +134,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 740:
+/***/ 824:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(304)(undefined);
@@ -149,7 +149,7 @@ exports.push([module.i, ".processBar .processBar-header li {\n  display: inline-
 
 /***/ }),
 
-/***/ 750:
+/***/ 940:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -167,7 +167,7 @@ var _react2 = _interopRequireDefault(_react);
 
 __webpack_require__(43);
 
-__webpack_require__(42);
+__webpack_require__(44);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -178,7 +178,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 //兼容ie
-__webpack_require__(732);
+__webpack_require__(805);
 /*
 *调用组件附上的属性值
 * data [] 存放九种步骤
@@ -241,9 +241,9 @@ var ProcessBar = function (_React$Component) {
 
             var nineStage = th.props.data;
             var activeGuid = th.props.activeGuid;
-            if (!nineStage) {
-                alert("去对属性设置data去,存放步骤的数组,卡哇一一");
-            }
+            // if(!nineStage){
+            // 	alert("去对属性设置data去,存放步骤的数组,卡哇一一");
+            // }
             var len = nineStage.length;
 
             return nineStage.map(function (el, ind) {
@@ -282,13 +282,13 @@ exports.default = ProcessBar;
 
 /***/ }),
 
-/***/ 976:
+/***/ 966:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(977);
+var content = __webpack_require__(967);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -314,7 +314,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 977:
+/***/ 967:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(304)(undefined);

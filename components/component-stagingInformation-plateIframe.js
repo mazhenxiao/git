@@ -40,13 +40,13 @@ class PlateIframe extends React.Component{
             data:{
                 //stageversionid: th.state.versionId
             },
+            scriptCharset: 'utf-8',
             success(data) {
                 if(null != data.rows && data.rows.length>0){
                     var arr = [];
                     data.rows.forEach((el,ind) => {
                         arr.push(el.pushPlateNumber)
                     })
-                    
                     if(arr.indexOf(1) == -1){
                        
                         var newId = iss.guid()
@@ -116,15 +116,14 @@ class PlateIframe extends React.Component{
          for(var i=0;i<_len;i++){
              if(th._group.indexOf(th.state.dataList[i].pushPlateNumber)==-1){ 
                  th._group.push(th.state.dataList[i].pushPlateNumber);
-             }
-             if(th._group.indexOf(th.state.dataList[i].pushPlateId)==-1){
-                var obj = {
+                 var obj = {
                     "pushPlateId":th.state.dataList[i].pushPlateId,
                     "pushPlateNumber":th.state.dataList[i].pushPlateNumber
                 };
                 th._nData.push(obj)
-            }
+             }
          }
+         //console.log(th._nData)
          th._group.sort(function sortNumber(a,b)
          {
          return a - b
@@ -152,10 +151,12 @@ class PlateIframe extends React.Component{
             text = el.buildingName,
             brr = th.state.dataList,
             newBr = [];
+
         var n = th.state.index,idN = 0;
             th._nData.forEach((el,ind) => {
                 if(n==el.pushPlateNumber){
                     idN = el.pushPlateId
+                    //console.log(el)
                 }
             })
             //console.log(th._nData)
@@ -168,32 +169,34 @@ class PlateIframe extends React.Component{
                         el.pushPlateId = idN,
                         el.delete = ""
                     }
-                    if(el.pushPlateNumber == n && el.buildingId == null){
+                })
+                //console.log(brr)
+                brr.forEach((el,ind) =>{
+                    if(el.pushPlateNumber == n && el.buildingId == null && el.buildingName == null){
                         brr.splice(ind,1);
                     }
                 })
-               // console.log(brr)
+               //console.log(brr)
                 brr.forEach((el,ind) =>{
                     newBr.push(el.pushPlateNumber)
                 })
-                //console.log(brr)
-                if(newBr.indexOf(0) == -1){
-                    var BrObj = {
-                        "pushPlateId": null,
-                        "pushPlateName": "nomapping",
-                        "pushPlateNumber": 0,
-                        "buildingId": null,
-                        "buildingName": null
-                    }
-                    brr.push(BrObj)
-                }
+                //console.log(newBr)
+                // if(newBr.indexOf(0) == -1){
+                //     var BrObj = {
+                //         "pushPlateId": null,
+                //         "pushPlateName": "nomapping",
+                //         "pushPlateNumber": 0,
+                //         "buildingId": null,
+                //         "buildingName": null
+                //     }
+                //     brr.push(BrObj)
+                // }
                 th.setState({
                     dataList:brr
                 })
             }else{
                 brr.forEach((el,ind) =>{
                     if(el.buildingName == text){
-                        var n = th.state.index
                         el.pushPlateName = "nomapping",
                         el.pushPlateNumber = 0,
                         el.pushPlateId = null;
@@ -202,9 +205,17 @@ class PlateIframe extends React.Component{
                 brr.forEach((el,ind) =>{
                     newBr.push(el.pushPlateNumber)
                 })
+               
+                
                 if(newBr.indexOf(n) == -1){
+                    var kongId = "";
+                    th._nData.forEach((el,ind) => {
+                        if(n==el.pushPlateNumber){
+                            kongId = el.pushPlateId
+                        }
+                    })
                     var BrObj = {
-                        "pushPlateId": th._nData[n],
+                        "pushPlateId": kongId,
                         "pushPlateName": "推盘",
                         "pushPlateNumber": n,
                         "buildingId": null,

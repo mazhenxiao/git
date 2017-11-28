@@ -546,10 +546,11 @@ class NewProject extends React.Component {
                             th.setState({
                                 "status":"edit",
                             });
-                            
+                            window.location.reload();
                         }
                         iss.popover({content:"保存成功",type:2});
                         $(window).trigger("treeLoad");
+                       
                     }else{
                         iss.popover({content:"保存失败"});
                     }

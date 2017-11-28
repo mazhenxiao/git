@@ -5,7 +5,7 @@ import "babel-polyfill";  //兼容ie
 import React, {Component} from 'react';
 import {Spin, Tabs, Row, Col, Button, Select} from 'antd';
 import {AreaConstants} from '../constants';
-import ComBlock from './com-block';
+import ComBlock from './com-block'; //规划方案指标
 import ComBuilding from './com-building';
 import ComBuildingAdjust from './com-building-adjust';
 import ComFormat from './com-format';
@@ -13,8 +13,11 @@ import PlanQuota from './plan-quota';
 import BlockFormatEdit from './block-format-edit';
 import BlockFormatAdjust from './block-format-adjust';
 import BuildingFormatEdit from './building-format-edit';
-import SaveVersion from "./com-save-version";
+import SaveVersion from "./com-save-version";  //保存按钮
 import {AreaService} from '../services';
+import iss from '../js/iss';
+import {knife} from '../utils';
+import {CollapsePanel} from "antd/lib/collapse/Collapse";
 
 require("../css/tools-processBar.less");
 require("../css/button.less");
@@ -33,8 +36,8 @@ class Index extends Component {
         stepData: [],
         versionId: "",//版本id
         step: {}, /*当前阶段*/
-        dataKey: this.props.location.query.dataKey, /*项目id或分期版本id*/
-        mode: this.props.location.query.isProOrStage,//显示模式，项目或者分期
+        dataKey: this.props.location.query.dataKey || "", /*项目id或分期版本id*/
+        mode: this.props.location.query.isProOrStage == "1" ? "Project" : "Stage",//显示模式，项目或者分期
         //方案指标数据，面积数据
         areaData: {},
         //面积数据里的查询
@@ -61,14 +64,18 @@ class Index extends Component {
     componentWillReceiveProps(nextProps) {
         const {dataKey, mode} = this.state;
         const {location} = nextProps;
+        const nextDataKey = location.query.dataKey || "";
+        let nextMode = location.query.isProOrStage || "";
+        nextMode = nextMode == "1" ? "Project" : "Stage";
+
         //切换路由之后，重新获取数据
-        const nextDataKey = location.query.dataKey.trim();
-        const nextMode = location.query.dataKey.trim();
+
         if (dataKey != nextDataKey
             || mode != nextMode) {
             this.setState({
                     dataKey: nextDataKey,
                     mode: nextMode,
+                    activeTapKey: "plan-quota",
                 }
             );
             this.loadStep(nextDataKey, nextMode);
@@ -76,7 +83,6 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        console.log("dataKey,mode", this.props);
         this.loadStep();
     }
 
@@ -84,15 +90,21 @@ class Index extends Component {
      * 加载步骤
      */
     loadStep = (dataKey, mode) => {
-        if (!dataKey) {
+        if (dataKey === undefined) {
             dataKey = this.state.dataKey;
             mode = this.state.mode;
         }
+
+        if (!dataKey) {
+            return;
+        }
+
         //临时存储当前的step
         let step = undefined;
         let versionId = undefined;
         this.setState({
             loading: true,
+            versionId: "",
         });
 
         /**
@@ -121,6 +133,7 @@ class Index extends Component {
             })
             .catch(error => {
                 console.log("发生错误", error);
+                iss.error(error);
             })
     };
 
@@ -128,7 +141,6 @@ class Index extends Component {
      *  加载数据
      */
     loadData = (isInit, step, mode, dataKey, versionId) => {
-        console.log("loadData,dataKey,mode", this.props);
         this.setState({
             loading: true,
         });
@@ -186,6 +198,7 @@ class Index extends Component {
                     loading: false,
                 });
                 console.error("发生错误", error);
+                iss.error(error);
             });
     };
 
@@ -241,6 +254,7 @@ class Index extends Component {
                     loading: false,
                 });
                 console.error("发生错误", error);
+                iss.error(error);
             });
     };
 
@@ -256,6 +270,7 @@ class Index extends Component {
             .then(res => {
                 if (res.rows === "success") {
                     console.log("版本创建成功");
+                    iss.info("版本创建成功");
                 } else {
                     return Promise.reject(res.message || "版本创建失败");
                 }
@@ -275,6 +290,7 @@ class Index extends Component {
                     loading: false,
                 });
                 console.error("error", error);
+                iss.error(error);
             })
     };
 
@@ -291,12 +307,38 @@ class Index extends Component {
         return versionData[0]["id"];
     };
 
+
     /**
      *  保存当前版本的规划方案指标数据
      */
     handleSaveVersionData = () => {
         //TODO 保存当前版本的规划方案指标数据，需要保存贞晓写的规划方案指标组件里的更新数据
-        console.log("TODO 保存当前版本的规划方案指标数据，需要保存贞晓写的规划方案指标组件里的更新数据");
+        // console.log("TODO 保存当前版本的规划方案指标数据，需要保存贞晓写的规划方案指标组件里的更新数据");
+        const {step, areaData, activeTapKey, dataKey, versionId} = this.state;
+        //console.log("planQuotaUpdateData",this.planQuotaUpdateData)
+        let data = [];
+        this.planQuotaUpdateData = this.planQuotaUpdateData.filter(arg => arg["val"]);
+        this.planQuotaUpdateData.forEach((arg, ind) => {
+            if (arg.val) {
+                data.push({
+                    "id": arg["id"],
+                    "val": arg["val"],
+                    "label": arg["label"],
+                    "valueId": arg["valueId"]
+                });
+            }
+        });
+
+        AreaService.areaInfoISaveAreaPlanInfo(versionId, step.code, data)
+            .then(da => {
+                iss.message({
+                    content: "保存成功"
+                })
+
+            })
+            .catch(err => {
+                console.log("error", err)
+            })
     };
 
     /**
@@ -312,19 +354,12 @@ class Index extends Component {
 
             this.setState({
                 loading: true,
+                versionId: "",
                 step: newStep,
                 record: null,
                 modalKey: "",
                 activeTapKey: "plan-quota",
             });
-
-            // //TODO 测试 com-building-adjust
-            // if (newStep.guid == "3") {
-            //     this.setState({
-            //         record: {},
-            //         modalKey: "com-building-adjust",
-            //     });
-            // }
 
             AreaService.getVersion(newStep, dataKey, mode)
                 .then(versionData => {
@@ -341,6 +376,7 @@ class Index extends Component {
                         loading: false,
                     });
                     console.error("发生错误", error);
+                    iss.error(error);
                 })
 
         };
@@ -349,8 +385,15 @@ class Index extends Component {
     /**
      * 处理弹窗
      */
-    handleModalClick = (modalKey) => {
+    handleModalClick = (modalKey, modalType) => {
         return (record) => {
+            if (modalType === "edit") {
+                const {versionId} = this.state;
+                if (!versionId) {
+                    iss.error("请先创建新版本");
+                    return;
+                }
+            }
             this.setState({
                 modalKey,
                 record
@@ -385,7 +428,21 @@ class Index extends Component {
     handlePlanQuotaDataChange = (postData) => {
         this.planQuotaUpdateData = postData || [];
     };
+    /**
+     * 发起审批
+     */
+    handleApproval = arg => {
+        let $$bindCheckFrom = this.bindCheckFrom();
+        console.log("发起审批校验规划方案指标通过", $$bindCheckFrom);
+    }
+    /**
+     * 数据校验
+     */
+    bindCheckFrom = arg => {
+        return knife.valid(this.planQuotaUpdateData);  //数据校验
 
+
+    }
     /**
      * 渲染步骤UI
      */
@@ -414,30 +471,34 @@ class Index extends Component {
                     {
                         parseInt(step.guid) <= 2 ?
                             <button type="button" className="jh_btn jh_btn22 jh_btn_save"
-                                    onClick={this.handleModalClick("block-format-edit")}>业态维护
+                                    onClick={this.handleModalClick("block-format-edit", "edit")}>业态维护
                             </button> :
                             <button type="button" className="jh_btn jh_btn22 jh_btn_save"
-                                    onClick={this.handleModalClick("building-format-edit")}>业态/楼栋维护
+                                    onClick={this.handleModalClick("building-format-edit", "edit")}>业态/楼栋维护
                             </button>
                     }
-                    <button type="button" className="jh_btn jh_btn22 jh_btn_apro">发起审批</button>
+                    <button type="button" onClick={this.handleApproval} className="jh_btn jh_btn22 jh_btn_apro">发起审批
+                    </button>
                 </div>
             </div>
         );
     };
 
     /**
-     * 渲染Tab
+     * 渲染Tab 保存按钮显示部分
      */
     renderTabList = () => {
-        const {step, areaData, activeTapKey} = this.state;
+        const {step, areaData, activeTapKey, dataKey, versionId} = this.state;
         const panelArray = [];
         const planData = areaData["planData"] || [];
-
+        this.planQuotaUpdateData = planData.filter(arg => arg.val);
         panelArray.push(
             <TabPane tab="规划方案指标" key="plan-quota">
                 <PlanQuota planData={planData}
-                           onPlanQuotaDataChange={this.handlePlanQuotaDataChange}/>
+                           versionId={versionId}
+                           dataKey={dataKey}
+                           onPlanQuotaDataChange={this.handlePlanQuotaDataChange}
+                />
             </TabPane>);
 
         if (parseInt(step.guid) <= 2) {
@@ -445,6 +506,9 @@ class Index extends Component {
             panelArray.push(
                 <TabPane tab="产品构成--按地块" key={step.code + "com-block"}>
                     <ComBlock
+                        step={step}
+                        dataKey={dataKey}
+                        versionId={versionId}
                         dataSource={blockData["areadataInfo"]}
                         headerData={blockData["titleInfo"]}
                         onBlockFormatClick={this.handleModalClick("block-format-adjust")}
@@ -457,6 +521,9 @@ class Index extends Component {
             panelArray.push(
                 <TabPane tab="产品构成--按楼栋" key={step.code + "com-building"}>
                     <ComBuilding
+                        step={step}
+                        dataKey={dataKey}
+                        versionId={versionId}
                         dataSource={buildingData["areadataInfo"]}
                         headerData={buildingData["titleInfo"]}
                         onBuildingClick={this.handleModalClick("com-building-adjust")}
@@ -465,6 +532,9 @@ class Index extends Component {
             panelArray.push(
                 <TabPane tab="产品构成--按业态" key={step.code + "com-format"}>
                     <ComFormat
+                        step={step}
+                        dataKey={dataKey}
+                        versionId={versionId}
                         dataSource={formatData["areadataInfo"]}
                         headerData={formatData["titleInfo"]}
                         onFormatClick={this.handleModalClick("com-format-adjust")}
@@ -554,15 +624,15 @@ class Index extends Component {
         return (
             <div className="processBar">
                 <Spin size="large" spinning={loading}>
-                    暂无数据
+                    请点击左侧树，项目/分期
                 </Spin>
             </div>
         );
     };
 
     render() {
-        const {loading, stepData, versionId, versionData} = this.state;
-        if (stepData.length === 0) {
+        const {loading, dataKey, stepData, versionId, versionData} = this.state;
+        if (!dataKey) {
             return this.renderEmpty();
         }
         return (

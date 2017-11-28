@@ -1,18 +1,22 @@
-import { message, notification } from 'antd';
+import {message, notification} from 'antd';
 import "babel-polyfill";  //兼容ie  
 import 'whatwg-fetch';//兼容ie fetch
 require("../../Content/css/antd.min.css");
+
 class $iss {
     constructor() {
         this.pagination();
         this.id = this.getQuert("FileId") || "";
         let userInfo = sessionStorage.getItem("userInfo");
         this.userInfo = userInfo ? eval(`(${userInfo})`) : "";//用户信息，在main.js中ajax获取
-        this.mapEUrl = "";/*标记总图地址*/
+        this.mapEUrl = "";
+        /*标记总图地址*/
     }
+
     url(arg) {
         return "http://192.168.10.164:8000" + (arg || "")
     }
+
     pagination() {
         $.extend($.fn.pagination.defaults, {
             layout: ["first", "prev", "manual", "next", "last"],
@@ -24,11 +28,13 @@ class $iss {
         })
 
     }
+
     getQuert(t) {
         let reg = new RegExp(t),
             me = reg.exec(location.hash);
         return me ? me : "";
     }
+
     guid() {
         //guid的生成
         var S4 = function () {
@@ -38,12 +44,12 @@ class $iss {
     }
 
     fetch(opt) {
-        const { url, ...params } = opt;
+        const {url, ...params} = opt;
         let requestInfo = {
             method: opt["type"] ? opt.type : 'POST',
-           mode: 'cors',
+            mode: 'cors',
             cache: 'no-cache',
-           credentials:"include", 
+            credentials: "include",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -51,16 +57,22 @@ class $iss {
         };
         let _URL = url;
         if (params) {
-            let ParamsStr =""; /* new URLSearchParams();
-            for(var li in params["data"]){
-                ParamsStr.append(li,params["data"][li]);
-            } */
-            for(var li in params["data"]){
-                ParamsStr+=`${li}=${params["data"][li]}&`;
+            let ParamsStr = "";
+            /* new URLSearchParams();
+                       for(var li in params["data"]){
+                           ParamsStr.append(li,params["data"][li]);
+                       } */
+            if(typeof params["data"]=="string"){
+                ParamsStr+="paramsData="+ params["data"];
+            }else{
+                for (var li in params["data"]) {
+                    ParamsStr += `${li}=${params["data"][li]}&`;
+                }
             }
-            ParamsStr=ParamsStr.replace(/\&$/ig,"");
-           // let _data = JSON.stringify(params["data"] || {});
-           // let str = _data.replace(/[{}]/ig, "").replace(/:/ig, "=").replace(/\,/ig, "&").replace(/\"/ig, "");
+            
+            ParamsStr = ParamsStr.replace(/\&$/ig, "");
+            // let _data = JSON.stringify(params["data"] || {});
+            // let str = _data.replace(/[{}]/ig, "").replace(/:/ig, "=").replace(/\,/ig, "&").replace(/\"/ig, "");
             if (requestInfo.method.toLocaleLowerCase() == "post") {
                 requestInfo.body = ParamsStr
             } else {
@@ -68,38 +80,36 @@ class $iss {
             }
 
         }
-      //  _URL = _URL.indexOf("http://")>-1? _URL:this.url(_URL); 
+        //  _URL = _URL.indexOf("http://")>-1? _URL:this.url(_URL);
         return fetch(_URL, requestInfo)
             .then(res => {
 
                 return res.json()
                     .catch(arg => {
                         iss.tip({
-                            type:"error",
-                            message:"服务器错误",
-                            description:`${_URL}接口错误！`
+                            type: "error",
+                            message: "服务器错误",
+                            description: `${_URL}接口错误！`
                         })
-                        //iss.popover({ content: "提交服务器失败！" })
-                        //return arg;
-                        return Promise.reject({ errorcode: "444", data: requestInfo, message: `服务器错误`, url: _URL });
+                        return Promise.reject({errorcode: "500", data: requestInfo, message: `服务器错误`, url: _URL});
                     });
             })
             .then(res => {
                 if (res["errorcode"] && res.errorcode == "200") {
                     return res;
                 } else if (res["errorcode"] && res.errorcode == "302") {
-                   // iss.popover({ content: "登陆超时请重新登陆！" });
-                   iss.tip({
-                    type:"error",
-                    message:"登陆超时",
-                    description:`登陆超时请重新登陆！`
-                })
+                    // iss.popover({ content: "登陆超时请重新登陆！" });
+                    iss.tip({
+                        type: "error",
+                        message: "登陆超时",
+                        description: `登陆超时请重新登陆！`
+                    })
                     top.window.location.href = "/account/Login";
                 } else if (res["errorcode"] && res["errorcode"] == "300") {
                     iss.tip({
-                        type:"error",
-                        message:"服务器错误",
-                        description:`操作失败，请联系后台工作人员！`
+                        type: "error",
+                        message: "服务器错误",
+                        description: `操作失败，请联系后台工作人员！`
                     })
                     //iss.popover({ content: "操作失败，请联系后台工作人员！" });
                     return Promise.reject(res);
@@ -107,12 +117,8 @@ class $iss {
                     return Promise.reject(res);
                 }
             })
-            .catch(arg => {
-                //console.log(arg);
-
-                return Promise.reject(arg);
-            })
     }
+
     ajax(opt) {
         let th = this;
         let $o = JSON.parse(JSON.stringify(opt));
@@ -127,7 +133,7 @@ class $iss {
 
 
         $.extend(arg, $o);
-     //   arg.url=arg.url.indexOf("http://")>-1? arg.url:this.url(arg.url);
+        //   arg.url=arg.url.indexOf("http://")>-1? arg.url:this.url(arg.url);
         $.ajax(arg).done((da) => {
 
             var _da = da;
@@ -139,13 +145,13 @@ class $iss {
                 opt["success"] && opt.success(_da);
                 return;
             } else if (_da["errorcode"] && _da.errorcode == "302") {
-                iss.popover({ content: "登录超时，请重新登录！" });
+                iss.popover({content: "登录超时，请重新登录！"});
                 setTimeout(function () {
                     top.window.location.href = "/account/Login";
                 }, 2000);
                 return false;
             } else if (_da["errorcode"] == "300") {
-                iss.popover({ content: "操作失败，请联系后台工作人员！" });
+                iss.popover({content: "操作失败，请联系后台工作人员！"});
                 return false;
             } else if (_da) {
                 opt["success"] && opt.success(_da);
@@ -154,9 +160,9 @@ class $iss {
         }).fail((e, textStatus) => {
 
             if (e.status == 0 || e.status == 401 || e.status == 403) {
-                iss.popover({ content: "登录超时，请重新登录！" });
+                iss.popover({content: "登录超时，请重新登录！"});
                 setTimeout(function () {
-                   // top.window.location.href = "/account/Login";
+                    // top.window.location.href = "/account/Login";
                 }, 2000);
             } else {
                 opt["error"] && opt.error(e, textStatus);
@@ -167,12 +173,14 @@ class $iss {
         });
 
     }
+
     use(arr) {
         Object.assign(this, arr);
     }
+
     /**
-	* 图片加载
-	*/
+     * 图片加载
+     */
     loadImag(ev) {
         let el = new Image(), $els = ev.currentTarget;
         el.addEventListener("error", function () {
@@ -183,6 +191,7 @@ class $iss {
         });
         el.src = $els.getAttribute("data-src");
     }
+
     Alert(arg) {
         /*   $(".modal").modal("hide"); */
         let opt = {
@@ -257,6 +266,7 @@ class $iss {
         return $ele;
 
     }
+
     upload(arg) {
         var th = this;
         let str = `<section class="upload">
@@ -290,9 +300,12 @@ class $iss {
             fileNumLimit: 300,
             fileSizeLimit: 2048 * 1024 * 1024,    // 200 M
             fileSingleSizeLimit: 200 * 1024 * 1024,    // 50 M
-            onRemove: function (arg, id) { }, //删除文件,arg当前element
-            onReady: function () { },//初始化完成
-            onUploadSucess: function () { } //上传完成
+            onRemove: function (arg, id) {
+            }, //删除文件,arg当前element
+            onReady: function () {
+            },//初始化完成
+            onUploadSucess: function () {
+            } //上传完成
         }
         $.extend(opt, arg || {})
         let addFile = $f => {  //新增上传
@@ -315,7 +328,8 @@ class $iss {
 
         let render = $v => {
 
-            let el = $el.find(".uploadTable"), $data = `<li class="row"><span class="col-xs-5">文件名称</span><span class="col-xs-3">上传时间</span><span class="col-xs-3">上传人</span><span class="col-xs-1">操作</span></li>`;
+            let el = $el.find(".uploadTable"),
+                $data = `<li class="row"><span class="col-xs-5">文件名称</span><span class="col-xs-3">上传时间</span><span class="col-xs-3">上传人</span><span class="col-xs-1">操作</span></li>`;
             $v.forEach((ee, ii) => {
                 $data += `<li id="${ee["ID"]}" class="row">
                 <span class="col-xs-5"><a href="${location.protocol + location.host + ee["FILEURL"]}">${ee["FILENAME"]}</a><i>(${(ee["FILESIZE"] / 1024 / 1024).toFixed(2)})</i></span>
@@ -333,7 +347,10 @@ class $iss {
             let uploader = th.uploader = WebUploader.create(opt), list = $(".uploadList");
 
             uploader.on("filesQueued", function (file) {
-                if (!file.length) { iss.popover({ type: 2, content: "已存在上传数据！" }); return }
+                if (!file.length) {
+                    iss.popover({type: 2, content: "已存在上传数据！"});
+                    return
+                }
                 let tt = addFile(file);
                 if (tt) {
                     $(".J_uploadBtn").removeClass("hide");
@@ -344,9 +361,10 @@ class $iss {
                 $("#" + f.id + " .progresses").addClass("error").html("上传失败");
             })
             uploader.on("uploadProgress", (f, t) => {
-                let el = list.find("#" + f.id + " .progresses .pn"), eli = list.find("#" + f.id + " .progresses .pp"), num = parseInt(t * 100)
+                let el = list.find("#" + f.id + " .progresses .pn"), eli = list.find("#" + f.id + " .progresses .pp"),
+                    num = parseInt(t * 100)
                 el.text(num + "%");
-                eli.css({ width: num + "%" });
+                eli.css({width: num + "%"});
             })
             uploader.on("uploadSuccess", f => {
                 opt.onUploadSucess(f, render, opt["content"], opt);
@@ -365,7 +383,8 @@ class $iss {
             })
             $el.on("click.upload", ".J_delete,.J_deleteHistory", e => {
 
-                let me = $(e.currentTarget); var pa = me.parent(), id = pa.attr("id")
+                let me = $(e.currentTarget);
+                var pa = me.parent(), id = pa.attr("id")
                 if (me.hasClass("J_delete")) {
                     uploader.removeFile(id, true);
                     pa.remove();
@@ -376,9 +395,6 @@ class $iss {
                     opt.onRemove(pa, id);
 
                 }
-
-
-
             })
             $(document).on("click.upload", ".J_uploadBtn", e => {
                 var th = $(e.target);
@@ -389,6 +405,7 @@ class $iss {
         }, 500);
 
     }
+
     checkLogin(callback) { //判断是否登陆过期
         let url = "/Account/ICheckLoginStatus";
         iss.ajax({
@@ -411,6 +428,7 @@ class $iss {
             }
         })
     }
+
     chooseTo(arg) {  //选人控件
         let th = this,
             str = `<section class="chooseTo">
@@ -437,12 +455,13 @@ class $iss {
         let opt = {
             //url:"/Home/GetTreeInfo",//
             url: "/Commen/IGetOrganizationalUsers",
-            param: { parentid: "13ead391fd4103096735e4945339550b", condition: "" },
+            param: {parentid: "13ead391fd4103096735e4945339550b", condition: ""},
             searchURL: "/Common/ISearchUser",
             title: "选择人员",
             width: 800,
             height: 300,
             content: str,
+            multiple:false,            
             pepole: {},
             data: [],
             search: "",
@@ -481,7 +500,7 @@ class $iss {
                 },
                 onDblClick(node) {
                     if (node.type == 8) {
-                        opt.pepole = {};
+                        opt.pepole = opt.multiple? opt.pepole:{};
                         opt.pepole[node.id] = node;
                         render();
                     }
@@ -489,7 +508,7 @@ class $iss {
                 },
                 onLoadError(e) {
                     if (e.status == 0 || e.status == 401 || e.status == 403) {
-                        iss.popover({ content: "登录超时，请重新登录！" });
+                        iss.popover({content: "登录超时，请重新登录！"});
                         setTimeout(function () {
                             window.location.href = "/account/Login";
                         }, 2000);
@@ -526,6 +545,7 @@ class $iss {
                             }
 
                         })
+                       
                         ul.html(v).addClass("active");
 
                     }
@@ -550,8 +570,6 @@ class $iss {
             });
 
 
-
-
             $(document).on("click.chooseTo", ".chooseToAdd,.chooseToRemo,.chooseToSearchli", ev => {
                 var th = $(ev.currentTarget);
                 if (th.hasClass("chooseToAdd")) {  //新增
@@ -574,6 +592,7 @@ class $iss {
 
             }).on("dblclick.chooseTo", ".chooseTolist", ev => {
                 var th = $(ev.target);
+                debugger
                 if (th.hasClass("chooseTolist")) {  //右侧选人
                     let guid = th.attr("guid");
                     delete opt.pepole[guid];
@@ -586,9 +605,8 @@ class $iss {
         });
 
 
-
-
     }
+
     calendar(date, callback) {
         $.extend($.fn.calendar.defaults, {  //esayui国际化
             weeks: ['日', '一', '二', '三', '四', '五', '六'],
@@ -623,6 +641,7 @@ class $iss {
         });
 
     }
+
     /** sucess,error,error,warning,warn,
      * iss.message({
 	    type:"sucess", //类型
@@ -634,14 +653,15 @@ class $iss {
         let _opt = {
             content: "",
             duration: 1,
-            onClose() { },
+            onClose() {
+            },
             type: "sucess",
             ...opt
         }
-        let { content, duration, onClose, type } = opt,
+        let {content, duration, onClose, type} = opt,
             TYPE = "success",
             str = "success,error,info,warning,warn,loading";
-        type = type == "2" ? "success" : "error";
+        type = str.indexOf(type)>=0? type:type == "2" ? "success" : "error";
         TYPE = new RegExp(type).exec(str) || TYPE;
         message[TYPE](content, duration, onClose);
         return
@@ -655,16 +675,18 @@ class $iss {
      */
     tip = (opt) => {
         let _opt = {
-            message: "提示",
-            description: "",
-            onClose() { }, //关闭提价
-            ...opt
-        },
+                message: "提示",
+                description: "",
+                onClose() {
+                }, //关闭提价
+                ...opt
+            },
             TYPE = "success",
             str = "success,error,info,warning,warn,loading";
         TYPE = new RegExp(opt["type"] || "success").exec(str) || TYPE;
         notification[TYPE](_opt)
     }
+
     popover(opt) {
 
         var red = "rgba(218, 79, 61, 0.9)", green = "rgba(0,230,255,0.9)";
@@ -704,6 +726,7 @@ class $iss {
         }, 5000);
 
     }
+
     //loading...
     loading(state) {
         var str = `<div class="loader" id="loader">
@@ -721,10 +744,10 @@ class $iss {
                         </div>
                       </div>`;
         if (state == "open") {
-            $("body").append(str).css({ overflow: 'hidden' })
+            $("body").append(str).css({overflow: 'hidden'})
         } else if (state == "close") {
             $("#loader").remove()
-            $("body").css({ overflow: 'auto' })
+            $("body").css({overflow: 'auto'})
         }
     }
 
@@ -765,7 +788,6 @@ class $iss {
     }
 
 
-
     /*返回regExp对应的值
      * @param regExp 对应数据里的regExp值
      * @param key regExp对象里的key
@@ -778,6 +800,7 @@ class $iss {
             return "";
         }
     }
+
     /*地图标记=项目
      @param th this
      @param mapScr 地址
@@ -795,7 +818,7 @@ class $iss {
 
         $("body").addClass("geogrMarker_body");
         $("<iframe src='" + mapSrc + "' id='geogrMarker' class='geogrMarker'></iframe>").appendTo("body").off("load.mark").on("load.mark", function (e) {
-            $.cookie('cookieMapMark', 'fail', { path: '/' });
+            $.cookie('cookieMapMark', 'fail', {path: '/'});
             let urlPath = localUrl.replace("status=add", "status=edit");
             if (urlPath.indexOf("dataKey") < 0) {
                 /*分期需要项目ID*/
@@ -812,23 +835,24 @@ class $iss {
                     clearInterval(mapMarkInter);
                     $('#geogrMarker').remove();
                     $("body").removeClass("geogrMarker_body");
-                   // $("window").trigger("EVENT_REOLOADIFRAME");
+                    // $("window").trigger("EVENT_REOLOADIFRAME");
                     top.window.location.href = urlPath;
                     top.window.location.reload();
-                   // [...document.querySelectorAll("iframe")].forEach(arg=>{ arg.src=arg.src})
+                    // [...document.querySelectorAll("iframe")].forEach(arg=>{ arg.src=arg.src})
                 } else if (markCookie == "back") {
                     clearInterval(mapMarkInter);
                     $("body").removeClass("geogrMarker_body");
                     $('#geogrMarker').remove();
-                   // $("window").trigger("EVENT_REOLOADIFRAME");
-                   top.window.location.href = urlPath;
-                   top.window.location.reload();
-                   // [...document.querySelectorAll("iframe")].forEach(arg=>{ arg.src=arg.src})
+                    // $("window").trigger("EVENT_REOLOADIFRAME");
+                    top.window.location.href = urlPath;
+                    top.window.location.reload();
+                    // [...document.querySelectorAll("iframe")].forEach(arg=>{ arg.src=arg.src})
                 }
             }, 100);
         });
 
     }
+
     /*轮播图，第二张无法加载的问题
      @pram th this
      @param src 地址==特指iframe2的src
@@ -842,6 +866,7 @@ class $iss {
             }
         }, 100);
     }
+
     /*确认（某种操作）提示
      *@param title 标题
      *@param okCallback 确认回调函数
@@ -865,6 +890,7 @@ class $iss {
             }
         });
     }
+
     /*
     *let intallmentStatus="10004",newProjectStatus="10005";
     *在待审和取消审核时，判断项目还是分期；
@@ -896,9 +922,23 @@ class $iss {
                 }
             }
         });
-
-
     }
+
+    error = (error) => {
+        this.message({
+                type: "error",
+                content: error.message ? error.message : error,
+            }
+        );
+    };
+
+    info = (message) => {
+        this.message({
+                type: "info",
+                content: message,
+            }
+        );
+    };
 }
 
 //let iss = window["iss"] = 

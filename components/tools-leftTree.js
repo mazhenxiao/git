@@ -45,8 +45,12 @@ class ToolsTree extends React.Component {
         Tree.bindTree("#tree", arg => {
             iss.id=arg;
             sessionStorage.setItem("treeId",JSON.stringify(arg));
-            
-            let id,current;
+        
+            let id,current,paths = location.hash.split("/")[1].split("?")[0];
+            /**
+             * 这个逻辑为，在tools-list菜单里this.EVENT_CLICK.bind(this,"AreaInfo","priceControl")
+             * 判断当前是“AreaInfo”等，信息填报内容都在“AreaInfo”
+             */
             if(pathClass=="Home"){  //项目管理
             	switch(arg["level_id"]){
 	                case "1": //集团汇总
@@ -62,20 +66,20 @@ class ToolsTree extends React.Component {
 	                case "2":
 	                case "3": //首页
 	                	iss.hashHistory.push({
-	                		pathname:"index",
+	                		pathname:paths,
 	                		state:arg
 	                	});
 	                	break;
 	                case "4":/*项目*/
 	                	iss.hashHistory.push({
-	                		pathname:"index",
+	                		pathname:paths,
 	                		state:arg,
 	                		search:"?isProOrStage="+1+"&dataKey="+iss.id.id
 	                	});
 	                	break;
 	                case "5":/*分期*/
 	                	iss.hashHistory.push({
-	                		pathname:"index",
+	                		pathname:paths,
 	                		state:arg,
 	                		search:"?isProOrStage="+2+"&dataKey="+iss.id.id
 	                	});
@@ -199,7 +203,7 @@ class ToolsTree extends React.Component {
                             status:"upgrade",
                         }
                     }) 
-                }else if(th.state.status==0){
+                }else if(th.state.status==0 ||th.state.status==-1){
                     iss.hashHistory.replace({
                         pathname: `/${th.state.changeCurrent}`,
                         query:{

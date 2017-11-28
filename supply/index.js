@@ -13,7 +13,7 @@ const TabPane = Tabs.TabPane;
 const Option = Select.Option;
 class Index extends Component {
     state = {
-        loading: false,
+        loading: true,
         dataSource: [],//表格数据
         columns: [],//表头数据
         versionData: [{ text: "2017", id: "0" }, { text: "2018", id: "1" }, { text: "2019", id: "2" }],//版本数据

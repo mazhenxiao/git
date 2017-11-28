@@ -75,31 +75,21 @@
       <TitleRowInfo field ="villacarportNum" align="center" name="别墅车库门数量（个）" width="0" />
     </GridTitle>
   </AreaBuildTitle>
-  <!--价格列表固定头部-->
-  <PriceTitleFrozenColumns>
-    <GridTitle>
-      <!--表头行数-->
-      <TitleRowCount>1</TitleRowCount>
-      <!--表头行属性，rindex为行号-->
-      <TitleRowInfo rindex ="1" field ="PRODUCTTYPENAME" align="center" title="楼栋/业态" colspan="1" rowspan ="1" width="120" fixeded ="true" />
-    </GridTitle>
-  </PriceTitleFrozenColumns>
-  <!--价格列表滚动头部-->
   <!--价格列表滚动头部-->
   <PriceTitleColumns>
     <GridTitle>
       <!--表头行数-->
       <TitleRowCount>1</TitleRowCount>
-      <!--表头行属性，rindex为行号-->
-      <TitleRowInfo rindex ="1" field ="ISHAVEPROPERTY" align="center" title="是否有产权" colspan="1" rowspan ="1" width="120" fixeded ="true" />
-      <TitleRowInfo rindex ="1" field ="ISDECORATION" align="center" title="是否精装" colspan="1" rowspan ="1" width="120" fixeded ="true" />
-      <TitleRowInfo rindex ="1" field ="STOREYHEIGHT" align="center" title="层高属性" colspan="1" rowspan ="1" width="120" fixeded ="true" />
-      <TitleRowInfo rindex ="1" field ="STANDARDFLOORHEIGHT" align="center" title="标准层层高" colspan="1" rowspan ="1" width="120" fixeded ="true" />
-      <TitleRowInfo rindex ="1" field ="UPPERSALEAREA" align="center" title="地上可售面积（㎡）" colspan="1" rowspan ="1" width="120" fixeded ="true" />
-      <TitleRowInfo rindex ="1" field ="UNDERSALEAREA" align="center" title="地下可售面积（㎡）" colspan="1" rowspan ="1" width="120" fixeded ="true" />
-      <TitleRowInfo rindex ="1" field ="TOTALSALEAREA" align="center" title="总可售面积（㎡）" colspan="1" rowspan ="1" width="120" fixeded ="true" />
-      <TitleRowInfo rindex ="1" field ="AVERAGEPRICE" align="center" title="均价（元/㎡）" colspan="1" rowspan ="1" width="120" fixeded ="true" />
-      <TitleRowInfo rindex ="1" field ="PRICE" align="center" title="货值（万元）" colspan="1" rowspan ="1" width="120" fixeded ="true" />
+      <TitleRowInfo field ="PRODUCTTYPENAME" align="center" name="楼栋/业态" width="0" />
+      <TitleRowInfo field ="ISHAVEPROPERTY" align="center" name="是否有产权" width="0" />
+      <TitleRowInfo field ="ISDECORATION" align="center" name="是否精装" width="0" />
+      <TitleRowInfo field ="STOREYHEIGHT" align="center" name="层高属性" width="0" />
+      <TitleRowInfo field ="STANDARDFLOORHEIGHT" align="center" name="标准层层高" width="0" />
+      <TitleRowInfo field ="UPPERSALEAREA" align="center" name="地上可售面积（㎡）" width="0" />
+      <TitleRowInfo field ="UNDERSALEAREA" align="center" name="地下可售面积（㎡）" width="0" />
+      <TitleRowInfo field ="TOTALSALEAREA" align="center" name="总可售面积（㎡）" width="0" />
+      <TitleRowInfo field ="AVERAGEPRICE" align="center" name="均价（元/㎡）" width="0" edit="+r"/>
+      <TitleRowInfo field ="PRICE" align="center" name="货值（万元）" width="0" />
     </GridTitle>
   </PriceTitleColumns>
   <!--价格列表滚动头部-->

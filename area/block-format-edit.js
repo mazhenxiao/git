@@ -8,6 +8,7 @@ import {shallowCompare} from '../utils';
 import {WrapperSelect, WrapperModalSelect} from '../common';
 import {AreaConstants} from '../constants';
 import {AreaService} from '../services';
+import iss from '../js/iss';
 
 class BlockFormatEdit extends Component {
 
@@ -62,6 +63,7 @@ class BlockFormatEdit extends Component {
                     loading: false,
                 });
                 console.error("发生错误", error);
+                iss.error(error);
             })
     };
 
@@ -189,7 +191,8 @@ class BlockFormatEdit extends Component {
                 this.setState({
                     loading: false,
                 });
-                console.error("发生错误", error)
+                console.error("发生错误", error);
+                iss.error(error);
             });
     };
     handleCancel = () => {
@@ -222,7 +225,7 @@ class BlockFormatEdit extends Component {
         const {land, residence, commercial, business, parkAndSupport, dataSource} = this.state;
         //TODO 校验
         if (!land) {
-            console.error("所属地块必填！");
+            iss.error("请选择所属地块！");
             return;
         }
 
@@ -230,7 +233,7 @@ class BlockFormatEdit extends Component {
             && commercial.length === 0
             && business.length === 0
             && parkAndSupport.length === 0) {
-            console.error("生成属性至少选择一个！");
+            iss.error("住宅/商办/商业/车位及配套 至少选择一个！");
             return;
         }
 
@@ -272,6 +275,7 @@ class BlockFormatEdit extends Component {
             })
             .catch(err => {
                 console.error("发生错误", err);
+                iss.error(error);
             })
 
     };
@@ -299,6 +303,8 @@ class BlockFormatEdit extends Component {
                     <Row gutter={16}>
                         <Col span={6}>
                             <WrapperSelect labelText="所属地块:" dataSource={conditionData.land}
+                                           labelSpan={8}
+                                           inputSpan={16}
                                            showRequired={!land}
                                            onChange={this.handleSelectChange("land")}/>
                         </Col>

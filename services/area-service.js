@@ -4,8 +4,9 @@ import {AreaConstants} from '../constants';
 const {AreaManageStep} = AreaConstants;
 
 const website = "http://192.168.10.164:8066";
-// const website = "http://192.168.14.119:65162";
-//const website = "http://localhost:5000";
+// const website = "http://192.168.10.164:8000/";
+// const website = "http://localhost:5000";
+// const website = "";
 
 /**
  * 获取步骤
@@ -21,17 +22,17 @@ const getStep = (dataKey, mode) => {
         },
     })
         .then(data => data.rows)
-.then(serverSteps => {
-        const stepData = [];
-    AreaManageStep.forEach(localStep => {
-        const matchStep = serverSteps.filter(serverStep => serverStep.code === localStep.code)[0];
-    if (matchStep) {
-        localStep.name = matchStep.name;
-        stepData.push(localStep);
-    }
-});
-    return stepData;
-})
+        .then(serverSteps => {
+            const stepData = [];
+            AreaManageStep.forEach(localStep => {
+                const matchStep = serverSteps.filter(serverStep => serverStep.code === localStep.code)[0];
+                if (matchStep) {
+                    localStep.name = matchStep.name;
+                    stepData.push(localStep);
+                }
+            });
+            return stepData;
+        })
 };
 
 /**
@@ -43,11 +44,6 @@ const getStep = (dataKey, mode) => {
  *  versionId:1c52cb5b-674b-4a8c-8a49-bec93681e690  版本
  */
 const getAreaList = (step, mode, versionId, descType = "Building") => {
-    // //TODO 测试数据
-    // versionId = "1c52cb5b-674b-4a8c-8a49-bec93681e690";
-    // step = {code: "Vote"};
-    // mode = "Project";
-    // descType = "Building";
 
     return iss.fetch({
         url: website.concat("/AreaInfo/IGetAreaListInfo"),
@@ -104,11 +100,11 @@ const createVersion = (stepInfo, dataKey, mode) => {
     return iss.fetch({
         url: website.concat("/AreaInfo/CreateAreaVersion"),
         type: "post",
-        data: {
+        data: JSON.stringify({
             step: stepInfo.code,
             psVersionId: dataKey,
             projectLevel: mode,
-        },
+        }),
     });
 };
 
@@ -116,10 +112,6 @@ const createVersion = (stepInfo, dataKey, mode) => {
  * 获取版本
  */
 const getVersion = (stepInfo, dataKey, mode) => {
-    // //TODO 测试数据
-    // stepInfo = {code: "Vote"};
-    // dataKey = "56EF7587243E4B9EB05029800BFC1F81";
-    // mode = "Project";
 
     return iss.fetch({
         url: website.concat("/Common/IGetVersionListByBusinessId"),
@@ -132,15 +124,15 @@ const getVersion = (stepInfo, dataKey, mode) => {
         },
     })
         .then(res => res.rows)
-.then(rows => {
-        return rows.map(item => {
-            return {
-                id: item["id"],
-                name: item["versioncode"],
-                statusName: item["statusname"]
-            };
-});
-});
+        .then(rows => {
+            return rows.map(item => {
+                return {
+                    id: item["id"],
+                    name: item["versioncode"],
+                    statusName: item["statusname"]
+                };
+            });
+        });
 };
 
 /**
@@ -157,43 +149,43 @@ const getCreateCondition = (stepInfo, dataKey, mode) => {
         },
     })
         .then(res => res.rows)
-.then(({serchList}) => {
-        const result = {
-            land: [],//地块
-            residence: [],//住宅
-            commercial: [],//商办
-            business: [],//商业
-            parkAndSupport: [],//车位以及配套
-        };
-
-    const land = serchList.filter(item => item.typeCode === "land")[0];
-    const residence = serchList.filter(item => item.typeCode === "residence")[0];
-    const commercial = serchList.filter(item => item.typeCode === "commercial")[0];
-    const business = serchList.filter(item => item.typeCode === "business")[0];
-    const parkAndSupport = serchList.filter(item => item.typeCode === "parkandsupport")[0];
-    if (land && Array.isArray(land.typelist)) {
-        result.land = land.typelist.map(item => {
-            return {
-                id: item["val"],
-                name: item["lable"],
+        .then(({serchList}) => {
+            const result = {
+                land: [],//地块
+                residence: [],//住宅
+                commercial: [],//商办
+                business: [],//商业
+                parkAndSupport: [],//车位以及配套
             };
-    });
-    }
-    if (residence && Array.isArray(residence.typelist)) {
-        result.residence = convertConditionData(residence.typelist);
-    }
-    if (commercial && Array.isArray(commercial.typelist)) {
-        result.commercial = convertConditionData(commercial.typelist);
-    }
-    if (business && Array.isArray(business.typelist)) {
-        result.business = convertConditionData(business.typelist);
-    }
-    if (parkAndSupport && Array.isArray(parkAndSupport.typelist)) {
-        result.parkAndSupport = convertConditionData(parkAndSupport.typelist);
-    }
 
-    return result;
-});
+            const land = serchList.filter(item => item.typeCode === "land")[0];
+            const residence = serchList.filter(item => item.typeCode === "residence")[0];
+            const commercial = serchList.filter(item => item.typeCode === "commercial")[0];
+            const business = serchList.filter(item => item.typeCode === "business")[0];
+            const parkAndSupport = serchList.filter(item => item.typeCode === "parkandsupport")[0];
+            if (land && Array.isArray(land.typelist)) {
+                result.land = land.typelist.map(item => {
+                    return {
+                        id: item["val"],
+                        name: item["lable"],
+                    };
+                });
+            }
+            if (residence && Array.isArray(residence.typelist)) {
+                result.residence = convertConditionData(residence.typelist);
+            }
+            if (commercial && Array.isArray(commercial.typelist)) {
+                result.commercial = convertConditionData(commercial.typelist);
+            }
+            if (business && Array.isArray(business.typelist)) {
+                result.business = convertConditionData(business.typelist);
+            }
+            if (parkAndSupport && Array.isArray(parkAndSupport.typelist)) {
+                result.parkAndSupport = convertConditionData(parkAndSupport.typelist);
+            }
+
+            return result;
+        });
 };
 
 /**
@@ -206,9 +198,9 @@ const convertConditionData = (originalData) => {
             name: item["lable"],
             children: [],
         };
-    loadChildren(obj, item["children"]);
-    return obj;
-});
+        loadChildren(obj, item["children"]);
+        return obj;
+    });
 };
 
 /**
@@ -217,10 +209,10 @@ const convertConditionData = (originalData) => {
 const loadChildren = (obj, children) => {
     children.forEach(child => {
         obj.children.push({
-        id: child["val"],
-        name: child["lable"],
+            id: child["val"],
+            name: child["lable"],
+        });
     });
-});
 };
 
 
@@ -245,7 +237,7 @@ const createFormatData = (paramsValue) => {
     return iss.fetch({
         url: website.concat("/areainfo/ICreateProductType"),
         type: "post",
-        data: paramsValue,
+        data: JSON.stringify(paramsValue),
     }).then(res => res.rows);
 };
 
@@ -256,7 +248,7 @@ const saveFormatData = (paramsValue) => {
     return iss.fetch({
         url: website.concat("/areainfo/ISaveProductType"),
         type: "post",
-        data: paramsValue,
+        data: JSON.stringify(paramsValue),
     }).then(res => res.rows)
 };
 
@@ -267,7 +259,7 @@ const adjustFormatData = (paramsValue) => {
     return iss.fetch({
         url: website.concat("/AreaInfo/ISaveAreaEditData"),
         type: "post",
-        data: paramsValue,
+        data: JSON.stringify(paramsValue),
     }).then(res => res.rows)
 };
 
@@ -294,17 +286,17 @@ const getBuildingData = (versionId, record) => {
                     disabled: item["isCurrentBuild"] ? true : false,
                     isCurrentBuild: item.isCurrentBuild
                 };
-}),
-    disableList: rows.disableList.map(item => {
-        return {
-            label: item["buildName"],
-            value: item["key"]
+            }),
+            disableList: rows.disableList.map(item => {
+                return {
+                    label: item["buildName"],
+                    value: item["key"]
+                };
+            })
         };
-})
-};
 
-    return buildData;
-})
+        return buildData;
+    })
 };
 
 /**
@@ -360,20 +352,20 @@ const getSingleFormatData = (versionId, record) => {
  */
 const adjustBuildingAreaData = (record, buildIds, buildingChangeDataArray, formatChangeDataArray, singleFormatData) => {
     const paramsValue = {
-            buildIds,
-            singleProductType: {...singleFormatData},
+        buildIds,
+        singleProductType: {...singleFormatData},
         levelId: record["LevelId"],
         buildData: buildingChangeDataArray,
         productTypeData: formatChangeDataArray
-};
+    };
 
     return iss.fetch({
         url: website.concat("/AreaInfo/ISaveEditBuild"),
         type: "post",
-        data: paramsValue,
+        data: JSON.stringify(paramsValue),
     }).then(res => res.rows).then(obj => {
         return obj;
-})
+    })
 };
 
 /**
@@ -390,10 +382,32 @@ const adjustFormatAreaData = (record, selectBuilding, buildingChangeDataArray, f
     return iss.fetch({
         url: website.concat("/AreaInfo/ISaveEditBuild"),
         type: "post",
-        data: paramsValue,
+        data: JSON.stringify(paramsValue),
     }).then(res => res.rows);
 };
-
+/**
+ * 提交规划方案指标
+ * /AreaInfo/ISaveAreaPlanInfo 
+ * versionId  版本id
+ * step       阶段
+ * data       提交数据
+ * 
+ */
+const areaInfoISaveAreaPlanInfo=(versionId="",step="2",data=[])=>{
+    const url= "/AreaInfo/ISaveAreaPlanInfo";
+   return iss.fetch({
+        url:url,
+        data:{
+         versionId,
+         step,
+         detaileData:JSON.stringify(data)
+        }
+      })
+      .then(arg=>arg)
+      .catch(error=>{
+        return Promise.reject(error);
+      })
+}
 export {
     getStep,
     getAreaList,
@@ -417,4 +431,7 @@ export {
     //按楼栋/按业态 面积调整数据保存
     adjustBuildingAreaData,
     adjustFormatAreaData,
+
+    //提交规划方案指标
+    areaInfoISaveAreaPlanInfo
 };

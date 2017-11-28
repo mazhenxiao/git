@@ -7,6 +7,7 @@ import {Modal, Spin, Row, Col, Button, Checkbox, Input} from 'antd';
 import {shallowCompare} from '../utils';
 import {AreaService} from '../services';
 import {WrapperInput, WrapperGroupTable} from '../common';
+import iss from '../js/iss';
 
 const CheckboxGroup = Checkbox.Group;
 
@@ -108,6 +109,7 @@ class ComBuildingAdjust extends Component {
                     loading: false,
                 });
                 console.error("发生错误", error);
+                iss.error(error);
             });
     };
 
@@ -126,7 +128,7 @@ class ComBuildingAdjust extends Component {
             .then(result => {
                 if (result === "success") {
                     console.log("保存成功");
-                    //TODO message.info("保存成功");
+                    iss.info("保存成功");
                     this.props.onHideModal && this.props.onHideModal("reload");
                 } else {
                     return Promise.reject("保存失败");
@@ -136,7 +138,8 @@ class ComBuildingAdjust extends Component {
                 this.setState({
                     loading: false,
                 });
-                console.error("发生错误", error)
+                console.error("发生错误", error);
+                iss.error(error);
             });
     };
 
@@ -301,7 +304,11 @@ class ComBuildingAdjust extends Component {
         }
         return (
             <div>
-                <Row gutter={16}>单业态指标</Row>
+                <Row gutter={16}>
+                    <Col span={6}>
+                        单业态指标
+                    </Col>
+                </Row>
                 <Row gutter={16}>
                     <Col span={4}>
                         业态名称
@@ -322,6 +329,14 @@ class ComBuildingAdjust extends Component {
         );
     };
 
+    columnRender = {
+        producttypename: (text, record) => {
+            if (record["LevelId"] === 1)
+                return <span className="format-tree-parent">{text}</span>;
+            return <span className="format-tree-child">{text}</span>;
+        }
+    };
+
     /**
      * 显示内容
      * @returns {XML}
@@ -332,29 +347,31 @@ class ComBuildingAdjust extends Component {
 
         return (
             <Spin size="large" spinning={loading}>
-                <Row gutter={16}>
-                    <Col span={6}>
-                        基本信息
-                    </Col>
-                </Row>
-                <Row gutter={16}>
-                    <Col span={8}>
-                        <WrapperInput labelText="楼栋名称："
-                                      disabled={true}
-                                      labelSpan={9}
-                                      inputSpan={15}
-                                      value={displayBuilding}></WrapperInput>
-                    </Col>
-                    <Col>
-                        <Button onClick={this.handleSelectClick}>批量选择楼栋</Button>
-                    </Col>
-                </Row>
-                {this.renderBuildingOrFormat()}
-                <Row gutter={16}>
-                    <Col span={6}>
-                        单栋业态指标
-                    </Col>
-                </Row>
+                <div className="building-adjust">
+                    <Row gutter={16}>
+                        <Col span={6}>
+                            基本信息
+                        </Col>
+                    </Row>
+                    <Row gutter={16}>
+                        <Col span={8}>
+                            <WrapperInput labelText="楼栋名称："
+                                          disabled={true}
+                                          labelSpan={9}
+                                          inputSpan={15}
+                                          value={displayBuilding}></WrapperInput>
+                        </Col>
+                        <Col>
+                            <Button onClick={this.handleSelectClick}>批量选择楼栋</Button>
+                        </Col>
+                    </Row>
+                    {this.renderBuildingOrFormat()}
+                    <Row gutter={16}>
+                        <Col span={6}>
+                            单栋业态指标
+                        </Col>
+                    </Row>
+                </div>
                 <WrapperGroupTable
                     key="format-area-table"
                     headerData={formatHeaderData}
@@ -363,6 +380,7 @@ class ComBuildingAdjust extends Component {
                     editAble={true}
                     // fixedAble={true}
                     onDataChange={this.handleFormatDataChange}
+                    columnRender={this.columnRender}
                 />
             </Spin>
         );

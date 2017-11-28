@@ -6,6 +6,8 @@ import {Modal, Spin, Row, Col, Button} from 'antd';
 import {shallowCompare} from '../utils';
 import {AreaService} from '../services';
 import {WrapperInput, WrapperGroupTable} from '../common';
+import iss from '../js/iss';
+import {knife} from '../utils';
 
 
 class BlockFormatAdjust extends Component {
@@ -62,6 +64,7 @@ class BlockFormatAdjust extends Component {
                     loading: false,
                 });
                 console.error("发生错误", error);
+                iss.error(error);
             })
     };
 
@@ -74,7 +77,7 @@ class BlockFormatAdjust extends Component {
             .then(result => {
                 if (result === "success") {
                     console.log("保存成功");
-                    //TODO message.info("保存成功");
+                    iss.info("保存成功");
                     this.props.onHideModal && this.props.onHideModal("reload");
                 } else {
                     return Promise.reject("保存失败");
@@ -84,7 +87,8 @@ class BlockFormatAdjust extends Component {
                 this.setState({
                     loading: false,
                 });
-                console.error("发生错误", error)
+                console.error("发生错误", error);
+                iss.error(error);
             });
 
     };

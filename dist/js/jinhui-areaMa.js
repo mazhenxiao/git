@@ -1,4 +1,4 @@
-webpackJsonp([34],{
+webpackJsonp([25],{
 
 /***/ 695:
 /***/ (function(module, exports, __webpack_require__) {
@@ -20,7 +20,7 @@ var _reactDom = __webpack_require__(33);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-__webpack_require__(42);
+__webpack_require__(44);
 
 var _iss = __webpack_require__(43);
 
@@ -155,7 +155,7 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactRouter = __webpack_require__(195);
 
-__webpack_require__(42);
+__webpack_require__(44);
 
 var _iss = __webpack_require__(43);
 
@@ -182,15 +182,15 @@ var rootRout = {
     path: "/index",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(0).then((function (require) {
-        var app = __webpack_require__(716);
+        var app = __webpack_require__(715);
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
   }, { //签约回款*/
     path: "/payment",
     getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(3).then((function (require) {
-        var app = __webpack_require__(717);
+      __webpack_require__.e/* require.ensure */(4).then((function (require) {
+        var app = __webpack_require__(716);
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -198,7 +198,7 @@ var rootRout = {
     path: "/primarykey",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(2).then((function (require) {
-        var app = __webpack_require__(718);
+        var app = __webpack_require__(717);
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
@@ -207,96 +207,24 @@ var rootRout = {
     path: "/supply",
     getComponent: function getComponent(next, callback) {
       __webpack_require__.e/* require.ensure */(1).then((function (require) {
-        var app = __webpack_require__(719);
+        var app = __webpack_require__(718);
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
 
+  }, { //项目团队维护 
+    path: "/groupbuild",
+    getComponent: function getComponent(next, callback) {
+      __webpack_require__.e/* require.ensure */(20).then((function (require) {
+        var app = __webpack_require__(719); //============================价格管理
+        callback(null, app.default);
+      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
   }, { //价格管理 
     path: "/priceControl",
     getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(21).then((function (require) {
-        var app = __webpack_require__(699); //============================价格管理
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理-投决会
-    path: "/component-priceControl-Investment",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(15).then((function (require) {
-        var app = __webpack_require__(720); //============================价格管理-投决会
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理-产品定位会
-    path: "/component-priceControl-Productlocat",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(12).then((function (require) {
-        var app = __webpack_require__(721); //============================价格管理-产品定位会
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理-项目定位会
-    path: "/component-priceControl-Projectlocat",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(11).then((function (require) {
-        var app = __webpack_require__(722); //============================价格管理-项目定位会
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理-启动会
-    path: "/component-priceControl-Startup",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(10).then((function (require) {
-        var app = __webpack_require__(723); //============================价格管理-项目定位会
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理-工规证
-    path: "/component-priceControl-Certificate",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(19).then((function (require) {
-        var app = __webpack_require__(724); //============================价格管理-工规证
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理-决策书
-    path: "/component-priceControl-Decision",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(17).then((function (require) {
-        var app = __webpack_require__(725); //============================价格管理-决策书
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理-预售证
-    path: "/component-priceControl-Presell",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(13).then((function (require) {
-        var app = __webpack_require__(726); //============================价格管理-预售证
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理-签约
-    path: "/component-priceControl-Contract",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(18).then((function (require) {
-        var app = __webpack_require__(727); //============================价格管理-签约
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理-交付
-    path: "/component-priceControl-Deliver",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(16).then((function (require) {
-        var app = __webpack_require__(728); //============================价格管理-交付
-        callback(null, app.default);
-      }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-  }, { //价格管理-表格页
-    path: "/component-priceControl-Management",
-    getComponent: function getComponent(next, callback) {
-      __webpack_require__.e/* require.ensure */(14).then((function (require) {
-        var app = __webpack_require__(729); //============================价格管理-表格页
+      __webpack_require__.e/* require.ensure */(3).then((function (require) {
+        var app = __webpack_require__(720); //============================价格管理
         callback(null, app.default);
       }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
     }
